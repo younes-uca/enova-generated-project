@@ -24,64 +24,65 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/api/prescription-rdiotherapie")
 public class PrescriptionRadiotherapieController extends AbstractController<PrescriptionRadiotherapie, PrescriptionRadiotherapieDto, HistPrescriptionRadiotherapie, PrescriptionRadiotherapieCriteria, HistPrescriptionRadiotherapieCriteria, IPrescriptionRadiotherapieService, PrescriptionRadiotherapieConverter> {
 
     public PrescriptionRadiotherapieController(IPrescriptionRadiotherapieService service, PrescriptionRadiotherapieConverter abstractConverter) {
         super(service, abstractConverter);
     }
 
-    @GetMapping("/api/prescriptionRadiotherapie/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<PrescriptionRadiotherapieDto> findById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
         return super.findById(id, includes, excludes);
 
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie")
+    @PostMapping("/")
     public ResponseEntity<Long> save(@RequestBody PrescriptionRadiotherapieDto dto) throws Exception {
         return super.save(dto);
     }
 
 
-    @PutMapping("/api/prescriptionRadiotherapie")
+    @PutMapping("/")
     public ResponseEntity<PrescriptionRadiotherapieDto> update(@RequestBody PrescriptionRadiotherapieDto dto) throws Exception {
         return super.update(dto);
     }
 
-    @DeleteMapping("/api/prescriptionRadiotherapie/delete")
-    public ResponseEntity<Void> deletePrescriptionRadiotherapie(@RequestBody List<PrescriptionRadiotherapieDto> listToDelete) throws Exception {
+    @DeleteMapping("delete")
+    public ResponseEntity<Void> delete(@RequestBody List<PrescriptionRadiotherapieDto> listToDelete) throws Exception {
         return super.delete(listToDelete);
     }
 
 
-    @PostMapping("/api/prescriptionRadiotherapie/listByCriteria")
-    public ResponseEntity<List<PrescriptionRadiotherapieDto>> getPrescriptionRadiotherapiesByCriteria(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
+    @PostMapping("listByCriteria")
+    public ResponseEntity<List<PrescriptionRadiotherapieDto>> findByCriteria(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
         return super.findMultipleByCriteria(criteria);
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/paginatedListByCriteria")
-    public ResponseEntity<PaginatedList> paginatedListPrescriptionRadiotherapies(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
+    @PostMapping("paginatedListByCriteria")
+    public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
         return super.findPaginatedByCriteria(criteria);
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/exportPrescriptionRadiotherapies")
+    @PostMapping("exportPrescriptionRadiotherapies")
     public ResponseEntity<InputStreamResource> export(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
         return super.export(criteria);
 
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/getPrescriptionRadiotherapiesDataSize")
+    @PostMapping("getPrescriptionRadiotherapiesDataSize")
     public @ResponseBody ResponseEntity<Integer> getDataSize(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
         return super.getDataSize(criteria);
 
     }
 
 
-    @GetMapping("/api/prescriptionRadiotherapie/histPrescriptionRadiotherapie/{id}")
+    @GetMapping("histPrescriptionRadiotherapie/{id}")
     public ResponseEntity<AuditEntityDto> findHistoryById(@PathVariable("id") Long id) throws Exception {
         return super.findHistoryById(id);
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/paginatedListHistByCriteria")
+    @PostMapping("paginatedListHistByCriteria")
     public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistPrescriptionRadiotherapies(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
 
         List<AuditEntityDto> list = prescriptionRadiotherapieService.findHistoryPaginatedByCriteria(histPrescriptionRadiotherapieCriteria, histPrescriptionRadiotherapieCriteria.getPage(), histPrescriptionRadiotherapieCriteria.getMaxResults(), histPrescriptionRadiotherapieCriteria.getSortOrder(), histPrescriptionRadiotherapieCriteria.getSortField());
@@ -97,7 +98,7 @@ public class PrescriptionRadiotherapieController extends AbstractController<Pres
 
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/exportPrescriptionRadiotherapiesHist")
+    @PostMapping("exportPrescriptionRadiotherapiesHist")
 
     public @ResponseBody ResponseEntity<InputStreamResource> exportPrescriptionRadiotherapiesHist(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
 
@@ -112,7 +113,7 @@ public class PrescriptionRadiotherapieController extends AbstractController<Pres
 
     }
 
-    @PostMapping("/api/prescriptionRadiotherapie/getHistPrescriptionRadiotherapiesDataSize")
+    @PostMapping("getHistPrescriptionRadiotherapiesDataSize")
 
     public @ResponseBody ResponseEntity<Integer> getHistPrescriptionRadiotherapieDataSize(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
 
