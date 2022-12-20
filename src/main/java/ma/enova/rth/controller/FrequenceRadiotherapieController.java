@@ -4,9 +4,18 @@ import ma.enova.rth.common.bean.AuditEntityDto;
 import ma.enova.rth.common.bean.BaseController;
 import ma.enova.rth.common.bean.PaginatedList;
 import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.converter.FrequenceRadiotherapieConverter;
+import ma.enova.rth.converter.FrequenceRadiotherapieConverter;
+import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
+import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
+import ma.enova.rth.domain.core.FrequenceRadiotherapie;
+import ma.enova.rth.domain.historique.HistFrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
+import ma.enova.rth.dto.FrequenceRadiotherapieDto;
+import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
+import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
 import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,184 +30,106 @@ import java.util.stream.Collectors;
 
 /**
  * Manager controller : FrequenceRadiotherapie
+ *
  * @author JAF
  * @version 1.2
  */
- 
+
 @RestController
-public class FrequenceRadiotherapieController extends BaseController {
+@RequestMapping("/api/frequence-radiotherapie/")
+public class FrequenceRadiotherapieController extends AbstractController<FrequenceRadiotherapie, FrequenceRadiotherapieDto, HistFrequenceRadiotherapie, FrequenceRadiotherapieCriteria, HistFrequenceRadiotherapieCriteria, IFrequenceRadiotherapieService, FrequenceRadiotherapieConverter> {
+
+    public FrequenceRadiotherapieController(IFrequenceRadiotherapieService service, FrequenceRadiotherapieConverter abstractConverter) {
+        super(service, abstractConverter);
+    }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<FrequenceRadiotherapieDto> findById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
+        return super.findById(id, includes, excludes);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Long> addFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
+        return super.save(dto);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<FrequenceRadiotherapieDto> updateFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
+        return super.update(dto);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteFrequenceRadiotherapie(@RequestBody List<FrequenceRadiotherapieDto> listToDelete) throws Exception {
+        return super.delete(listToDelete);
+    }
 
 
-/**
-	* Services metiers.
-*/
-	@Autowired
-	private IFrequenceRadiotherapieService frequenceRadiotherapieService;
+    @PostMapping("find-by-criteria/")
+    public ResponseEntity<List<FrequenceRadiotherapieDto>> findByCriteria(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.findMultipleByCriteria(criteria);
+    }
 
-	@GetMapping("/api/frequenceRadiotherapie/{id}")
-	@PreAuthorize("hasRole('ROLE_READ_FREQUENCERADIOTHERAPIE')")
-	public ResponseEntity<FrequenceRadiotherapieDto> getFrequenceRadiotherapieById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
+    @PostMapping("find-paginated-by-criteria/")
+    public ResponseEntity<PaginatedList> paginatedListFrequenceRadiotherapies(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.findPaginatedByCriteria(criteria);
+    }
 
-		FrequenceRadiotherapieDto frequenceRadiotherapie = frequenceRadiotherapieService.getFrequenceRadiotherapieById(id);
+    @PostMapping("export/")
+    public @ResponseBody ResponseEntity<InputStreamResource> export(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.export(criteria);
+    }
 
-		if (StringUtil.isNoEmpty(includes) || StringUtil.isNoEmpty(excludes))
-			frequenceRadiotherapie = new FrequenceRadiotherapieDto().mappedCustomDto(frequenceRadiotherapie, includes, excludes);
-
-		return new ResponseEntity<FrequenceRadiotherapieDto>(frequenceRadiotherapie, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/frequenceRadiotherapie")
-	@PreAuthorize("hasRole('ROLE_CREATE_FREQUENCERADIOTHERAPIE')")
-	public ResponseEntity<Long> addFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto frequenceRadiotherapie) throws Exception {
-
-		frequenceRadiotherapie = frequenceRadiotherapieService.createFrequenceRadiotherapie(frequenceRadiotherapie);
-		
-		return new ResponseEntity<Long>(frequenceRadiotherapie.getId(), HttpStatus.CREATED);
-
-	}
-
- 	@PutMapping("/api/frequenceRadiotherapie")	
-	@PreAuthorize("hasRole('ROLE_UPDATE_FREQUENCERADIOTHERAPIE')")
-	public ResponseEntity<FrequenceRadiotherapieDto> updateFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto frequenceRadiotherapie) throws Exception {
-
-		if (frequenceRadiotherapie.getId() == null)
-			return new ResponseEntity<FrequenceRadiotherapieDto>(HttpStatus.CONFLICT);
-
-		frequenceRadiotherapie = frequenceRadiotherapieService.updateFrequenceRadiotherapie(frequenceRadiotherapie);
-
-		return new ResponseEntity<FrequenceRadiotherapieDto>(frequenceRadiotherapie, HttpStatus.OK);
-
-	}
-	
-	@DeleteMapping("/api/frequenceRadiotherapie/delete")
-	@PreAuthorize("hasRole('ROLE_DELETE_FREQUENCERADIOTHERAPIE')")
-	public ResponseEntity<Void> deleteFrequenceRadiotherapie(@RequestBody List<FrequenceRadiotherapieDto> frequenceRadiotherapieList) throws Exception {
-
-		if (frequenceRadiotherapieList == null || frequenceRadiotherapieList.isEmpty())
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			
-		frequenceRadiotherapieService.deleteFrequenceRadiotherapie(frequenceRadiotherapieList);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-
-	}
+    @PostMapping("data-size-by-criteria")
+    public @ResponseBody ResponseEntity<Integer> getDataSize(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.getDataSize(criteria);
+    }
 
 
+    @GetMapping("history/id/{id}")
+    public ResponseEntity<AuditEntityDto> findHistoryById(@PathVariable("id") Long id) throws Exception {
+        return super.findHistoryById(id);
+    }
 
-	@PostMapping("/api/frequenceRadiotherapie/listByCriteria")	
-		
-	public @ResponseBody
-	ResponseEntity<List<FrequenceRadiotherapieDto>> getFrequenceRadiotherapiesByCriteria(@RequestBody FrequenceRadiotherapieCriteria frequenceRadiotherapieCriteria) throws Exception {
+    @PostMapping("/api/frequenceRadiotherapie/paginatedListHistByCriteria")
+    @PreAuthorize("hasRole('ROLE_HIST_FREQUENCERADIOTHERAPIE')")
+    public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistFrequenceRadiotherapies(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
 
-		List<FrequenceRadiotherapieDto> list = frequenceRadiotherapieService.findFrequenceRadiotherapiesByCriteria(frequenceRadiotherapieCriteria);
+        List<AuditEntityDto> list = frequenceRadiotherapieService.paginatedListHistFrequenceRadiotherapies(histFrequenceRadiotherapieCriteria, histFrequenceRadiotherapieCriteria.getPage(), histFrequenceRadiotherapieCriteria.getMaxResults(), histFrequenceRadiotherapieCriteria.getSortOrder(), histFrequenceRadiotherapieCriteria.getSortField());
 
-		if (StringUtil.isNoEmpty(frequenceRadiotherapieCriteria.getIncludes()) || StringUtil.isNoEmpty(frequenceRadiotherapieCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(frequenceRadiotherapie -> new FrequenceRadiotherapieDto().mappedCustomDto(frequenceRadiotherapie, frequenceRadiotherapieCriteria.getIncludes(), frequenceRadiotherapieCriteria.getExcludes())).collect(Collectors.toList());
+        PaginatedList paginatedList = new PaginatedList();
+        paginatedList.setList(list);
+        if (list != null && !list.isEmpty()) {
+            int dateSize = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
+            paginatedList.setDataSize(dateSize);
+        }
 
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<FrequenceRadiotherapieDto>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
 
-		return new ResponseEntity<List<FrequenceRadiotherapieDto>>(list, HttpStatus.OK);
+    }
 
-	}
-	
-	@PostMapping("/api/frequenceRadiotherapie/paginatedListByCriteria")		
-	@PreAuthorize("hasRole('ROLE_READ_FREQUENCERADIOTHERAPIE')")
-	public @ResponseBody
-	ResponseEntity<PaginatedList> paginatedListFrequenceRadiotherapies(@RequestBody FrequenceRadiotherapieCriteria frequenceRadiotherapieCriteria) throws Exception {
+    @PostMapping("/api/frequenceRadiotherapie/exportFrequenceRadiotherapiesHist")
 
-		List<FrequenceRadiotherapieDto> list = frequenceRadiotherapieService.paginatedListFrequenceRadiotherapies(frequenceRadiotherapieCriteria,frequenceRadiotherapieCriteria.getPage(),frequenceRadiotherapieCriteria.getMaxResults(), frequenceRadiotherapieCriteria.getSortOrder(), frequenceRadiotherapieCriteria.getSortField());
+    public @ResponseBody ResponseEntity<InputStreamResource> exportFrequenceRadiotherapiesHist(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
 
-		if (StringUtil.isNoEmpty(frequenceRadiotherapieCriteria.getIncludes()) || StringUtil.isNoEmpty(frequenceRadiotherapieCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(frequenceRadiotherapie -> new FrequenceRadiotherapieDto().mappedCustomDto(frequenceRadiotherapie, frequenceRadiotherapieCriteria.getIncludes(), frequenceRadiotherapieCriteria.getExcludes())).collect(Collectors.toList());
+        if (histFrequenceRadiotherapieCriteria.getExportModel() == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = frequenceRadiotherapieService.getFrequenceRadiotherapieDataSize(frequenceRadiotherapieCriteria);
-			paginatedList.setDataSize(dateSize);
-		}
-		
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+        histFrequenceRadiotherapieCriteria.setMaxResults(null);
+        List<AuditEntityDto> list = frequenceRadiotherapieService.findFrequenceRadiotherapiesHistByCriteria(histFrequenceRadiotherapieCriteria);
+        histFrequenceRadiotherapieCriteria.getExportModel().setList(list);
+        return getExportedFileResource(histFrequenceRadiotherapieCriteria.getExportModel());
 
-	}
-	
-	@PostMapping("/api/frequenceRadiotherapie/exportFrequenceRadiotherapies")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportFrequenceRadiotherapies(@RequestBody FrequenceRadiotherapieCriteria frequenceRadiotherapieCriteria) throws Exception {
+    }
 
-		if (frequenceRadiotherapieCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping("/api/frequenceRadiotherapie/getHistFrequenceRadiotherapiesDataSize")
 
-		frequenceRadiotherapieCriteria.setMaxResults(null);
-		List<FrequenceRadiotherapieDto> list = frequenceRadiotherapieService.findFrequenceRadiotherapiesByCriteria(frequenceRadiotherapieCriteria);
-		frequenceRadiotherapieCriteria.getExportModel().setList(list);
-		return getExportedFileResource(frequenceRadiotherapieCriteria.getExportModel());
-	
-	}
+    public @ResponseBody ResponseEntity<Integer> getHistFrequenceRadiotherapieDataSize(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
 
-	@PostMapping("/api/frequenceRadiotherapie/getFrequenceRadiotherapiesDataSize")	
-		
-	public @ResponseBody ResponseEntity<Integer> getFrequenceRadiotherapieDataSize(@RequestBody FrequenceRadiotherapieCriteria frequenceRadiotherapieCriteria) throws Exception {
+        int count = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
 
-		int count = frequenceRadiotherapieService.getFrequenceRadiotherapieDataSize(frequenceRadiotherapieCriteria);
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
 
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
+    }
 
-	}
-	
-
-
-	@GetMapping("/api/frequenceRadiotherapie/histFrequenceRadiotherapie/{id}")	
-	@PreAuthorize("hasRole('ROLE_HIST_FREQUENCERADIOTHERAPIE')")
-	public ResponseEntity<AuditEntityDto> getHistFrequenceRadiotherapieById(@PathVariable("id") Long id) throws Exception {
-
-		AuditEntityDto histFrequenceRadiotherapie = frequenceRadiotherapieService.getHistFrequenceRadiotherapieById(id);
-
-		return new ResponseEntity<AuditEntityDto>(histFrequenceRadiotherapie, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/frequenceRadiotherapie/paginatedListHistByCriteria")	
-	@PreAuthorize("hasRole('ROLE_HIST_FREQUENCERADIOTHERAPIE')")
-	public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistFrequenceRadiotherapies(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-		List<AuditEntityDto> list = frequenceRadiotherapieService.paginatedListHistFrequenceRadiotherapies(histFrequenceRadiotherapieCriteria,histFrequenceRadiotherapieCriteria.getPage(), histFrequenceRadiotherapieCriteria.getMaxResults(), histFrequenceRadiotherapieCriteria.getSortOrder(), histFrequenceRadiotherapieCriteria.getSortField());
-
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
-			paginatedList.setDataSize(dateSize);
-		}	
-
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
-	}
-
-	@PostMapping("/api/frequenceRadiotherapie/exportFrequenceRadiotherapiesHist")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportFrequenceRadiotherapiesHist(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-		if (histFrequenceRadiotherapieCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		histFrequenceRadiotherapieCriteria.setMaxResults(null);
-		List<AuditEntityDto> list = frequenceRadiotherapieService.findFrequenceRadiotherapiesHistByCriteria(histFrequenceRadiotherapieCriteria);
-		histFrequenceRadiotherapieCriteria.getExportModel().setList(list);
-		return getExportedFileResource(histFrequenceRadiotherapieCriteria.getExportModel());
-	
-	}
-
-	@PostMapping("/api/frequenceRadiotherapie/getHistFrequenceRadiotherapiesDataSize")		
-	
-	public @ResponseBody ResponseEntity<Integer> getHistFrequenceRadiotherapieDataSize(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-		int count = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
-
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
-	}
-	
 
 }
