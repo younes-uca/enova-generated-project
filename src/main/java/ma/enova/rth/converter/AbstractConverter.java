@@ -9,9 +9,7 @@ import ma.enova.rth.common.util.DateUtil;
 import ma.enova.rth.common.util.RefelexivityUtil;
 import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.core.Visee;
 import ma.enova.rth.dto.EtablissementDto;
-import ma.enova.rth.dto.ViseeDto;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +23,7 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
     protected Class<DTO> dtoType;
     protected Class<H> historyType;
 
-    public AbstractConverter(Class<T> itemType, Class<DTO> dtoType, Class<H> historyType) {
+    protected AbstractConverter(Class<T> itemType, Class<DTO> dtoType, Class<H> historyType) {
         this.itemType = itemType;
         this.dtoType = dtoType;
         this.historyType = historyType;
@@ -35,17 +33,22 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
 
     public abstract DTO toDto(T item);
 
-    public void convertEtablissement(Visee item, ViseeDto dto) {
-        if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-            item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
+    public void convertEtablissement(T item, DTO dto) {
+        if (dto.getEtablissementDto() != null && dto.getEtablissementDto().getId() != null) {
+            item.setEtablissement(new Etablissement());
+            item.getEtablissement().setId(dto.getEtablissementDto().getId());
+        }
     }
 
-    public void convertEtablissement(ViseeDto dto, Visee item) {
-        dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, 0) : null);
+    public void convertEtablissement(DTO dto, T item) {
+        if (item.getEtablissement() != null && item.getEtablissement().getId() != null) {
+            dto.setEtablissementDto(new EtablissementDto());
+            dto.getEtablissementDto().setId(item.getEtablissement().getId());
+        }
     }
 
     public List<T> toItem(List<DTO> dtos) {
-        List<T> items = new ArrayList();
+        List<T> items = new ArrayList<>();
         if (dtos != null && !dtos.isEmpty()) {
             for (DTO DTO : dtos) {
                 items.add(toItem(DTO));
@@ -82,15 +85,13 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
 
 
     public List<DTO> toDto(List<T> items) {
-        if (items == null || items.isEmpty()) {
-            return null;
-        } else {
-            List<DTO> dtos = new ArrayList();
+        List<DTO> dtos = new ArrayList();
+        if (items != null && !items.isEmpty()) {
             for (T item : items) {
                 dtos.add(toDto(item));
             }
-            return dtos;
         }
+        return dtos;
     }
 
     public void copyToDto(T t, DTO dto) {

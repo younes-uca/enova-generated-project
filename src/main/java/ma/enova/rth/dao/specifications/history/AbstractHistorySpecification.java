@@ -48,7 +48,7 @@ public abstract class AbstractHistorySpecification<Criteria extends BaseCriteria
     public void addPredicateIn(String name, List<Long> values) {
         List<Long> results = null;
         if (ListUtil.isNotEmpty(values)) {
-            results = values.stream().filter(e -> NumberUtil.isPostif(e)).collect(Collectors.toList());
+            results = values.stream().filter(NumberUtil::isPostif).collect(Collectors.toList());
         }
         if (ListUtil.isNotEmpty(results) && results.size() == 1) {
             addPredicate(name, results.get(0));
