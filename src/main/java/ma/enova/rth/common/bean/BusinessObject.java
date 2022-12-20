@@ -1,5 +1,8 @@
 package ma.enova.rth.common.bean;
 
+import ma.enova.rth.controller.EtablissementController;
+import ma.enova.rth.domain.core.Etablissement;
+
 import javax.persistence.Transient;
 import java.io.Serializable;
 
@@ -14,6 +17,15 @@ public class BusinessObject implements Serializable {
 
     protected Long id;
     protected String label;
+    protected Etablissement etablissement;
+
+    public Etablissement getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
+    }
 
     /**
      * Constructeur par défaut.

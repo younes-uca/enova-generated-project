@@ -1,6 +1,7 @@
 package ma.enova.rth.common.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ma.enova.rth.dto.EtablissementDto;
 
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ public class BaseDto implements Serializable {
 
     protected Long id;
     protected String label;
+    protected EtablissementDto etablissementDto;
     protected int maxLevel = 2;
 
     /**
@@ -18,6 +20,14 @@ public class BaseDto implements Serializable {
 
     public BaseDto(Long id) {
         this.id = id;
+    }
+
+    public EtablissementDto getEtablissementDto() {
+        return etablissementDto;
+    }
+
+    public void setEtablissementDto(EtablissementDto etablissementDto) {
+        this.etablissementDto = etablissementDto;
     }
 
     @Override

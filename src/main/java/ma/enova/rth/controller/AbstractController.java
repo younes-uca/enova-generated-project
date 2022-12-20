@@ -57,7 +57,7 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
             String fileName = FileUtils.getFileName(file.getName());
             return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     protected static ClientHttpRequestFactory clientHttpRequestFactory() {
@@ -131,7 +131,7 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
     }
 
     public ResponseEntity<InputStreamResource> export(Criteria criteria) throws Exception {
-        ResponseEntity res = null;
+        ResponseEntity<InputStreamResource> res = null;
         if (criteria.getExportModel() == null)
             res = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
@@ -151,7 +151,7 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
 
     public ResponseEntity<AuditEntityDto> findHistoryById(Long id) throws Exception {
         AuditEntityDto h = service.findHistoryById(id);
-        return new ResponseEntity(h, HttpStatus.OK);
+        return new ResponseEntity<>(h, HttpStatus.OK);
     }
 
     public ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(HistoryCriteria criteria) throws Exception {
@@ -166,14 +166,9 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
     }
 
     public ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistoryCriteria criteria) throws Exception {
-
         if (criteria.getExportModel() == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
         criteria.setMaxResults(null);
-//		List<AuditEntityDto> list = prescriptionRadiotherapieService.findHistoryPaginatedByCriteria(histPrescriptionRadiotherapieCriteria);
-//		histPrescriptionRadiotherapieCriteria.getExportModel().setList(list);
-//		return getExportedFileResource(histPrescriptionRadiotherapieCriteria.getExportModel());
         return null;//TODO correct this bug
 
     }
@@ -201,7 +196,7 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
             String fileName = FileUtils.getFileName(file.getName());
             return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // Download file
