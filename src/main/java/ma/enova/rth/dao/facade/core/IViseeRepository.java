@@ -1,5 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
+import ma.enova.rth.domain.core.ProtocoleInclusion;
 import ma.enova.rth.domain.core.Visee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
  
 @Repository 
-public interface IViseeRepository extends JpaRepository<Visee	, Long> ,JpaSpecificationExecutor<Visee> {
+public interface IViseeRepository extends AbstractRepository<Visee, Long> {
 
 
 }

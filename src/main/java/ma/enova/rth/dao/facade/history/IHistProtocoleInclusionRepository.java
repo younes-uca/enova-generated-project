@@ -1,5 +1,6 @@
 package ma.enova.rth.dao.facade.history;
 
+import ma.enova.rth.domain.historique.HistOrgane;
 import ma.enova.rth.domain.historique.HistProtocoleInclusion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
  
 @Repository 
-public interface IHistProtocoleInclusionRepository extends JpaRepository<HistProtocoleInclusion	, Long> ,JpaSpecificationExecutor<HistProtocoleInclusion> {
+public interface IHistProtocoleInclusionRepository extends AbstractHistoryRepository<HistProtocoleInclusion, Long> {
 
 
 }

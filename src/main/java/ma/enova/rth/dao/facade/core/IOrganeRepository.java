@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  */
  
 @Repository 
-public interface IOrganeRepository extends JpaRepository<Organe	, Long> ,JpaSpecificationExecutor<Organe> {
+public interface IOrganeRepository extends AbstractRepository<Organe, Long> {
 
 
 }
