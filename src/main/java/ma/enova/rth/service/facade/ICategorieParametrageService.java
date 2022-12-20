@@ -11,7 +11,7 @@ import ma.enova.rth.service.core.IService;
  * @author JAF
  * @version 1.2
  */
-public interface ICategorieParametrageService extends IService<CategorieParametrage, CategorieParametrageDto, CategorieParametrageCriteria,CategorieParametrageCriteria> {
+public interface ICategorieParametrageService extends IService<CategorieParametrage, CategorieParametrageDto, CategorieParametrageCriteria, CategorieParametrageCriteria> {
 
 
 }

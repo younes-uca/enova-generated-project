@@ -12,40 +12,40 @@ import ma.enova.rth.common.bean.BaseEnum;
  * @version 1.2
  */
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT) 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TYPE_VALEUR implements BaseEnum {
 
-		TEXT("Texte"),
-		BOOLEAN("Boolean (OUI/NON)");
+    TEXT("Texte"),
+    BOOLEAN("Boolean (OUI/NON)");
 
-	private final String label;
+    private final String label;
 
-	TYPE_VALEUR(String label) {
-		this.label = label;
-	}
+    TYPE_VALEUR(String label) {
+        this.label = label;
+    }
 
-	public String getName() {
-		return this.name();
-	}
+    @JsonCreator
+    public static TYPE_VALEUR forValue(@JsonProperty("name") String value) {
+        for (TYPE_VALEUR o : TYPE_VALEUR.values()) {
+            if (o.name().equals(value)) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value: " + value);
+    }
 
-	@Override
-	public String getDisplayText() {
-		return this.label;
-	}
-	
-	@JsonCreator
-	public static TYPE_VALEUR forValue(@JsonProperty("name") String value) {
-		for (TYPE_VALEUR o : TYPE_VALEUR.values()) {
-			if (o.name().equals(value)) {
-				return o;
-			}
-		}
-		throw new IllegalArgumentException("Invalid value: " + value);
-	}	
+    public String getName() {
+        return this.name();
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String getDisplayText() {
+        return this.label;
+    }
 
-		return getName();
-	}
+    @Override
+    public String toString() {
+
+        return getName();
+    }
 }

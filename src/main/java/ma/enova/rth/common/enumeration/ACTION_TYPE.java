@@ -12,41 +12,41 @@ import ma.enova.rth.common.bean.BaseEnum;
  * @version 1.2
  */
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT) 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ACTION_TYPE implements BaseEnum {
 
-		ADD("Ajout"),
-		UPDATE("Modification"),
-		DELETE("Suppression");
+    ADD("Ajout"),
+    UPDATE("Modification"),
+    DELETE("Suppression");
 
-	private final String label;
+    private final String label;
 
-	ACTION_TYPE(String label) {
-		this.label = label;
-	}
+    ACTION_TYPE(String label) {
+        this.label = label;
+    }
 
-	public String getName() {
-		return this.name();
-	}
+    @JsonCreator
+    public static ACTION_TYPE forValue(@JsonProperty("name") String value) {
+        for (ACTION_TYPE o : ACTION_TYPE.values()) {
+            if (o.name().equals(value)) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value: " + value);
+    }
 
-	@Override
-	public String getDisplayText() {
-		return this.label;
-	}
-	
-	@JsonCreator
-	public static ACTION_TYPE forValue(@JsonProperty("name") String value) {
-		for (ACTION_TYPE o : ACTION_TYPE.values()) {
-			if (o.name().equals(value)) {
-				return o;
-			}
-		}
-		throw new IllegalArgumentException("Invalid value: " + value);
-	}	
+    public String getName() {
+        return this.name();
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String getDisplayText() {
+        return this.label;
+    }
 
-		return getName();
-	}
+    @Override
+    public String toString() {
+
+        return getName();
+    }
 }

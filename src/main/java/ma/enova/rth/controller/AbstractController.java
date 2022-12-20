@@ -7,7 +7,6 @@ import ma.enova.rth.common.util.FileUtils;
 import ma.enova.rth.common.util.JwtUtils;
 import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.converter.AbstractConverter;
-import ma.enova.rth.dao.criteria.history.HistPrescriptionRadiotherapieCriteria;
 import ma.enova.rth.service.core.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,29 +27,48 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-public class AbstractController<T extends AuditBusinessObject, DTO extends BaseDto, H extends HistBusinessObject, Criteria extends BaseCriteria, HistoryCriteria  extends BaseCriteria, SERV extends IService<T, DTO, Criteria, HistoryCriteria>, CONV extends AbstractConverter<T, DTO, H>> {
-
-    @Autowired
-    private MessageSource messageSource;
-
-    @Value("${reporting.url}")
-    private String REPORTING_URL;
-
-    @Value("${jwt.header}")
-    private String tokenHeader;
-
-    @Autowired
-    private JwtUtils jwtUtil;
-
-    @Value("${uploads.location.directory}")
-    private String UPLOADED_FOLDER;
+public class AbstractController<T extends AuditBusinessObject, DTO extends BaseDto, H extends HistBusinessObject, Criteria extends BaseCriteria, HistoryCriteria extends BaseCriteria, SERV extends IService<T, DTO, Criteria, HistoryCriteria>, CONV extends AbstractConverter<T, DTO, H>> {
 
     protected SERV service;
     protected AbstractConverter<T, DTO, H> abstractConverter;
+    @Autowired
+    private MessageSource messageSource;
+    @Value("${reporting.url}")
+    private String REPORTING_URL;
+    @Value("${jwt.header}")
+    private String tokenHeader;
+    @Autowired
+    private JwtUtils jwtUtil;
+    @Value("${uploads.location.directory}")
+    private String UPLOADED_FOLDER;
 
     public AbstractController(SERV service, CONV abstractConverter) {
         this.service = service;
         this.abstractConverter = abstractConverter;
+    }
+
+    // Download file
+    public static ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel, String uploadFolder) throws Exception {
+        if (exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty()) {
+            String fichier = ExportUtil.exportedList(exportModel, uploadFolder);
+            File file = new File(fichier);
+            FileInputStream inputStream = new FileInputStream(file);
+            InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
+            String fileName = FileUtils.getFileName(file.getName());
+            return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    protected static ClientHttpRequestFactory clientHttpRequestFactory() {
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setReadTimeout(200000);
+        factory.setConnectTimeout(200000);
+        return factory;
+    }
+
+    private static boolean isNotEmpty(ExportModel exportModel) {
+        return exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty();
     }
 
     public ResponseEntity<DTO> findById(Long id, String[] includes, String[] excludes) throws Exception {
@@ -61,7 +78,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         return new ResponseEntity<>(dto, HttpStatus.OK);
 
     }
-
 
     public ResponseEntity<Long> save(DTO dto) throws Exception {
         dto = service.create(dto);
@@ -78,7 +94,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         }
         return res;
     }
-
 
     public ResponseEntity<Void> delete(List<DTO> dtos) throws Exception {
         ResponseEntity<Void> res = null;
@@ -115,7 +130,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         return new ResponseEntity<>(paginatedList, HttpStatus.OK);
     }
 
-
     public ResponseEntity<InputStreamResource> export(Criteria criteria) throws Exception {
         ResponseEntity res = null;
         if (criteria.getExportModel() == null)
@@ -129,7 +143,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         return res;
     }
 
-
     public ResponseEntity<Integer> getDataSize(Criteria criteria) throws Exception {
         int count = service.getDataSize(criteria);
         return new ResponseEntity<Integer>(count, HttpStatus.OK);
@@ -141,7 +154,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         return new ResponseEntity(h, HttpStatus.OK);
     }
 
-
     public ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(HistoryCriteria criteria) throws Exception {
         List<AuditEntityDto> list = service.findHistoryPaginatedByCriteria(criteria, criteria.getPage(), criteria.getMaxResults(), criteria.getSortOrder(), criteria.getSortField());
         PaginatedList paginatedList = new PaginatedList();
@@ -152,7 +164,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
         }
         return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
     }
-
 
     public ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistoryCriteria criteria) throws Exception {
 
@@ -173,34 +184,12 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
 
     }
 
-    // Download file
-    public static ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel, String uploadFolder) throws Exception {
-        if (exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty()) {
-            String fichier = ExportUtil.exportedList(exportModel, uploadFolder);
-            File file = new File(fichier);
-            FileInputStream inputStream = new FileInputStream(file);
-            InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
-            String fileName = FileUtils.getFileName(file.getName());
-            return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
-        }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
-    }
-
-
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> exceptionHandler(Exception e, HttpServletRequest request) throws IOException {
         GlobalException globalException = new GlobalException(e, messageSource, request.getRequestURI());
         ErrorResponse errorResponse = new ErrorResponse(globalException.getStatus(), e, globalException.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(errorResponse, globalException.getStatus());
     }
-
-    protected static ClientHttpRequestFactory clientHttpRequestFactory() {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setReadTimeout(200000);
-        factory.setConnectTimeout(200000);
-        return factory;
-    }
-
 
     // Download file
     protected ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel) throws Exception {
@@ -213,10 +202,6 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
             return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
-    }
-
-    private static boolean isNotEmpty(ExportModel exportModel) {
-        return exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty();
     }
 
     // Download file

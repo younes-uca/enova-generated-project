@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Interface du DAO Irole
+ *
  * @author JAF
  * @version 1.2
  */
- 
-@Repository 
-public interface IRoleRepository extends JpaRepository<Role	, Long> ,JpaSpecificationExecutor<Role> {
+
+@Repository
+public interface IRoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
 
 
 }

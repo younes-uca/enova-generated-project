@@ -13,152 +13,153 @@ import java.util.List;
 
 public class ReportBuilder {
 
-	private boolean headerOnlyFirstPage;
-	private int pageNumberAlignment = Element.ALIGN_CENTER;
-	private boolean pagination = true;
-	private String headerImage;
-	private boolean displayCreatedDate = true;
-	private PdfPTable table;
-	private Document document;
-	private PdfWriter writer;
-	private ByteArrayOutputStream stream;
+    private boolean headerOnlyFirstPage;
+    private int pageNumberAlignment = Element.ALIGN_CENTER;
+    private boolean pagination = true;
+    private String headerImage;
+    private boolean displayCreatedDate = true;
+    private PdfPTable table;
+    private Document document;
+    private PdfWriter writer;
+    private ByteArrayOutputStream stream;
 
-	public ReportBuilder() {
-		try {
-			//headerImage = FileUtils.getInstance().getImageFromResourcePath("logo.gif");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public ReportBuilder() {
+        try {
+            //headerImage = FileUtils.getInstance().getImageFromResourcePath("logo.gif");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void init() {
+    public void init() {
 
-		try {
-			stream = new ByteArrayOutputStream();
-			document = new Document(PageSize.A4.rotate());
+        try {
+            stream = new ByteArrayOutputStream();
+            document = new Document(PageSize.A4.rotate());
 
-			writer = PdfWriter.getInstance(document, stream);
+            writer = PdfWriter.getInstance(document, stream);
 
-			document.open();
+            document.open();
 
-			PdfConfig pdfConfig = new PdfConfig();
-			pdfConfig.setPagination(pagination);
-			pdfConfig.setHeaderOnlyFirstPage(headerOnlyFirstPage);
-			pdfConfig.setHeaderImage(headerImage);
-			pdfConfig.onOpenDocument(writer, document);
-			pdfConfig.onEndPage(writer, document);
-			pdfConfig.onCloseDocument(writer, document);
-			
-			writer.setPageEvent(pdfConfig);
-			if (displayCreatedDate)
-				pdfConfig.addExportDate(document);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public PdfPTable createTable(String title, List<ColumnModel> columns) throws DocumentException {
+            PdfConfig pdfConfig = new PdfConfig();
+            pdfConfig.setPagination(pagination);
+            pdfConfig.setHeaderOnlyFirstPage(headerOnlyFirstPage);
+            pdfConfig.setHeaderImage(headerImage);
+            pdfConfig.onOpenDocument(writer, document);
+            pdfConfig.onEndPage(writer, document);
+            pdfConfig.onCloseDocument(writer, document);
 
-		if (columns != null && !columns.isEmpty()) {
+            writer.setPageEvent(pdfConfig);
+            if (displayCreatedDate)
+                pdfConfig.addExportDate(document);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			if (title != null && !title.isEmpty()) {
-				Font fontTitle = new Font(FontFamily.UNDEFINED, 12, Font.BOLD, BaseColor.BLACK);
-				Paragraph titleParagraph = new Paragraph(new Phrase(title, fontTitle));
-				titleParagraph.setAlignment(Element.ALIGN_CENTER);
-				document.add(titleParagraph);
-				document.add(new Paragraph(" "));
-			}
-			PdfPTable table = new PdfPTable(columns.size());
-			table.setWidthPercentage(100);
-			PdfPCell cell;
-			Font fontColumn = new Font(FontFamily.UNDEFINED, 11, Font.BOLD, BaseColor.WHITE);
+    public PdfPTable createTable(String title, List<ColumnModel> columns) throws DocumentException {
 
-			for (ColumnModel column : columns) {
-				cell = new PdfPCell(new Phrase(column.getLabel(), fontColumn));
-				cell.setPaddingBottom(5);
-				cell.setBackgroundColor(BaseColor.GRAY);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			
-				table.addCell(cell);
-			}
+        if (columns != null && !columns.isEmpty()) {
 
-			return table;
-		}
+            if (title != null && !title.isEmpty()) {
+                Font fontTitle = new Font(FontFamily.UNDEFINED, 12, Font.BOLD, BaseColor.BLACK);
+                Paragraph titleParagraph = new Paragraph(new Phrase(title, fontTitle));
+                titleParagraph.setAlignment(Element.ALIGN_CENTER);
+                document.add(titleParagraph);
+                document.add(new Paragraph(" "));
+            }
+            PdfPTable table = new PdfPTable(columns.size());
+            table.setWidthPercentage(100);
+            PdfPCell cell;
+            Font fontColumn = new Font(FontFamily.UNDEFINED, 11, Font.BOLD, BaseColor.WHITE);
 
-		return null;
+            for (ColumnModel column : columns) {
+                cell = new PdfPCell(new Phrase(column.getLabel(), fontColumn));
+                cell.setPaddingBottom(5);
+                cell.setBackgroundColor(BaseColor.GRAY);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-	}
+                table.addCell(cell);
+            }
 
-	public void generateReport(ByteArrayOutputStream stream, String fileName) {
-		try {
-			if (document != null)
-				document.close();
-			FileOutputStream fos = new FileOutputStream(fileName);
-			fos.write(stream.toByteArray());
-			fos.close();
-			stream.close();
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-	}
+            return table;
+        }
 
-	public boolean isHeaderOnlyFirstPage() {
-		return headerOnlyFirstPage;
-	}
+        return null;
 
-	public void setHeaderOnlyFirstPage(boolean headerOnlyFirstPage) {
-		this.headerOnlyFirstPage = headerOnlyFirstPage;
-	}
+    }
 
-	public int getPageNumberAlignment() {
-		return pageNumberAlignment;
-	}
+    public void generateReport(ByteArrayOutputStream stream, String fileName) {
+        try {
+            if (document != null)
+                document.close();
+            FileOutputStream fos = new FileOutputStream(fileName);
+            fos.write(stream.toByteArray());
+            fos.close();
+            stream.close();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
 
-	public void setPageNumberAlignment(int pageNumberAlignment) {
-		this.pageNumberAlignment = pageNumberAlignment;
-	}
+    public boolean isHeaderOnlyFirstPage() {
+        return headerOnlyFirstPage;
+    }
 
-	public boolean isPagination() {
-		return pagination;
-	}
+    public void setHeaderOnlyFirstPage(boolean headerOnlyFirstPage) {
+        this.headerOnlyFirstPage = headerOnlyFirstPage;
+    }
 
-	public void setPagination(boolean pagination) {
-		this.pagination = pagination;
-	}
+    public int getPageNumberAlignment() {
+        return pageNumberAlignment;
+    }
 
-	public String getHeaderImage() {
-		return headerImage;
-	}
+    public void setPageNumberAlignment(int pageNumberAlignment) {
+        this.pageNumberAlignment = pageNumberAlignment;
+    }
 
-	public void setHeaderImage(String headerImage) {
-		this.headerImage = headerImage;
-	}
+    public boolean isPagination() {
+        return pagination;
+    }
 
-	public boolean isDisplayCreatedDate() {
-		return displayCreatedDate;
-	}
+    public void setPagination(boolean pagination) {
+        this.pagination = pagination;
+    }
 
-	public void setDisplayCreatedDate(boolean displayCreatedDate) {
-		this.displayCreatedDate = displayCreatedDate;
-	}
+    public String getHeaderImage() {
+        return headerImage;
+    }
 
-	public PdfPTable getTable() {
-		return table;
-	}
+    public void setHeaderImage(String headerImage) {
+        this.headerImage = headerImage;
+    }
 
-	public void setTable(PdfPTable table) {
-		this.table = table;
-	}
+    public boolean isDisplayCreatedDate() {
+        return displayCreatedDate;
+    }
 
-	public Document getDocument() {
-		return document;
-	}
+    public void setDisplayCreatedDate(boolean displayCreatedDate) {
+        this.displayCreatedDate = displayCreatedDate;
+    }
 
-	public void setDocument(Document document) {
-		this.document = document;
-	}
+    public PdfPTable getTable() {
+        return table;
+    }
 
-	public ByteArrayOutputStream getStream() {
-		return stream;
-	}
+    public void setTable(PdfPTable table) {
+        this.table = table;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public ByteArrayOutputStream getStream() {
+        return stream;
+    }
 
 }

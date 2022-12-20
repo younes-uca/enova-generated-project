@@ -15,7 +15,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Some utils functionnality
@@ -83,8 +86,7 @@ public abstract class Utils {
         if (source != null && target != null) {
             for (Object src : target) {
                 BusinessObject o = (BusinessObject) src;
-                if (source.contains(o))
-                    source.remove(o);
+                source.remove(o);
             }
         }
         return source;
@@ -107,10 +109,7 @@ public abstract class Utils {
             Method method2 = constructMethode(newVal, oldVal, method);
             Object value2 = getMethodValue(method2, oldVal, tagAnnotation);
             if (BooleanUtil.isNotEquals(value1, value2)) {
-                boolean collection = false;
-                if (BooleanUtil.isaBoolean(value1, value2)) {
-                    collection = true;
-                }
+                boolean collection = BooleanUtil.isaBoolean(value1, value2);
                 if (collection) {
                     AuditEntityUtil.handlCollection(oldVal, list, d, method, value1, value2);
                 } else {

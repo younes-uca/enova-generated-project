@@ -6,42 +6,42 @@ import java.io.Serializable;
 import java.util.List;
 
 public class BirtWarpper implements Serializable {
-	
-	
-	private String reportName;
-	private BIRT_EXPORT_FORMAT format;
-	private String prefix;
-	private List<BirtMap> birtMap;
 
-	public String getReportName() {
-		return reportName;
-	}
 
-	public void setReportName(String reportName) {
-		this.reportName = reportName;
-	}
+    private String reportName;
+    private BIRT_EXPORT_FORMAT format;
+    private String prefix;
+    private List<BirtMap> birtMap;
 
-	public BIRT_EXPORT_FORMAT getFormat() {
-		return format;
-	}
+    public String getReportName() {
+        return reportName;
+    }
 
-	public void setFormat(BIRT_EXPORT_FORMAT format) {
-		this.format = format;
-	}
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 
-	public List<BirtMap> getBirtMap() {
-		return birtMap;
-	}
+    public BIRT_EXPORT_FORMAT getFormat() {
+        return format;
+    }
 
-	public void setBirtMap(List<BirtMap> birtMap) {
-		this.birtMap = birtMap;
-	}
+    public void setFormat(BIRT_EXPORT_FORMAT format) {
+        this.format = format;
+    }
 
-	public String getPrefix() {
-		return prefix;
-	}
+    public List<BirtMap> getBirtMap() {
+        return birtMap;
+    }
 
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
+    public void setBirtMap(List<BirtMap> birtMap) {
+        this.birtMap = birtMap;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
 }

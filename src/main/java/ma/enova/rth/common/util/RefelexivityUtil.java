@@ -26,6 +26,7 @@ public class RefelexivityUtil {
         if (args != null)
             BeanUtils.copyProperties(src, dest, args);
     }
+
     public static <T> T constructObjectUsingDefaultConstr(Class<T> myclass) {
         try {
             return myclass.getDeclaredConstructor().newInstance();
@@ -36,7 +37,7 @@ public class RefelexivityUtil {
     }
 
 
-    public static <T,K> T constructObjectUsingOneParam(Class<T> myclass, K param) {
+    public static <T, K> T constructObjectUsingOneParam(Class<T> myclass, K param) {
         try {
             return myclass.getDeclaredConstructor(param.getClass()).newInstance(param);
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
@@ -44,7 +45,6 @@ public class RefelexivityUtil {
             throw new RuntimeException(e);
         }
     }
-
 
 
     public static boolean methodExists(Class clazz, String methodName) {

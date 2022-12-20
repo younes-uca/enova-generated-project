@@ -1,7 +1,6 @@
 package ma.enova.rth.converter;
 
 import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.Utils;
 import ma.enova.rth.domain.core.Patient;
 import ma.enova.rth.domain.historique.HistPatient;
 import ma.enova.rth.dto.PatientDto;

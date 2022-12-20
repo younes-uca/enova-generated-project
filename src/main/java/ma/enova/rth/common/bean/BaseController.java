@@ -23,88 +23,88 @@ import java.nio.file.Files;
 
 public abstract class BaseController {
 
-	@Autowired
-	private MessageSource messageSource;
+    @Autowired
+    private MessageSource messageSource;
 
-	@Value("${reporting.url}")
-	private String REPORTING_URL;
+    @Value("${reporting.url}")
+    private String REPORTING_URL;
 
-	@Value("${jwt.header}")
-	private String tokenHeader;
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
-	@Autowired
-	private JwtUtils jwtUtil;
+    @Autowired
+    private JwtUtils jwtUtil;
 
-	@Value("${uploads.location.directory}")
-	private String UPLOADED_FOLDER;
+    @Value("${uploads.location.directory}")
+    private String UPLOADED_FOLDER;
 
-	@ExceptionHandler
-	public ResponseEntity<ErrorResponse> exceptionHandler(Exception e, HttpServletRequest request) throws IOException {
-		GlobalException globalException = new GlobalException(e, messageSource, request.getRequestURI());
-		ErrorResponse errorResponse = new ErrorResponse(globalException.getStatus(), e, globalException.getMessage(), request.getRequestURI());
-		return new ResponseEntity<>(errorResponse, globalException.getStatus());
-	}
+    protected static ClientHttpRequestFactory clientHttpRequestFactory() {
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setReadTimeout(200000);
+        factory.setConnectTimeout(200000);
+        return factory;
+    }
 
-	protected static ClientHttpRequestFactory clientHttpRequestFactory() {
-		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-		factory.setReadTimeout(200000);
-		factory.setConnectTimeout(200000);
-		return factory;
-	}
+    private static boolean isNotEmpty(ExportModel exportModel) {
+        return exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty();
+    }
 
-	// Download file from report tool
-	protected ResponseEntity<InputStreamResource> getReportResource(BirtWarpper birtWarpper, String fileName) throws Exception {
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> exceptionHandler(Exception e, HttpServletRequest request) throws IOException {
+        GlobalException globalException = new GlobalException(e, messageSource, request.getRequestURI());
+        ErrorResponse errorResponse = new ErrorResponse(globalException.getStatus(), e, globalException.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorResponse, globalException.getStatus());
+    }
 
-		// RestTemplate restTemplate = new
-		// RestTemplate(clientHttpRequestFactory());
-		// HttpHeaders headers = new HttpHeaders();
-		// headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		// final UserDetails userDetails = (UserDetails)
-		// SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// Token token = jwtUtil.generateToken(userDetails);
-		// headers.set(tokenHeader, "Bearer " + token.getValue());
-		// HttpEntity<BirtWarpper> entity = new
-		// HttpEntity<BirtWarpper>(birtWarpper, headers);
-		// String uri = REPORTING_URL + "/report/generateBytes";
-		// ResponseEntity<byte[]> s = restTemplate.postForEntity(uri, entity,
-		// byte[].class);
-		// InputStream inputStream = new ByteArrayInputStream(s.getBody());
-		// InputStreamResource inputStreamResource = new
-		// InputStreamResource(inputStream);
-		//
-		// return
-		// ResponseEntity.ok().eTag(fileName).contentLength(s.getBody().length).contentType(MediaType.APPLICATION_PDF).body(inputStreamResource);
+    // Download file from report tool
+    protected ResponseEntity<InputStreamResource> getReportResource(BirtWarpper birtWarpper, String fileName) throws Exception {
 
-		return null;
-	}
+        // RestTemplate restTemplate = new
+        // RestTemplate(clientHttpRequestFactory());
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        // final UserDetails userDetails = (UserDetails)
+        // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Token token = jwtUtil.generateToken(userDetails);
+        // headers.set(tokenHeader, "Bearer " + token.getValue());
+        // HttpEntity<BirtWarpper> entity = new
+        // HttpEntity<BirtWarpper>(birtWarpper, headers);
+        // String uri = REPORTING_URL + "/report/generateBytes";
+        // ResponseEntity<byte[]> s = restTemplate.postForEntity(uri, entity,
+        // byte[].class);
+        // InputStream inputStream = new ByteArrayInputStream(s.getBody());
+        // InputStreamResource inputStreamResource = new
+        // InputStreamResource(inputStream);
+        //
+        // return
+        // ResponseEntity.ok().eTag(fileName).contentLength(s.getBody().length).contentType(MediaType.APPLICATION_PDF).body(inputStreamResource);
 
-	// Download file
-	protected ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel) throws Exception {
-		if (isNotEmpty(exportModel)) {
-			String fichier = ExportUtil.exportedList(exportModel, UPLOADED_FOLDER);
-			File file = new File(fichier);
-			FileInputStream inputStream = new FileInputStream(file);
-			InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
-			String fileName = FileUtils.getFileName(file.getName());
-			return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
-		}
-		return new ResponseEntity(HttpStatus.NOT_FOUND);
-	}
+        return null;
+    }
 
-	private static boolean isNotEmpty(ExportModel exportModel) {
-		return exportModel != null && exportModel.getList() != null && !exportModel.getList().isEmpty();
-	}
+    // Download file
+    protected ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel) throws Exception {
+        if (isNotEmpty(exportModel)) {
+            String fichier = ExportUtil.exportedList(exportModel, UPLOADED_FOLDER);
+            File file = new File(fichier);
+            FileInputStream inputStream = new FileInputStream(file);
+            InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
+            String fileName = FileUtils.getFileName(file.getName());
+            return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
 
-	// Download file
-	protected ResponseEntity<InputStreamResource> getFileResource(String fichier, String fileName) throws Exception {
-		if (fichier != null && !fichier.isEmpty()) {
-			File file = new File(UPLOADED_FOLDER + fichier);
-			if (file.exists()) {
-				FileInputStream inputStream = new FileInputStream(file);
-				InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
-				return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
-			}
-		}
-		return new ResponseEntity<InputStreamResource>(HttpStatus.NOT_FOUND);
-	}
+    // Download file
+    protected ResponseEntity<InputStreamResource> getFileResource(String fichier, String fileName) throws Exception {
+        if (fichier != null && !fichier.isEmpty()) {
+            File file = new File(UPLOADED_FOLDER + fichier);
+            if (file.exists()) {
+                FileInputStream inputStream = new FileInputStream(file);
+                InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
+                return ResponseEntity.ok().eTag(fileName).contentLength(file.length()).contentType(MediaType.parseMediaType(Files.probeContentType(file.toPath()))).body(inputStreamResource);
+            }
+        }
+        return new ResponseEntity<InputStreamResource>(HttpStatus.NOT_FOUND);
+    }
 }

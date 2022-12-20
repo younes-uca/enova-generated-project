@@ -29,6 +29,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Manager controller : ModaliteRadiotherapie
+ * @author JAF
+ * @version 1.2
+ */
+ 
 @RestController
 @RequestMapping("/api/modalite-radiotherapie/")
 public class ModaliteRadiotherapieController extends AbstractController<ModaliteRadiotherapie, ModaliteRadiotherapieDto, HistModaliteRadiotherapie, ModaliteRadiotherapieCriteria, HistModaliteRadiotherapieCriteria, IModaliteRadiotherapieService, ModaliteRadiotherapieConverter> {

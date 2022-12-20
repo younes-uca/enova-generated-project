@@ -1,19 +1,14 @@
 package ma.enova.rth.service.facade;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
 import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
-import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
-import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
 import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
 import ma.enova.rth.domain.core.ProtocoleInclusion;
 import ma.enova.rth.dto.ProtocoleInclusionDto;
-import ma.enova.rth.dto.ProtocoleInclusionDto;
 import ma.enova.rth.service.core.IService;
-
-import java.util.List;
 
 /**
  * Interface service protocoleInclusion
+ *
  * @author JAF
  * @version 1.2
  */

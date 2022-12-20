@@ -6,8 +6,6 @@ import ma.enova.rth.domain.core.Personnel;
 import ma.enova.rth.dto.PersonnelDto;
 import ma.enova.rth.service.core.IService;
 
-import java.util.List;
-
 /**
  * Interface service personnel
  *

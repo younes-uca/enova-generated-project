@@ -1,9 +1,7 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.domain.core.Etablissement;
 import ma.enova.rth.domain.core.ProtocoleInclusion;
 import ma.enova.rth.domain.historique.HistProtocoleInclusion;
-import ma.enova.rth.dto.EtablissementDto;
 import ma.enova.rth.dto.ProtocoleInclusionDto;
 import org.springframework.stereotype.Component;
 

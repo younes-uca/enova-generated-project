@@ -4,14 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ma.enova.rth.common.bean.AuditBaseDto;
 import ma.enova.rth.common.bean.Log;
-import ma.enova.rth.common.util.Utils;
-import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
-import ma.enova.rth.domain.core.SeanceRadiotherapie;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.common.util.Utils;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SeanceRadiotherapieDto extends AuditBaseDto {

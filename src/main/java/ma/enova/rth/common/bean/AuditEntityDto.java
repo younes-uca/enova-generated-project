@@ -1,113 +1,124 @@
 package ma.enova.rth.common.bean;
 
 import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.Utils;
 
 public class AuditEntityDto extends BaseDto {
 
-	/** Colonne */
-	private String objectName;
+    /**
+     * Colonne
+     */
+    private String objectName;
 
-	/** OldValue */
-	private String data;
+    /**
+     * OldValue
+     */
+    private String data;
 
-	/** UserId */
-	private Long userId;
+    /**
+     * UserId
+     */
+    private Long userId;
 
-	/** Username */
-	private String username;
+    /**
+     * Username
+     */
+    private String username;
 
-	/** Type_action */
-	private String actionType;
+    /**
+     * Type_action
+     */
+    private String actionType;
 
-	/** ObjectId */
-	private Long objectId;
+    /**
+     * ObjectId
+     */
+    private Long objectId;
 
-	private String date;
+    private String date;
 
-	public AuditEntityDto() {
+    public AuditEntityDto() {
 
-	}
+    }
 
-	public AuditEntityDto(Long id) {
-		super(id);
-	}
+    public AuditEntityDto(Long id) {
+        super(id);
+    }
 
-	public <T extends HistBusinessObject> AuditEntityDto(T histBusinessObject) {
-		super();
-		convertToDto(this, histBusinessObject);
-	}
+    public <T extends HistBusinessObject> AuditEntityDto(T histBusinessObject) {
+        super();
+        convertToDto(this, histBusinessObject);
+    }
 
-	public <T extends HistBusinessObject> AuditEntityDto convertToDto(AuditEntityDto auditEntityDto, T histBusinessObject) {
-		if (auditEntityDto != null) {
-			auditEntityDto.setId(histBusinessObject.getId());
-			auditEntityDto.setObjectName(histBusinessObject.getObjectName());
-			auditEntityDto.setDate(DateUtil.dateTimeToString(histBusinessObject.getDate()));
-			auditEntityDto.setObjectId(histBusinessObject.getObjectId());
-			auditEntityDto.setActionType(histBusinessObject.getActionType());
-			auditEntityDto.setData(histBusinessObject.getData());
-			auditEntityDto.setUserId(histBusinessObject.getUserId());
-			auditEntityDto.setUsername(histBusinessObject.getUsername());
-		}
+    public <T extends HistBusinessObject> AuditEntityDto convertToDto(AuditEntityDto auditEntityDto, T histBusinessObject) {
+        if (auditEntityDto != null) {
+            auditEntityDto.setId(histBusinessObject.getId());
+            auditEntityDto.setObjectName(histBusinessObject.getObjectName());
+            auditEntityDto.setDate(DateUtil.dateTimeToString(histBusinessObject.getDate()));
+            auditEntityDto.setObjectId(histBusinessObject.getObjectId());
+            auditEntityDto.setActionType(histBusinessObject.getActionType());
+            auditEntityDto.setData(histBusinessObject.getData());
+            auditEntityDto.setUserId(histBusinessObject.getUserId());
+            auditEntityDto.setUsername(histBusinessObject.getUsername());
+        }
 
-		return auditEntityDto;
+        return auditEntityDto;
 
-	}
+    }
 
-	public String getObjectName() {
-		return objectName;
-	}
+    public String getObjectName() {
+        return objectName;
+    }
 
-	public void setObjectName(String objectName) {
-		this.objectName = objectName;
-	}
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public String getData() {
+        return data;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setData(String data) {
+        this.data = data;
+    }
 
-	public Long getUserId() {
-		return userId;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getActionType() {
-		return actionType;
-	}
+    public String getActionType() {
+        return actionType;
+    }
 
-	public void setActionType(String actionType) {
-		this.actionType = actionType;
-	}
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
 
-	public Long getObjectId() {
-		return objectId;
-	}
+    public Long getObjectId() {
+        return objectId;
+    }
 
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
-	}
+    public void setObjectId(Long objectId) {
+        this.objectId = objectId;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 }

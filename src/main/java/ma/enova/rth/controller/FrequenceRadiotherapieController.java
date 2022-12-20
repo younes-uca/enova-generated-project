@@ -1,32 +1,19 @@
 package ma.enova.rth.controller;
 
 import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.BaseController;
 import ma.enova.rth.common.bean.PaginatedList;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.converter.FrequenceRadiotherapieConverter;
 import ma.enova.rth.converter.FrequenceRadiotherapieConverter;
 import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
 import ma.enova.rth.domain.core.FrequenceRadiotherapie;
 import ma.enova.rth.domain.historique.HistFrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
-import ma.enova.rth.dto.FrequenceRadiotherapieDto;
 import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
-import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
-import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/frequence-radiotherapie/")

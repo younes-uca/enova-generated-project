@@ -10,11 +10,11 @@ import java.util.Map;
 @Component
 public class CustomUserAuthenticationConverter extends DefaultUserAuthenticationConverter {
 
-	@Override
-	public Map<String, ?> convertUserAuthentication(Authentication authentication) {
-		Map<String, Object> response = new LinkedHashMap<String, Object>(super.convertUserAuthentication(authentication));
-		response.remove("authorities");
-		return response;
-	}
+    @Override
+    public Map<String, ?> convertUserAuthentication(Authentication authentication) {
+        Map<String, Object> response = new LinkedHashMap<String, Object>(super.convertUserAuthentication(authentication));
+        response.remove("authorities");
+        return response;
+    }
 
 }

@@ -3,7 +3,7 @@ package ma.enova.rth.common.ddd;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Result<T,K> {
+public class Result<T, K> {
     private List<Message> messages;
     private List<Message> errors;
     private List<Message> warnings;
@@ -27,8 +27,8 @@ public class Result<T,K> {
 
     }
 
-    public boolean hasNoError(){
-       return getErrors().isEmpty();
+    public boolean hasNoError() {
+        return getErrors().isEmpty();
     }
 
     public void addErrorMessage(String message) {
@@ -47,23 +47,23 @@ public class Result<T,K> {
     }
 
     private void addMessage(String messageText, MessageType type) {
-        Message message = new Message(messageText, type);
+        Message myMessage = new Message(messageText, type);
         if (type == MessageType.ERROR) {
-            getErrors().add(message);
+            getErrors().add(myMessage);
         } else if (type == MessageType.WARN) {
-            getWarnings().add(message);
+            getWarnings().add(myMessage);
         } else if (type == MessageType.INFO) {
-            getInfos().add(message);
+            getInfos().add(myMessage);
         }
-        getMessages().add(message);
-        constructTextMessage(message);
+        getMessages().add(myMessage);
+        constructTextMessage(myMessage);
     }
 
     private void constructTextMessage(Message myMessage) {
-        if(message==null){
-            message ="";
+        if (message == null) {
+            message = "";
         }
-        message+=myMessage.getLabel();
+        message += myMessage.getLabel();
     }
 
     public List<Message> getMessages() {

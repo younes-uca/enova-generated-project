@@ -1,15 +1,8 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.RadiotherapieApplication;
 import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.Utils;
-import ma.enova.rth.domain.core.Patient;
-import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
 import ma.enova.rth.domain.core.SeanceRadiotherapie;
 import ma.enova.rth.domain.historique.HistSeanceRadiotherapie;
-import ma.enova.rth.dto.EtablissementDto;
-import ma.enova.rth.dto.PatientDto;
-import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
 import ma.enova.rth.dto.SeanceRadiotherapieDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

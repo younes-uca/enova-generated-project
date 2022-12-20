@@ -27,288 +27,291 @@ import java.util.stream.Collectors;
 
 /**
  * Manager controller : Utilisateur
+ *
  * @author JAF
  * @version 1.2
  */
- 
+
 @RestController
 public class UtilisateurController extends BaseController {
 
 
-/**
-	* Services metiers.
-*/
-	@Autowired
-	private IUtilisateurService utilisateurService;
-	@Autowired	
-	private IProfilService profilService;
-
-	@GetMapping("/api/utilisateur/{id}")
-	@PreAuthorize("hasRole('ROLE_READ_UTILISATEUR')")
-	public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
-
-		UtilisateurDto utilisateur = utilisateurService.getUtilisateurById(id);
-
-		if (StringUtil.isNoEmpty(includes) || StringUtil.isNoEmpty(excludes))
-			utilisateur = new UtilisateurDto().mappedCustomDto(utilisateur, includes, excludes);
-
-		return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/utilisateur")
-	@PreAuthorize("hasRole('ROLE_CREATE_UTILISATEUR')")
-	public ResponseEntity<Long> addUtilisateur(@RequestBody UtilisateurDto utilisateur) throws Exception {
-
-		utilisateur = utilisateurService.createUtilisateur(utilisateur);
-		
-		return new ResponseEntity<Long>(utilisateur.getId(), HttpStatus.CREATED);
-
-	}
-
- 	@PutMapping("/api/utilisateur")	
-	@PreAuthorize("hasRole('ROLE_UPDATE_UTILISATEUR')")
-	public ResponseEntity<UtilisateurDto> updateUtilisateur(@RequestBody UtilisateurDto utilisateur) throws Exception {
-
-		if (utilisateur.getId() == null)
-			return new ResponseEntity<UtilisateurDto>(HttpStatus.CONFLICT);
-
-		utilisateur = utilisateurService.updateUtilisateur(utilisateur);
-
-		return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
-
-	}
-	
-	@DeleteMapping("/api/utilisateur/delete")
-	@PreAuthorize("hasRole('ROLE_DELETE_UTILISATEUR')")
-	public ResponseEntity<Void> deleteUtilisateur(@RequestBody List<UtilisateurDto> utilisateurList) throws Exception {
+    /**
+     * Services metiers.
+     */
+    @Autowired
+    private IUtilisateurService utilisateurService;
+    @Autowired
+    private IProfilService profilService;
 
-		if (utilisateurList == null || utilisateurList.isEmpty())
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			
-		utilisateurService.deleteUtilisateur(utilisateurList);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+    @GetMapping("/api/utilisateur/{id}")
+    @PreAuthorize("hasRole('ROLE_READ_UTILISATEUR')")
+    public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
 
-	}
+        UtilisateurDto utilisateur = utilisateurService.getUtilisateurById(id);
 
+        if (StringUtil.isNoEmpty(includes) || StringUtil.isNoEmpty(excludes))
+            utilisateur = new UtilisateurDto().mappedCustomDto(utilisateur, includes, excludes);
 
-	@GetMapping("/api/utilisateur/resetPassword/{id}")
-	@PreAuthorize("hasRole('ROLE_RESET_PASSWORD_UTILISATEUR')")
-	public ResponseEntity<Void> resetUtilisateurPassword(@PathVariable("id") Long id) throws Exception {
+        return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
 
-		utilisateurService.resetUtilisateurPassword(id);
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
-	}
-	
-	@GetMapping("/api/utilisateur/getUtilisateurHistList")
-	
-	public @ResponseBody
-	ResponseEntity<List<UtilisateurDto>> getUtilisateurHistList() throws Exception {
+    @PostMapping("/api/utilisateur")
+    @PreAuthorize("hasRole('ROLE_CREATE_UTILISATEUR')")
+    public ResponseEntity<Long> addUtilisateur(@RequestBody UtilisateurDto utilisateur) throws Exception {
 
-		UtilisateurCriteria utilisateurCriteria = new UtilisateurCriteria();
-		utilisateurCriteria.setOrderByAsc(new String[] { "username" });
-		utilisateurCriteria.setEnabled("true");
-		List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
+        utilisateur = utilisateurService.createUtilisateur(utilisateur);
 
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<UtilisateurDto>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Long>(utilisateur.getId(), HttpStatus.CREATED);
 
-		return new ResponseEntity<List<UtilisateurDto>>(list, HttpStatus.OK);
+    }
 
-	}	
+    @PutMapping("/api/utilisateur")
+    @PreAuthorize("hasRole('ROLE_UPDATE_UTILISATEUR')")
+    public ResponseEntity<UtilisateurDto> updateUtilisateur(@RequestBody UtilisateurDto utilisateur) throws Exception {
 
-	@PutMapping("/api/utilisateur/changePassword/{id}")
-	@PreAuthorize("hasRole('ROLE_CHANGE_PASSWORD_UTILISATEUR')")
-	public ResponseEntity<UtilisateurDto> updateUtilisateurPassword(@PathVariable("id") Long id,@RequestBody UtilisateurDto utilisateur) throws Exception {
+        if (utilisateur.getId() == null)
+            return new ResponseEntity<UtilisateurDto>(HttpStatus.CONFLICT);
 
-		utilisateur.setId(id);
-		utilisateur = utilisateurService.updateUtilisateurPassword(utilisateur);
-		
-		return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
+        utilisateur = utilisateurService.updateUtilisateur(utilisateur);
 
-	}
-	
-	@GetMapping("/api/utilisateur/getCurrentUserByDomain/{domaine}")
-	
-	public ResponseEntity<UtilisateurDetailsImpl> getCurrentUserByDomain(@PathVariable("domaine") Integer domain) throws Exception {
-		UtilisateurDetailsImpl currentUser = null;
-		if (SecurityContextHolder.getContext().getAuthentication() != null) {
-			currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		}
-		if (currentUser == null || currentUser.getUtilisateur() == null)
-			return new ResponseEntity<UtilisateurDetailsImpl>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
 
-		currentUser.getRolesByDomaine(domain);
-		List<String> categorieRoles = utilisateurService.getCategorieRoleUtilisateur(currentUser.getId());
-		currentUser.setCategorieRoles(categorieRoles);
-		
-		return new ResponseEntity<UtilisateurDetailsImpl>(currentUser, HttpStatus.OK);
+    }
 
-	}
-	
-	@GetMapping("/api/utilisateur/getUtilisateurProfil")
-	
-	public ResponseEntity<ProfilDto> getUtilisateurProfil() throws Exception {
+    @DeleteMapping("/api/utilisateur/delete")
+    @PreAuthorize("hasRole('ROLE_DELETE_UTILISATEUR')")
+    public ResponseEntity<Void> deleteUtilisateur(@RequestBody List<UtilisateurDto> utilisateurList) throws Exception {
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (utilisateurList == null || utilisateurList.isEmpty())
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 
-		if (currentUser.getProfil() == null)
-			return new ResponseEntity<ProfilDto>(HttpStatus.NOT_FOUND);
-			
-		ProfilDto profilDto = new ProfilDto();
-		profilDto = profilDto.convertToDto(profilDto, currentUser.getProfil(), true, 0);
+        utilisateurService.deleteUtilisateur(utilisateurList);
+        return new ResponseEntity<Void>(HttpStatus.OK);
 
-		return new ResponseEntity<ProfilDto>(profilDto, HttpStatus.OK);
+    }
 
-	}
 
-	@GetMapping("/api/utilisateur/getCurrentUtilisateur")	
-	
-	public ResponseEntity<UtilisateurDto> getCurrentUtilisateur() throws Exception {
+    @GetMapping("/api/utilisateur/resetPassword/{id}")
+    @PreAuthorize("hasRole('ROLE_RESET_PASSWORD_UTILISATEUR')")
+    public ResponseEntity<Void> resetUtilisateurPassword(@PathVariable("id") Long id) throws Exception {
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (currentUser.getUtilisateur() == null)
-			return new ResponseEntity<UtilisateurDto>(HttpStatus.NOT_FOUND);
+        utilisateurService.resetUtilisateurPassword(id);
 
-		UtilisateurDto utilisateurDto = new UtilisateurDto();
-		utilisateurDto = utilisateurDto.convertToDto(utilisateurDto, currentUser.getUtilisateur(), true, 0);
+        return new ResponseEntity<Void>(HttpStatus.OK);
 
-		return new ResponseEntity<UtilisateurDto>(utilisateurDto, HttpStatus.OK);
+    }
 
-	}	
+    @GetMapping("/api/utilisateur/getUtilisateurHistList")
 
-	@PostMapping("/api/utilisateur/listByCriteria")	
-		
-	public @ResponseBody
-	ResponseEntity<List<UtilisateurDto>> getUtilisateursByCriteria(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+    public @ResponseBody
+    ResponseEntity<List<UtilisateurDto>> getUtilisateurHistList() throws Exception {
 
-		List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
+        UtilisateurCriteria utilisateurCriteria = new UtilisateurCriteria();
+        utilisateurCriteria.setOrderByAsc(new String[]{"username"});
+        utilisateurCriteria.setEnabled("true");
+        List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
 
-		if (StringUtil.isNoEmpty(utilisateurCriteria.getIncludes()) || StringUtil.isNoEmpty(utilisateurCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(utilisateur -> new UtilisateurDto().mappedCustomDto(utilisateur, utilisateurCriteria.getIncludes(), utilisateurCriteria.getExcludes())).collect(Collectors.toList());
+        if (list == null || list.isEmpty())
+            return new ResponseEntity<List<UtilisateurDto>>(HttpStatus.NO_CONTENT);
 
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<UtilisateurDto>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<List<UtilisateurDto>>(list, HttpStatus.OK);
 
-		return new ResponseEntity<List<UtilisateurDto>>(list, HttpStatus.OK);
+    }
 
-	}
-	
-	@PostMapping("/api/utilisateur/paginatedListByCriteria")		
-	@PreAuthorize("hasRole('ROLE_READ_UTILISATEUR')")
-	public @ResponseBody
-	ResponseEntity<PaginatedList> paginatedListUtilisateurs(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+    @PutMapping("/api/utilisateur/changePassword/{id}")
+    @PreAuthorize("hasRole('ROLE_CHANGE_PASSWORD_UTILISATEUR')")
+    public ResponseEntity<UtilisateurDto> updateUtilisateurPassword(@PathVariable("id") Long id, @RequestBody UtilisateurDto utilisateur) throws Exception {
 
-		List<UtilisateurDto> list = utilisateurService.paginatedListUtilisateurs(utilisateurCriteria,utilisateurCriteria.getPage(),utilisateurCriteria.getMaxResults(), utilisateurCriteria.getSortOrder(), utilisateurCriteria.getSortField());
+        utilisateur.setId(id);
+        utilisateur = utilisateurService.updateUtilisateurPassword(utilisateur);
 
-		if (StringUtil.isNoEmpty(utilisateurCriteria.getIncludes()) || StringUtil.isNoEmpty(utilisateurCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(utilisateur -> new UtilisateurDto().mappedCustomDto(utilisateur, utilisateurCriteria.getIncludes(), utilisateurCriteria.getExcludes())).collect(Collectors.toList());
+        return new ResponseEntity<UtilisateurDto>(utilisateur, HttpStatus.OK);
 
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = utilisateurService.getUtilisateurDataSize(utilisateurCriteria);
-			paginatedList.setDataSize(dateSize);
-		}
-		
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+    }
 
-	}
-	
-	@PostMapping("/api/utilisateur/exportUtilisateurs")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportUtilisateurs(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+    @GetMapping("/api/utilisateur/getCurrentUserByDomain/{domaine}")
 
-		if (utilisateurCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<UtilisateurDetailsImpl> getCurrentUserByDomain(@PathVariable("domaine") Integer domain) throws Exception {
+        UtilisateurDetailsImpl currentUser = null;
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        if (currentUser == null || currentUser.getUtilisateur() == null)
+            return new ResponseEntity<UtilisateurDetailsImpl>(HttpStatus.NOT_FOUND);
 
-		utilisateurCriteria.setMaxResults(null);
-		List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
-		utilisateurCriteria.getExportModel().setList(list);
-		return getExportedFileResource(utilisateurCriteria.getExportModel());
-	
-	}
+        currentUser.getRolesByDomaine(domain);
+        List<String> categorieRoles = utilisateurService.getCategorieRoleUtilisateur(currentUser.getId());
+        currentUser.setCategorieRoles(categorieRoles);
 
-	@PostMapping("/api/utilisateur/getUtilisateursDataSize")	
-		
-	public @ResponseBody ResponseEntity<Integer> getUtilisateurDataSize(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+        return new ResponseEntity<UtilisateurDetailsImpl>(currentUser, HttpStatus.OK);
 
-		int count = utilisateurService.getUtilisateurDataSize(utilisateurCriteria);
+    }
 
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
+    @GetMapping("/api/utilisateur/getUtilisateurProfil")
 
-	}
-	
+    public ResponseEntity<ProfilDto> getUtilisateurProfil() throws Exception {
 
-	@GetMapping("/api/utilisateur/getProfilList")
-	@PreAuthorize("hasAnyRole('ROLE_READ_UTILISATEUR','ROLE_CREATE_UTILISATEUR','ROLE_UPDATE_UTILISATEUR')")	
-	public @ResponseBody
-	ResponseEntity<List<BusinessDto>> getProfilList() throws Exception {
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		ProfilCriteria profilCriteria = new ProfilCriteria();
-		profilCriteria.setOrderByAsc(new String[] { "libelle" });
+        if (currentUser.getProfil() == null)
+            return new ResponseEntity<ProfilDto>(HttpStatus.NOT_FOUND);
 
-		List<BusinessDto> list = CollectionUtils.emptyIfNull(profilService.findProfilsByCriteria(profilCriteria)).stream().map(profil -> new BusinessDto(profil.getId(), profil.getLabel())).collect(Collectors.toList());
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<BusinessDto>>(HttpStatus.NO_CONTENT);
+        ProfilDto profilDto = new ProfilDto();
+        profilDto = profilDto.convertToDto(profilDto, currentUser.getProfil(), true, 0);
 
-		return new ResponseEntity<List<BusinessDto>>(list, HttpStatus.OK);
+        return new ResponseEntity<ProfilDto>(profilDto, HttpStatus.OK);
 
-	}
+    }
 
+    @GetMapping("/api/utilisateur/getCurrentUtilisateur")
 
-	@GetMapping("/api/utilisateur/histUtilisateur/{id}")	
-	@PreAuthorize("hasRole('ROLE_HIST_UTILISATEUR')")
-	public ResponseEntity<AuditEntityDto> getHistUtilisateurById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<UtilisateurDto> getCurrentUtilisateur() throws Exception {
 
-		AuditEntityDto histUtilisateur = utilisateurService.getHistUtilisateurById(id);
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser.getUtilisateur() == null)
+            return new ResponseEntity<UtilisateurDto>(HttpStatus.NOT_FOUND);
 
-		return new ResponseEntity<AuditEntityDto>(histUtilisateur, HttpStatus.OK);
+        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        utilisateurDto = utilisateurDto.convertToDto(utilisateurDto, currentUser.getUtilisateur(), true, 0);
 
-	}
-	
-	@PostMapping("/api/utilisateur/paginatedListHistByCriteria")	
-	@PreAuthorize("hasRole('ROLE_HIST_UTILISATEUR')")
-	public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistUtilisateurs(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+        return new ResponseEntity<UtilisateurDto>(utilisateurDto, HttpStatus.OK);
 
-		List<AuditEntityDto> list = utilisateurService.paginatedListHistUtilisateurs(histUtilisateurCriteria,histUtilisateurCriteria.getPage(), histUtilisateurCriteria.getMaxResults(), histUtilisateurCriteria.getSortOrder(), histUtilisateurCriteria.getSortField());
+    }
 
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = utilisateurService.getHistUtilisateurDataSize(histUtilisateurCriteria);
-			paginatedList.setDataSize(dateSize);
-		}	
+    @PostMapping("/api/utilisateur/listByCriteria")
 
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+    public @ResponseBody
+    ResponseEntity<List<UtilisateurDto>> getUtilisateursByCriteria(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
 
-	}
+        List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
 
-	@PostMapping("/api/utilisateur/exportUtilisateursHist")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportUtilisateursHist(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+        if (StringUtil.isNoEmpty(utilisateurCriteria.getIncludes()) || StringUtil.isNoEmpty(utilisateurCriteria.getExcludes()))
+            ;
+        list = CollectionUtils.emptyIfNull(list).stream().map(utilisateur -> new UtilisateurDto().mappedCustomDto(utilisateur, utilisateurCriteria.getIncludes(), utilisateurCriteria.getExcludes())).collect(Collectors.toList());
 
-		if (histUtilisateurCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (list == null || list.isEmpty())
+            return new ResponseEntity<List<UtilisateurDto>>(HttpStatus.NO_CONTENT);
 
-		histUtilisateurCriteria.setMaxResults(null);
-		List<AuditEntityDto> list = utilisateurService.findUtilisateursHistByCriteria(histUtilisateurCriteria);
-		histUtilisateurCriteria.getExportModel().setList(list);
-		return getExportedFileResource(histUtilisateurCriteria.getExportModel());
-	
-	}
+        return new ResponseEntity<List<UtilisateurDto>>(list, HttpStatus.OK);
 
-	@PostMapping("/api/utilisateur/getHistUtilisateursDataSize")		
-	
-	public @ResponseBody ResponseEntity<Integer> getHistUtilisateurDataSize(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+    }
 
-		int count = utilisateurService.getHistUtilisateurDataSize(histUtilisateurCriteria);
+    @PostMapping("/api/utilisateur/paginatedListByCriteria")
+    @PreAuthorize("hasRole('ROLE_READ_UTILISATEUR')")
+    public @ResponseBody
+    ResponseEntity<PaginatedList> paginatedListUtilisateurs(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
 
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
+        List<UtilisateurDto> list = utilisateurService.paginatedListUtilisateurs(utilisateurCriteria, utilisateurCriteria.getPage(), utilisateurCriteria.getMaxResults(), utilisateurCriteria.getSortOrder(), utilisateurCriteria.getSortField());
 
-	}
-	
+        if (StringUtil.isNoEmpty(utilisateurCriteria.getIncludes()) || StringUtil.isNoEmpty(utilisateurCriteria.getExcludes()))
+            ;
+        list = CollectionUtils.emptyIfNull(list).stream().map(utilisateur -> new UtilisateurDto().mappedCustomDto(utilisateur, utilisateurCriteria.getIncludes(), utilisateurCriteria.getExcludes())).collect(Collectors.toList());
+
+        PaginatedList paginatedList = new PaginatedList();
+        paginatedList.setList(list);
+        if (list != null && !list.isEmpty()) {
+            int dateSize = utilisateurService.getUtilisateurDataSize(utilisateurCriteria);
+            paginatedList.setDataSize(dateSize);
+        }
+
+        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/api/utilisateur/exportUtilisateurs")
+
+    public @ResponseBody ResponseEntity<InputStreamResource> exportUtilisateurs(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+
+        if (utilisateurCriteria.getExportModel() == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        utilisateurCriteria.setMaxResults(null);
+        List<UtilisateurDto> list = utilisateurService.findUtilisateursByCriteria(utilisateurCriteria);
+        utilisateurCriteria.getExportModel().setList(list);
+        return getExportedFileResource(utilisateurCriteria.getExportModel());
+
+    }
+
+    @PostMapping("/api/utilisateur/getUtilisateursDataSize")
+
+    public @ResponseBody ResponseEntity<Integer> getUtilisateurDataSize(@RequestBody UtilisateurCriteria utilisateurCriteria) throws Exception {
+
+        int count = utilisateurService.getUtilisateurDataSize(utilisateurCriteria);
+
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/api/utilisateur/getProfilList")
+    @PreAuthorize("hasAnyRole('ROLE_READ_UTILISATEUR','ROLE_CREATE_UTILISATEUR','ROLE_UPDATE_UTILISATEUR')")
+    public @ResponseBody
+    ResponseEntity<List<BusinessDto>> getProfilList() throws Exception {
+
+        ProfilCriteria profilCriteria = new ProfilCriteria();
+        profilCriteria.setOrderByAsc(new String[]{"libelle"});
+
+        List<BusinessDto> list = CollectionUtils.emptyIfNull(profilService.findProfilsByCriteria(profilCriteria)).stream().map(profil -> new BusinessDto(profil.getId(), profil.getLabel())).collect(Collectors.toList());
+        if (list == null || list.isEmpty())
+            return new ResponseEntity<List<BusinessDto>>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<List<BusinessDto>>(list, HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/api/utilisateur/histUtilisateur/{id}")
+    @PreAuthorize("hasRole('ROLE_HIST_UTILISATEUR')")
+    public ResponseEntity<AuditEntityDto> getHistUtilisateurById(@PathVariable("id") Long id) throws Exception {
+
+        AuditEntityDto histUtilisateur = utilisateurService.getHistUtilisateurById(id);
+
+        return new ResponseEntity<AuditEntityDto>(histUtilisateur, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/api/utilisateur/paginatedListHistByCriteria")
+    @PreAuthorize("hasRole('ROLE_HIST_UTILISATEUR')")
+    public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistUtilisateurs(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+
+        List<AuditEntityDto> list = utilisateurService.paginatedListHistUtilisateurs(histUtilisateurCriteria, histUtilisateurCriteria.getPage(), histUtilisateurCriteria.getMaxResults(), histUtilisateurCriteria.getSortOrder(), histUtilisateurCriteria.getSortField());
+
+        PaginatedList paginatedList = new PaginatedList();
+        paginatedList.setList(list);
+        if (list != null && !list.isEmpty()) {
+            int dateSize = utilisateurService.getHistUtilisateurDataSize(histUtilisateurCriteria);
+            paginatedList.setDataSize(dateSize);
+        }
+
+        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/api/utilisateur/exportUtilisateursHist")
+
+    public @ResponseBody ResponseEntity<InputStreamResource> exportUtilisateursHist(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+
+        if (histUtilisateurCriteria.getExportModel() == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        histUtilisateurCriteria.setMaxResults(null);
+        List<AuditEntityDto> list = utilisateurService.findUtilisateursHistByCriteria(histUtilisateurCriteria);
+        histUtilisateurCriteria.getExportModel().setList(list);
+        return getExportedFileResource(histUtilisateurCriteria.getExportModel());
+
+    }
+
+    @PostMapping("/api/utilisateur/getHistUtilisateursDataSize")
+
+    public @ResponseBody ResponseEntity<Integer> getHistUtilisateurDataSize(@RequestBody HistUtilisateurCriteria histUtilisateurCriteria) throws Exception {
+
+        int count = utilisateurService.getHistUtilisateurDataSize(histUtilisateurCriteria);
+
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
+
+    }
+
 
 }

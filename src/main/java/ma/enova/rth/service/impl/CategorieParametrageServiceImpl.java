@@ -1,6 +1,5 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.exception.EntityAlreadyExistsException;
 import ma.enova.rth.common.exception.EntityNotFoundException;
 import ma.enova.rth.dao.criteria.core.CategorieParametrageCriteria;
 import ma.enova.rth.dao.facade.core.ICategorieParametrageRepository;

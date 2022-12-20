@@ -3,7 +3,6 @@ package ma.enova.rth.service.impl;
 import ma.enova.rth.common.bean.AuditEntityDto;
 import ma.enova.rth.common.bean.TreeModel;
 import ma.enova.rth.common.enumeration.ACTION_TYPE;
-import ma.enova.rth.common.exception.EntityAlreadyExistsException;
 import ma.enova.rth.common.exception.EntityNotFoundException;
 import ma.enova.rth.common.util.Utils;
 import ma.enova.rth.dao.criteria.core.ProfilCriteria;
@@ -43,19 +42,13 @@ import java.util.stream.Collectors;
 @Service(value = "profilService")
 public class ProfilServiceImpl implements IProfilService {
 
+    private static final int counter = 0;
     @Autowired
     private IProfilRepository profilRepository;
-
     @Autowired
     private IHistProfilRepository histProfilRepository;
-
-
-
     @Autowired
     private IRoleRepository roleRepository;
-
-
-    private static int counter = 0;
 
     /**
      * createProfil.
@@ -84,7 +77,6 @@ public class ProfilServiceImpl implements IProfilService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
     public ProfilDto updateProfil(ProfilDto profilDto) throws Exception {
-
 
 
         saveProfilAuditData(profilDto, ACTION_TYPE.UPDATE);

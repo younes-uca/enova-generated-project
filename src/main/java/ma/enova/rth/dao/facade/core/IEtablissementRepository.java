@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Interface du DAO Ietablissement
+ *
  * @author JAF
  * @version 1.2
  */
- 
-@Repository 
-public interface IEtablissementRepository extends JpaRepository<Etablissement	, Long> ,JpaSpecificationExecutor<Etablissement> {
+
+@Repository
+public interface IEtablissementRepository extends JpaRepository<Etablissement, Long>, JpaSpecificationExecutor<Etablissement> {
 
 
 }

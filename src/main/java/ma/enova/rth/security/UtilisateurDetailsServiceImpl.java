@@ -16,29 +16,29 @@ import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
 public class UtilisateurDetailsServiceImpl implements UserDetailsService {
-	/**
-	 * Manager de l'authentification
-	 */
-	@Autowired
-	private IUtilisateurRepository utilisateurRepository;
+    /**
+     * Manager de l'authentification
+     */
+    @Autowired
+    private IUtilisateurRepository utilisateurRepository;
 
-	/**
-	 * 
-	 */
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-		Utilisateur utilisateur = null;
-		try {
-			utilisateur = null;//utilisateurRepository.loadUserByUsername(username);
-		} catch (Exception ex) {
-			throw new DataRetrievalFailureException("Utilisateur " + username + " inconnu, " + ex.getMessage(), ex);
-		}
+    /**
+     *
+     */
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+        Utilisateur utilisateur = null;
+        try {
+            utilisateur = null;//utilisateurRepository.loadUserByUsername(username);
+        } catch (Exception ex) {
+            throw new DataRetrievalFailureException("Utilisateur " + username + " inconnu, " + ex.getMessage(), ex);
+        }
 
-		if (utilisateur == null) {
-			throw new UsernameNotFoundException("Utilisateur " + username + " inconnu");
-		}
+        if (utilisateur == null) {
+            throw new UsernameNotFoundException("Utilisateur " + username + " inconnu");
+        }
 
-		return new UtilisateurDetailsImpl(utilisateur);
-	}
+        return new UtilisateurDetailsImpl(utilisateur);
+    }
 
 
 }

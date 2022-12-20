@@ -6,7 +6,6 @@ import ma.enova.rth.common.bean.Log;
 import ma.enova.rth.common.util.DateUtil;
 import ma.enova.rth.common.util.RefelexivityUtil;
 import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.common.util.Utils;
 import ma.enova.rth.domain.core.Profil;
 import ma.enova.rth.domain.core.Role;
 

@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 //for jsr310 java 8 java.time.*
-@EntityScan(basePackageClasses = { RadiotherapieApplication.class, Jsr310JpaConverters.class })
+@EntityScan(basePackageClasses = {RadiotherapieApplication.class, Jsr310JpaConverters.class})
 @SpringBootApplication
 public class RadiotherapieApplication {
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(RadiotherapieApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RadiotherapieApplication.class, args);
+    }
 }

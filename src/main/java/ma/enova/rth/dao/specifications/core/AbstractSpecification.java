@@ -79,7 +79,7 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
 
     public void addPredicate(String name, String value, String valueLike) {
         if (StringUtil.isNotEmpty(valueLike)) {
-            predicates.add(builder.like(builder.lower(root.<String>get(name)), "%" + valueLike + "%"));
+            predicates.add(builder.like(builder.lower(root.get(name)), "%" + valueLike + "%"));
 
         } else if (StringUtil.isNotEmpty(value)) {
             predicates.add(builder.equal(root.<String>get(name), value));
@@ -111,11 +111,11 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
 
     public void addPredicate(String name, LocalDateTime valueMin, LocalDateTime valueMax) {
         if (valueMin != null && valueMax != null) {
-            predicates.add(builder.between(root.<LocalDateTime>get(name), valueMin, valueMax));
+            predicates.add(builder.between(root.get(name), valueMin, valueMax));
         } else if (valueMin != null) {
-            predicates.add(builder.greaterThan(root.<LocalDateTime>get(name), valueMin));
+            predicates.add(builder.greaterThan(root.get(name), valueMin));
         } else if (valueMax != null) {
-            predicates.add(builder.lessThan(root.<LocalDateTime>get(name), valueMax));
+            predicates.add(builder.lessThan(root.get(name), valueMax));
         }
     }
 
@@ -153,7 +153,7 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
 
     private void addFilterConstraint() {
         if (StringUtil.isNotEmpty(criteria.getFilterName()) && StringUtil.isNotEmpty(criteria.getFilterWord())) {
-            Expression<String> path = root.<String>get(criteria.getFilterName());
+            Expression<String> path = root.get(criteria.getFilterName());
             Expression<String> lower = builder.lower(path);
             predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
         }

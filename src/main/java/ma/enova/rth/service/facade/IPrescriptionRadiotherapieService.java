@@ -5,8 +5,6 @@ import ma.enova.rth.dao.criteria.history.HistPrescriptionRadiotherapieCriteria;
 import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
 import ma.enova.rth.service.core.IService;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Interface service prescriptionRadiotherapie

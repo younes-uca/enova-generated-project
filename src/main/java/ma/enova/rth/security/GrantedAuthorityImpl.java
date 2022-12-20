@@ -7,21 +7,21 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class GrantedAuthorityImpl implements Serializable , GrantedAuthority {
+public class GrantedAuthorityImpl implements Serializable, GrantedAuthority {
 
-	private final Role role;
+    private final Role role;
 
-	public GrantedAuthorityImpl() {
-		this.role = new Role();
-	}
+    public GrantedAuthorityImpl() {
+        this.role = new Role();
+    }
 
-	public GrantedAuthorityImpl(Role role) {
-		this.role = role;
-	}
+    public GrantedAuthorityImpl(Role role) {
+        this.role = role;
+    }
 
-	@Override
-	public String getAuthority() {
-		return role.getLibelle();
-	}
+    @Override
+    public String getAuthority() {
+        return role.getLibelle();
+    }
 
 }

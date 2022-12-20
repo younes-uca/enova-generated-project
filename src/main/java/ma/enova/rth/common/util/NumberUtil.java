@@ -17,10 +17,7 @@ public class NumberUtil {
 
     public static boolean isInteger(String value) {
         try {
-            if (Integer.valueOf(value) != null)
-                return true;
-            else
-                return false;
+            return Integer.valueOf(value) != null;
 
         } catch (Exception e) {
             return false;
@@ -29,10 +26,7 @@ public class NumberUtil {
 
     public static boolean isLong(String value) {
         try {
-            if (Long.valueOf(value) != null)
-                return true;
-            else
-                return false;
+            return Long.valueOf(value) != null;
 
         } catch (Exception e) {
             return false;
@@ -41,10 +35,7 @@ public class NumberUtil {
 
     public static boolean isLong(Object value) {
         try {
-            if (Long.valueOf(String.valueOf(value)) != null)
-                return true;
-            else
-                return false;
+            return Long.valueOf(String.valueOf(value)) != null;
 
         } catch (Exception e) {
             return false;
@@ -67,7 +58,7 @@ public class NumberUtil {
         String dd = String.valueOf(d);
         try {
             BigDecimal decimalFormat = new BigDecimal(dd);
-            decimalFormat = decimalFormat.setScale(2, BigDecimal.ROUND_HALF_UP);
+            decimalFormat = decimalFormat.setScale(2, RoundingMode.HALF_UP);
             return decimalFormat.doubleValue();
         } catch (Exception e) {
         }
@@ -96,11 +87,8 @@ public class NumberUtil {
     }
 
     public static boolean isSqlDouble(int val) {
-        if (val == Types.NUMERIC || val == Types.INTEGER || val == Types.DECIMAL || val == Types.DOUBLE
-                || val == Types.BIGINT || val == Types.SMALLINT)
-            return true;
-        else
-            return false;
+        return val == Types.NUMERIC || val == Types.INTEGER || val == Types.DECIMAL || val == Types.DOUBLE
+                || val == Types.BIGINT || val == Types.SMALLINT;
     }
 
 
@@ -122,7 +110,7 @@ public class NumberUtil {
     }
 
     public static String[] decomposerDecimal(Double b) {
-        String tab[] = new String[2];
+        String[] tab = new String[2];
         String s = formatDecimalToString(b);
         if (s.indexOf(".") != -1) {
             tab = s.split("\\.");

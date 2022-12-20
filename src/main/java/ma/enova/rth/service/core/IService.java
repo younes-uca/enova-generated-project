@@ -4,11 +4,10 @@ import ma.enova.rth.common.bean.AuditEntityDto;
 import ma.enova.rth.common.bean.BaseCriteria;
 import ma.enova.rth.common.bean.BaseDto;
 import ma.enova.rth.common.bean.BusinessObject;
-import ma.enova.rth.common.enumeration.ACTION_TYPE;
 
 import java.util.List;
 
-public interface IService<T extends BusinessObject, DTO extends BaseDto, Criteria  extends BaseCriteria,HistoryCriteria > {
+public interface IService<T extends BusinessObject, DTO extends BaseDto, Criteria extends BaseCriteria, HistoryCriteria> {
 
 
     DTO create(DTO dto) throws Exception;
@@ -38,9 +37,6 @@ public interface IService<T extends BusinessObject, DTO extends BaseDto, Criteri
     List<AuditEntityDto> findHistoryPaginatedByCriteria(HistoryCriteria historyCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     int getHistoryDataSize(HistoryCriteria historyCriteria) throws Exception;
-
-
-
 
 
 }

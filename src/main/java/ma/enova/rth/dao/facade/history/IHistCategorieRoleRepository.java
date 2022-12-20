@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Interface du DAO IhistCategorieRole
+ *
  * @author JAF
  * @version 1.2
  */
- 
-@Repository 
-public interface IHistCategorieRoleRepository extends JpaRepository<HistCategorieRole	, Long> ,JpaSpecificationExecutor<HistCategorieRole> {
+
+@Repository
+public interface IHistCategorieRoleRepository extends JpaRepository<HistCategorieRole, Long>, JpaSpecificationExecutor<HistCategorieRole> {
 
 
 }

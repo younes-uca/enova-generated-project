@@ -8,22 +8,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
-	/**
-	 * This event is executed as late as conceivably possible to indicate that
-	 * the application is ready to service requests.
-	 */
+    /**
+     * This event is executed as late as conceivably possible to indicate that
+     * the application is ready to service requests.
+     */
 
-	@Value("${server.port}")
-	private String port;
+    @Value("${server.port}")
+    private String port;
 
-	@Value("${server.servlet.context-path}")
-	private String appName;
+    @Value("${server.servlet.context-path}")
+    private String appName;
 
-	@Override
-	public void onApplicationEvent(final ApplicationReadyEvent event) {
+    @Override
+    public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-		System.out.println("Starting " + appName + " on port :" + port);
+        System.out.println("Starting " + appName + " on port :" + port);
 
-		return;
-	}
+    }
 }
