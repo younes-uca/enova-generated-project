@@ -2,7 +2,10 @@ package ma.enova.rth.controller;
 
 import ma.enova.rth.common.bean.*;
 import ma.enova.rth.common.exception.GlobalException;
-import ma.enova.rth.common.util.*;
+import ma.enova.rth.common.util.ExportUtil;
+import ma.enova.rth.common.util.FileUtils;
+import ma.enova.rth.common.util.JwtUtils;
+import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.converter.AbstractConverter;
 import ma.enova.rth.service.core.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,19 +133,10 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
 
     }
 
-   /* to be added in the generator : ProtocoleInclusion, Patient ....
-   ResponseEntity<List<BusinessDto>> getProtocoleInclusionList() throws Exception {
-
-        ProtocoleInclusionCriteria protocoleInclusionCriteria = new ProtocoleInclusionCriteria();
-        protocoleInclusionCriteria.setOrderByAsc(new String[]{"libelle"});
-
-        List<BusinessDto> list = CollectionUtils.emptyIfNull(service.findProtocoleInclusionsByCriteria(protocoleInclusionCriteria)).stream().map(protocoleInclusion -> new BusinessDto(protocoleInclusion.getId(), protocoleInclusion.getLabel())).collect(Collectors.toList());
-        if (list == null || list.isEmpty())
-            return new ResponseEntity<List<BusinessDto>>(HttpStatus.NO_CONTENT);
-
-        return new ResponseEntity<List<BusinessDto>>(list, HttpStatus.OK);
-
-    }*/
+    public ResponseEntity<AuditEntityDto> findHistoryById(Long id) throws Exception {
+        AuditEntityDto h = service.findHistoryById(id);
+        return new ResponseEntity(h, HttpStatus.OK);
+    }
 
     // Download file
     public static ResponseEntity<InputStreamResource> getExportedFileResource(ExportModel exportModel, String uploadFolder) throws Exception {
