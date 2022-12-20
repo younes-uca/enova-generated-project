@@ -10,7 +10,6 @@ import ma.enova.rth.domain.historique.HistPrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
 import ma.enova.rth.service.facade.IPrescriptionRadiotherapieService;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +30,7 @@ public class PrescriptionRadiotherapieController extends AbstractController<Pres
         super(service, abstractConverter);
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("id/{id}/")
     public ResponseEntity<PrescriptionRadiotherapieDto> findById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
         return super.findById(id, includes, excludes);
 
@@ -70,57 +69,30 @@ public class PrescriptionRadiotherapieController extends AbstractController<Pres
 
     }
 
-    @PostMapping("data-size-by-criteria")
-    public @ResponseBody ResponseEntity<Integer> getDataSize(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
+    @PostMapping("data-size-by-criteria/")
+    public ResponseEntity<Integer> getDataSize(@RequestBody PrescriptionRadiotherapieCriteria criteria) throws Exception {
         return super.getDataSize(criteria);
 
     }
 
-
-    @GetMapping("history/id/{id}")
+    @GetMapping("history/id/{id}/")
     public ResponseEntity<AuditEntityDto> findHistoryById(@PathVariable("id") Long id) throws Exception {
         return super.findHistoryById(id);
     }
 
-    @PostMapping("paginatedListHistByCriteria")
-    public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistPrescriptionRadiotherapies(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
-
-        List<AuditEntityDto> list = prescriptionRadiotherapieService.findHistoryPaginatedByCriteria(histPrescriptionRadiotherapieCriteria, histPrescriptionRadiotherapieCriteria.getPage(), histPrescriptionRadiotherapieCriteria.getMaxResults(), histPrescriptionRadiotherapieCriteria.getSortOrder(), histPrescriptionRadiotherapieCriteria.getSortField());
-
-        PaginatedList paginatedList = new PaginatedList();
-        paginatedList.setList(list);
-        if (list != null && !list.isEmpty()) {
-            int dateSize = prescriptionRadiotherapieService.getHistoryDataSize(histPrescriptionRadiotherapieCriteria);
-            paginatedList.setDataSize(dateSize);
-        }
-
-        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
+    @PostMapping("history-paginated-by-criteria/")
+    public ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(@RequestBody HistPrescriptionRadiotherapieCriteria criteria) throws Exception {
+        return super.findHistoryPaginatedByCriteria(criteria);
     }
 
-    @PostMapping("exportPrescriptionRadiotherapiesHist")
-
-    public @ResponseBody ResponseEntity<InputStreamResource> exportPrescriptionRadiotherapiesHist(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
-
-        if (histPrescriptionRadiotherapieCriteria.getExportModel() == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        histPrescriptionRadiotherapieCriteria.setMaxResults(null);
-//		List<AuditEntityDto> list = prescriptionRadiotherapieService.findHistoryPaginatedByCriteria(histPrescriptionRadiotherapieCriteria);
-//		histPrescriptionRadiotherapieCriteria.getExportModel().setList(list);
-//		return getExportedFileResource(histPrescriptionRadiotherapieCriteria.getExportModel());
-        return null;//TODO correct this bug
-
+    @PostMapping("export-history/")
+    public ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistPrescriptionRadiotherapieCriteria criteria) throws Exception {
+        return super.exportHistory(criteria);
     }
 
     @PostMapping("getHistPrescriptionRadiotherapiesDataSize")
-
-    public @ResponseBody ResponseEntity<Integer> getHistPrescriptionRadiotherapieDataSize(@RequestBody HistPrescriptionRadiotherapieCriteria histPrescriptionRadiotherapieCriteria) throws Exception {
-
-        int count = prescriptionRadiotherapieService.getHistoryDataSize(histPrescriptionRadiotherapieCriteria);
-
-        return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
+    public ResponseEntity<Integer> getHistoryDataSize(@RequestBody HistPrescriptionRadiotherapieCriteria criteria) throws Exception {
+        return super.getHistoryDataSize(criteria);
     }
 
 
