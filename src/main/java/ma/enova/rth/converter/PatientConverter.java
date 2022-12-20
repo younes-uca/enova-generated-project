@@ -24,9 +24,8 @@ public class PatientConverter extends AbstractConverter<Patient, PatientDto, His
             item.setPrenom(dto.getPrenom());
             item.setSexe(dto.getSexe());
             item.setDateNaissance(DateUtil.stringToDate(dto.getDateNaissance()));
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
+
         }
         return item;
     }
@@ -42,7 +41,7 @@ public class PatientConverter extends AbstractConverter<Patient, PatientDto, His
             dto.setDateNaissance(DateUtil.dateToString(item.getDateNaissance()));
 
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 

@@ -27,9 +27,7 @@ public class PersonnelConverter extends AbstractConverter<Personnel, PersonnelDt
             dto.setTelephone(item.getTelephone());
             dto.setMobile(item.getMobile());
             dto.setExpertise(item.isExpertise());
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
         }
         return item;
     }
@@ -48,7 +46,7 @@ public class PersonnelConverter extends AbstractConverter<Personnel, PersonnelDt
             item.setExpertise(dto.isExpertise());
 
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 

@@ -20,9 +20,8 @@ public class OrganeConverter extends AbstractConverter<Organe, OrganeDto, HistOr
             item = new Organe(dto.getId());
             item.setCode(dto.getCode());
             item.setLibelle(dto.getLibelle());
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
+
         }
         return item;
     }
@@ -35,7 +34,7 @@ public class OrganeConverter extends AbstractConverter<Organe, OrganeDto, HistOr
             dto.setCode(item.getCode());
             dto.setLibelle(item.getLibelle());
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 

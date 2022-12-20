@@ -46,8 +46,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             item.setMedecinPrescripteur(personnelConverter.getById(dto.getMedecinPrescripteur()));
             item.setProtocoleInclusion(protocoleInclusionConverter.getById(dto.getProtocoleInclusion()));
             item.setVisee(viseeConverter.getById(dto.getVisee()));
-//         if(dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-//                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
+            convertEtablissement(item, dto);
 
         }
         return item;
@@ -73,9 +72,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             dto.setMedecinPrescripteur(personnelConverter.getById(item.getMedecinPrescripteur()));
             dto.setProtocoleInclusion(protocoleInclusionConverter.getById(item.getProtocoleInclusion()));
             dto.setVisee(viseeConverter.getById(item.getVisee()));
-            /*dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
-            if (collections) {
-            }*/
+            convertEtablissement(dto, item);
 
         }
 

@@ -26,10 +26,7 @@ public class SeanceRadiotherapieConverter extends AbstractConverter<SeanceRadiot
             item.setDateFin(DateUtil.stringToDateTime(dto.getDateFin()));
             item.setMarquePresence(dto.isMarquePresence());
             item.setPrescriptionRadiotherapie(prescriptionRadiotherapieConverter.getById(dto.getPrescriptionRadiotherapie()));
-	
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
         }
         return item;
     }
@@ -45,7 +42,7 @@ public class SeanceRadiotherapieConverter extends AbstractConverter<SeanceRadiot
             dto.setPrescriptionRadiotherapie(prescriptionRadiotherapieConverter.getById(item.getPrescriptionRadiotherapie()));
 
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 

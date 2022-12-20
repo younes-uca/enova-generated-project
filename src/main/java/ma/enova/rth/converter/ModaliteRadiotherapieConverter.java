@@ -23,9 +23,8 @@ public class ModaliteRadiotherapieConverter extends AbstractConverter<ModaliteRa
             item.setActif(dto.isActif());
             item.setHl7(dto.getHl7());
             item.setOrdre(dto.getOrdre());
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
+
         }
         return item;
     }
@@ -41,7 +40,7 @@ public class ModaliteRadiotherapieConverter extends AbstractConverter<ModaliteRa
             dto.setHl7(item.getHl7());
             dto.setOrdre(item.getOrdre());
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 

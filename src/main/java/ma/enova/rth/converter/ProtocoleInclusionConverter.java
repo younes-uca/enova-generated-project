@@ -21,9 +21,8 @@ public class ProtocoleInclusionConverter extends AbstractConverter<ProtocoleIncl
             item.setCode(dto.getCode());
             item.setLibelle(dto.getLibelle());
             item.setStatus(dto.getStatus());
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
+
         }
         return item;
     }
@@ -37,7 +36,7 @@ public class ProtocoleInclusionConverter extends AbstractConverter<ProtocoleIncl
             dto.setLibelle(item.getLibelle());
             dto.setStatus(item.getStatus());
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
         }
         return dto;
 
