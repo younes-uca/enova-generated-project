@@ -49,17 +49,17 @@ public class FrequenceRadiotherapieController extends AbstractController<Frequen
     }
 
     @PostMapping("")
-    public ResponseEntity<Long> addFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
+    public ResponseEntity<Long> save(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
         return super.save(dto);
     }
 
     @PutMapping("")
-    public ResponseEntity<FrequenceRadiotherapieDto> updateFrequenceRadiotherapie(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
+    public ResponseEntity<FrequenceRadiotherapieDto> update(@RequestBody FrequenceRadiotherapieDto dto) throws Exception {
         return super.update(dto);
     }
 
     @DeleteMapping("")
-    public ResponseEntity<Void> deleteFrequenceRadiotherapie(@RequestBody List<FrequenceRadiotherapieDto> listToDelete) throws Exception {
+    public ResponseEntity<Void> delete(@RequestBody List<FrequenceRadiotherapieDto> listToDelete) throws Exception {
         return super.delete(listToDelete);
     }
 
@@ -70,7 +70,7 @@ public class FrequenceRadiotherapieController extends AbstractController<Frequen
     }
 
     @PostMapping("find-paginated-by-criteria/")
-    public ResponseEntity<PaginatedList> paginatedListFrequenceRadiotherapies(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
+    public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody FrequenceRadiotherapieCriteria criteria) throws Exception {
         return super.findPaginatedByCriteria(criteria);
     }
 
@@ -90,45 +90,19 @@ public class FrequenceRadiotherapieController extends AbstractController<Frequen
         return super.findHistoryById(id);
     }
 
-    @PostMapping("/api/frequenceRadiotherapie/paginatedListHistByCriteria")
-    @PreAuthorize("hasRole('ROLE_HIST_FREQUENCERADIOTHERAPIE')")
-    public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistFrequenceRadiotherapies(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-        List<AuditEntityDto> list = frequenceRadiotherapieService.paginatedListHistFrequenceRadiotherapies(histFrequenceRadiotherapieCriteria, histFrequenceRadiotherapieCriteria.getPage(), histFrequenceRadiotherapieCriteria.getMaxResults(), histFrequenceRadiotherapieCriteria.getSortOrder(), histFrequenceRadiotherapieCriteria.getSortField());
-
-        PaginatedList paginatedList = new PaginatedList();
-        paginatedList.setList(list);
-        if (list != null && !list.isEmpty()) {
-            int dateSize = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
-            paginatedList.setDataSize(dateSize);
-        }
-
-        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
+    @PostMapping("history-paginated-by-criteria/")
+    public @ResponseBody ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(@RequestBody HistFrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.findHistoryPaginatedByCriteria(criteria);
     }
 
-    @PostMapping("/api/frequenceRadiotherapie/exportFrequenceRadiotherapiesHist")
-
-    public @ResponseBody ResponseEntity<InputStreamResource> exportFrequenceRadiotherapiesHist(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-        if (histFrequenceRadiotherapieCriteria.getExportModel() == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        histFrequenceRadiotherapieCriteria.setMaxResults(null);
-        List<AuditEntityDto> list = frequenceRadiotherapieService.findFrequenceRadiotherapiesHistByCriteria(histFrequenceRadiotherapieCriteria);
-        histFrequenceRadiotherapieCriteria.getExportModel().setList(list);
-        return getExportedFileResource(histFrequenceRadiotherapieCriteria.getExportModel());
-
+    @PostMapping("export-history/")
+    public @ResponseBody ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistFrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.exportHistory(criteria);
     }
 
-    @PostMapping("/api/frequenceRadiotherapie/getHistFrequenceRadiotherapiesDataSize")
-
-    public @ResponseBody ResponseEntity<Integer> getHistFrequenceRadiotherapieDataSize(@RequestBody HistFrequenceRadiotherapieCriteria histFrequenceRadiotherapieCriteria) throws Exception {
-
-        int count = frequenceRadiotherapieService.getHistFrequenceRadiotherapieDataSize(histFrequenceRadiotherapieCriteria);
-
-        return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
+    @PostMapping("getHistFrequenceRadiotherapiesDataSize")
+    public @ResponseBody ResponseEntity<Integer> getHistoryDataSize(@RequestBody HistFrequenceRadiotherapieCriteria criteria) throws Exception {
+        return super.getHistoryDataSize(criteria);
     }
 
 

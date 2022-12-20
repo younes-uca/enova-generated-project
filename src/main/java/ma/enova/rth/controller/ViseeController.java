@@ -4,10 +4,18 @@ import ma.enova.rth.common.bean.AuditEntityDto;
 import ma.enova.rth.common.bean.BaseController;
 import ma.enova.rth.common.bean.PaginatedList;
 import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.converter.ViseeConverter;
+import ma.enova.rth.dao.criteria.core.ViseeCriteria;
 import ma.enova.rth.dao.criteria.core.ViseeCriteria;
 import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
+import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
+import ma.enova.rth.domain.core.Visee;
+import ma.enova.rth.domain.historique.HistVisee;
+import ma.enova.rth.dto.ViseeDto;
 import ma.enova.rth.dto.ViseeDto;
 import ma.enova.rth.service.facade.IViseeService;
+import ma.enova.rth.service.facade.IViseeService;
+import ma.enova.rth.service.impl.ViseeServiceImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -26,177 +34,73 @@ import java.util.stream.Collectors;
  */
  
 @RestController
-public class ViseeController extends BaseController {
+@RequestMapping("/api/visee/")
+public class ViseeController extends AbstractController<Visee, ViseeDto, HistVisee, ViseeCriteria, HistViseeCriteria, IViseeService, ViseeConverter> {
 
-
-/**
-	* Services metiers.
-*/
-	@Autowired
-	private IViseeService viseeService;
-
-	@GetMapping("/api/visee/{id}")
-	@PreAuthorize("hasRole('ROLE_READ_VISEE')")
-	public ResponseEntity<ViseeDto> getViseeById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
-
-		ViseeDto visee = viseeService.getViseeById(id);
-
-		if (StringUtil.isNoEmpty(includes) || StringUtil.isNoEmpty(excludes))
-			visee = new ViseeDto().mappedCustomDto(visee, includes, excludes);
-
-		return new ResponseEntity<ViseeDto>(visee, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/visee")
-	@PreAuthorize("hasRole('ROLE_CREATE_VISEE')")
-	public ResponseEntity<Long> addVisee(@RequestBody ViseeDto visee) throws Exception {
-
-		visee = viseeService.createVisee(visee);
-		
-		return new ResponseEntity<Long>(visee.getId(), HttpStatus.CREATED);
-
+	public ViseeController(IViseeService service, ViseeConverter abstractConverter) {
+		super(service, abstractConverter);
 	}
 
- 	@PutMapping("/api/visee")	
-	@PreAuthorize("hasRole('ROLE_UPDATE_VISEE')")
-	public ResponseEntity<ViseeDto> updateVisee(@RequestBody ViseeDto visee) throws Exception {
-
-		if (visee.getId() == null)
-			return new ResponseEntity<ViseeDto>(HttpStatus.CONFLICT);
-
-		visee = viseeService.updateVisee(visee);
-
-		return new ResponseEntity<ViseeDto>(visee, HttpStatus.OK);
-
+	@GetMapping("id/{id}")
+	public ResponseEntity<ViseeDto> findById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
+		return super.findById(id, includes, excludes);
 	}
-	
-	@DeleteMapping("/api/visee/delete")
-	@PreAuthorize("hasRole('ROLE_DELETE_VISEE')")
-	public ResponseEntity<Void> deleteVisee(@RequestBody List<ViseeDto> viseeList) throws Exception {
 
-		if (viseeList == null || viseeList.isEmpty())
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			
-		viseeService.deleteVisee(viseeList);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+	@PostMapping("")
+	public ResponseEntity<Long> save(@RequestBody ViseeDto dto) throws Exception {
+		return super.save(dto);
+	}
 
+	@PutMapping("")
+	public ResponseEntity<ViseeDto> update(@RequestBody ViseeDto dto) throws Exception {
+		return super.update(dto);
+	}
+
+	@DeleteMapping("")
+	public ResponseEntity<Void> delete(@RequestBody List<ViseeDto> listToDelete) throws Exception {
+		return super.delete(listToDelete);
 	}
 
 
-
-	@PostMapping("/api/visee/listByCriteria")	
-		
-	public @ResponseBody
-	ResponseEntity<List<ViseeDto>> getViseesByCriteria(@RequestBody ViseeCriteria viseeCriteria) throws Exception {
-		List<ViseeDto> list = viseeService.findViseesByCriteria(viseeCriteria);
-		if (StringUtil.isNoEmpty(viseeCriteria.getIncludes()) || StringUtil.isNoEmpty(viseeCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(visee -> new ViseeDto().mappedCustomDto(visee, viseeCriteria.getIncludes(), viseeCriteria.getExcludes())).collect(Collectors.toList());
-
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<ViseeDto>>(HttpStatus.NO_CONTENT);
-
-		return new ResponseEntity<List<ViseeDto>>(list, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/visee/paginatedListByCriteria")		
-	@PreAuthorize("hasRole('ROLE_READ_VISEE')")
-	public @ResponseBody
-	ResponseEntity<PaginatedList> paginatedListVisees(@RequestBody ViseeCriteria viseeCriteria) throws Exception {
-
-		List<ViseeDto> list = viseeService.paginatedListVisees(viseeCriteria,viseeCriteria.getPage(),viseeCriteria.getMaxResults(), viseeCriteria.getSortOrder(), viseeCriteria.getSortField());
-
-		if (StringUtil.isNoEmpty(viseeCriteria.getIncludes()) || StringUtil.isNoEmpty(viseeCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(visee -> new ViseeDto().mappedCustomDto(visee, viseeCriteria.getIncludes(), viseeCriteria.getExcludes())).collect(Collectors.toList());
-
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = viseeService.getViseeDataSize(viseeCriteria);
-			paginatedList.setDataSize(dateSize);
-		}
-		
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/visee/exportVisees")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportVisees(@RequestBody ViseeCriteria viseeCriteria) throws Exception {
-
-		if (viseeCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		viseeCriteria.setMaxResults(null);
-		List<ViseeDto> list = viseeService.findViseesByCriteria(viseeCriteria);
-		viseeCriteria.getExportModel().setList(list);
-		return getExportedFileResource(viseeCriteria.getExportModel());
-	
+	@PostMapping("find-by-criteria/")
+	public ResponseEntity<List<ViseeDto>> findByCriteria(@RequestBody ViseeCriteria criteria) throws Exception {
+		return super.findMultipleByCriteria(criteria);
 	}
 
-	@PostMapping("/api/visee/getViseesDataSize")	
-		
-	public @ResponseBody ResponseEntity<Integer> getViseeDataSize(@RequestBody ViseeCriteria viseeCriteria) throws Exception {
-
-		int count = viseeService.getViseeDataSize(viseeCriteria);
-
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
-	}
-	
-
-
-	@GetMapping("/api/visee/histVisee/{id}")	
-	@PreAuthorize("hasRole('ROLE_HIST_VISEE')")
-	public ResponseEntity<AuditEntityDto> getHistViseeById(@PathVariable("id") Long id) throws Exception {
-
-		AuditEntityDto histVisee = viseeService.getHistViseeById(id);
-
-		return new ResponseEntity<AuditEntityDto>(histVisee, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/visee/paginatedListHistByCriteria")	
-	@PreAuthorize("hasRole('ROLE_HIST_VISEE')")
-	public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistVisees(@RequestBody HistViseeCriteria histViseeCriteria) throws Exception {
-
-		List<AuditEntityDto> list = viseeService.paginatedListHistVisees(histViseeCriteria,histViseeCriteria.getPage(), histViseeCriteria.getMaxResults(), histViseeCriteria.getSortOrder(), histViseeCriteria.getSortField());
-
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = viseeService.getHistViseeDataSize(histViseeCriteria);
-			paginatedList.setDataSize(dateSize);
-		}	
-
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
+	@PostMapping("find-paginated-by-criteria/")
+	public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody ViseeCriteria criteria) throws Exception {
+		return super.findPaginatedByCriteria(criteria);
 	}
 
-	@PostMapping("/api/visee/exportViseesHist")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportViseesHist(@RequestBody HistViseeCriteria histViseeCriteria) throws Exception {
-
-		if (histViseeCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		histViseeCriteria.setMaxResults(null);
-		List<AuditEntityDto> list = viseeService.findViseesHistByCriteria(histViseeCriteria);
-		histViseeCriteria.getExportModel().setList(list);
-		return getExportedFileResource(histViseeCriteria.getExportModel());
-	
+	@PostMapping("export/")
+	public @ResponseBody ResponseEntity<InputStreamResource> export(@RequestBody ViseeCriteria criteria) throws Exception {
+		return super.export(criteria);
 	}
 
-	@PostMapping("/api/visee/getHistViseesDataSize")		
-	
-	public @ResponseBody ResponseEntity<Integer> getHistViseeDataSize(@RequestBody HistViseeCriteria histViseeCriteria) throws Exception {
-
-		int count = viseeService.getHistViseeDataSize(histViseeCriteria);
-
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
+	@PostMapping("data-size-by-criteria")
+	public @ResponseBody ResponseEntity<Integer> getDataSize(@RequestBody ViseeCriteria criteria) throws Exception {
+		return super.getDataSize(criteria);
 	}
-	
+
+
+	@GetMapping("history/id/{id}")
+	public ResponseEntity<AuditEntityDto> findHistoryById(@PathVariable("id") Long id) throws Exception {
+		return super.findHistoryById(id);
+	}
+
+	@PostMapping("history-paginated-by-criteria/")
+	public @ResponseBody ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(@RequestBody HistViseeCriteria criteria) throws Exception {
+		return super.findHistoryPaginatedByCriteria(criteria);
+	}
+
+	@PostMapping("export-history/")
+	public @ResponseBody ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistViseeCriteria criteria) throws Exception {
+		return super.exportHistory(criteria);
+	}
+
+	@PostMapping("getHistViseesDataSize")
+	public @ResponseBody ResponseEntity<Integer> getHistoryDataSize(@RequestBody HistViseeCriteria criteria) throws Exception {
+		return super.getHistoryDataSize(criteria);
+	}
 
 }

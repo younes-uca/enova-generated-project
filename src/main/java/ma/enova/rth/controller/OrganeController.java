@@ -5,11 +5,19 @@ import ma.enova.rth.common.bean.BaseController;
 import ma.enova.rth.common.bean.PaginatedList;
 import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.converter.OrganeConverter;
+import ma.enova.rth.dao.criteria.core.OrganeCriteria;
 import ma.enova.rth.dao.criteria.core.OrganeCriteria;
 import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
+import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
 import ma.enova.rth.domain.core.Organe;
+import ma.enova.rth.domain.core.Organe;
+import ma.enova.rth.domain.historique.HistOrgane;
+import ma.enova.rth.dto.OrganeDto;
 import ma.enova.rth.dto.OrganeDto;
 import ma.enova.rth.service.facade.IOrganeService;
+import ma.enova.rth.service.facade.IOrganeService;
+import ma.enova.rth.service.impl.OrganeServiceImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -21,189 +29,82 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Manager controller : Organe
- * @author JAF
- * @version 1.2
- */
  
 @RestController
-public class OrganeController extends BaseController {
+@RequestMapping("/api/modalite-radiotherapie/")
+public class OrganeController extends AbstractController<Organe, OrganeDto, HistOrgane, OrganeCriteria, HistOrganeCriteria, IOrganeService, OrganeConverter> {
 
-
-/**
-	* Services metiers.
-*/
 	@Autowired
-	private IOrganeService organeService;
-
-	@GetMapping("/api/organe/{id}")
-	@PreAuthorize("hasRole('ROLE_READ_ORGANE')")
-	public ResponseEntity<OrganeDto> getOrganeById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
-
-		OrganeDto organe = organeService.getOrganeById(id);
-
-		if (StringUtil.isNoEmpty(includes) || StringUtil.isNoEmpty(excludes))
-			organe = new OrganeDto().mappedCustomDto(organe, includes, excludes);
-
-		return new ResponseEntity<OrganeDto>(organe, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/organe")
-	@PreAuthorize("hasRole('ROLE_CREATE_ORGANE')")
-	public ResponseEntity<Long> addOrgane(@RequestBody OrganeDto organe) throws Exception {
-
-		organe = organeService.createOrgane(organe);
-		
-		return new ResponseEntity<Long>(organe.getId(), HttpStatus.CREATED);
-
+	OrganeServiceImpl organeService;
+	public OrganeController(IOrganeService service, OrganeConverter abstractConverter) {
+		super(service, abstractConverter);
 	}
 
- 	@PutMapping("/api/organe")	
-	@PreAuthorize("hasRole('ROLE_UPDATE_ORGANE')")
-	public ResponseEntity<OrganeDto> updateOrgane(@RequestBody OrganeDto organe) throws Exception {
-
-		if (organe.getId() == null)
-			return new ResponseEntity<OrganeDto>(HttpStatus.CONFLICT);
-
-		organe = organeService.updateOrgane(organe);
-
-		return new ResponseEntity<OrganeDto>(organe, HttpStatus.OK);
-
-	}
-	
-	@DeleteMapping("/api/organe/delete")
-	@PreAuthorize("hasRole('ROLE_DELETE_ORGANE')")
-	public ResponseEntity<Void> deleteOrgane(@RequestBody List<OrganeDto> organeList) throws Exception {
-
-		if (organeList == null || organeList.isEmpty())
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			
-		organeService.deleteOrgane(organeList);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-
+	@GetMapping("id/{id}")
+	public ResponseEntity<OrganeDto> findById(@PathVariable("id") Long id, String[] includes, String[] excludes) throws Exception {
+		return super.findById(id, includes, excludes);
 	}
 
-	@GetMapping("/api/orange/")
+	@PostMapping("")
+	public ResponseEntity<Long> save(@RequestBody OrganeDto dto) throws Exception {
+		return super.save(dto);
+	}
+
+	@PutMapping("")
+	public ResponseEntity<OrganeDto> update(@RequestBody OrganeDto dto) throws Exception {
+		return super.update(dto);
+	}
+
+	@DeleteMapping("")
+	public ResponseEntity<Void> delete(@RequestBody List<OrganeDto> listToDelete) throws Exception {
+		return super.delete(listToDelete);
+	}
+
+
+	@PostMapping("find-by-criteria/")
+	public ResponseEntity<List<OrganeDto>> findByCriteria(@RequestBody OrganeCriteria criteria) throws Exception {
+		return super.findMultipleByCriteria(criteria);
+	}
+
+	@PostMapping("find-paginated-by-criteria/")
+	public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody OrganeCriteria criteria) throws Exception {
+		return super.findPaginatedByCriteria(criteria);
+	}
+
+	@PostMapping("export/")
+	public @ResponseBody ResponseEntity<InputStreamResource> export(@RequestBody OrganeCriteria criteria) throws Exception {
+		return super.export(criteria);
+	}
+
+	@PostMapping("data-size-by-criteria")
+	public @ResponseBody ResponseEntity<Integer> getDataSize(@RequestBody OrganeCriteria criteria) throws Exception {
+		return super.getDataSize(criteria);
+	}
+
+
+	@GetMapping("history/id/{id}")
+	public ResponseEntity<AuditEntityDto> findHistoryById(@PathVariable("id") Long id) throws Exception {
+		return super.findHistoryById(id);
+	}
+
+	@PostMapping("history-paginated-by-criteria/")
+	public @ResponseBody ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(@RequestBody HistOrganeCriteria criteria) throws Exception {
+		return super.findHistoryPaginatedByCriteria(criteria);
+	}
+
+	@PostMapping("export-history/")
+	public @ResponseBody ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistOrganeCriteria criteria) throws Exception {
+		return super.exportHistory(criteria);
+	}
+
+	@PostMapping("getHistOrganesDataSize")
+	public @ResponseBody ResponseEntity<Integer> getHistoryDataSize(@RequestBody HistOrganeCriteria criteria) throws Exception {
+		return super.getHistoryDataSize(criteria);
+	}
+
+	@GetMapping("")
 	public List<Organe> findAll(){
 		return organeService.findAll();
 	}
-
-	@PostMapping("/api/organe/listByCriteria")	
-		
-	public @ResponseBody
-	ResponseEntity<List<OrganeDto>> getOrganesByCriteria(@RequestBody OrganeCriteria organeCriteria) throws Exception {
-
-		List<OrganeDto> list = organeService.findOrganesByCriteria(organeCriteria);
-
-		if (StringUtil.isNoEmpty(organeCriteria.getIncludes()) || StringUtil.isNoEmpty(organeCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(organe -> new OrganeDto().mappedCustomDto(organe, organeCriteria.getIncludes(), organeCriteria.getExcludes())).collect(Collectors.toList());
-
-		if (list == null || list.isEmpty())
-			return new ResponseEntity<List<OrganeDto>>(HttpStatus.NO_CONTENT);
-
-		return new ResponseEntity<List<OrganeDto>>(list, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/organe/paginatedListByCriteria")		
-	@PreAuthorize("hasRole('ROLE_READ_ORGANE')")
-	public @ResponseBody
-	ResponseEntity<PaginatedList> paginatedListOrganes(@RequestBody OrganeCriteria organeCriteria) throws Exception {
-
-		List<OrganeDto> list = organeService.paginatedListOrganes(organeCriteria,organeCriteria.getPage(),organeCriteria.getMaxResults(), organeCriteria.getSortOrder(), organeCriteria.getSortField());
-
-		if (StringUtil.isNoEmpty(organeCriteria.getIncludes()) || StringUtil.isNoEmpty(organeCriteria.getExcludes()));
-			list = CollectionUtils.emptyIfNull(list).stream().map(organe -> new OrganeDto().mappedCustomDto(organe, organeCriteria.getIncludes(), organeCriteria.getExcludes())).collect(Collectors.toList());
-
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = organeService.getOrganeDataSize(organeCriteria);
-			paginatedList.setDataSize(dateSize);
-		}
-		
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/organe/exportOrganes")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportOrganes(@RequestBody OrganeCriteria organeCriteria) throws Exception {
-
-		if (organeCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		organeCriteria.setMaxResults(null);
-		List<OrganeDto> list = organeService.findOrganesByCriteria(organeCriteria);
-		organeCriteria.getExportModel().setList(list);
-		return getExportedFileResource(organeCriteria.getExportModel());
-	
-	}
-
-	@PostMapping("/api/organe/getOrganesDataSize")	
-		
-	public @ResponseBody ResponseEntity<Integer> getOrganeDataSize(@RequestBody OrganeCriteria organeCriteria) throws Exception {
-
-		int count = organeService.getOrganeDataSize(organeCriteria);
-
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
-	}
-	
-
-
-	@GetMapping("/api/organe/histOrgane/{id}")	
-	@PreAuthorize("hasRole('ROLE_HIST_ORGANE')")
-	public ResponseEntity<AuditEntityDto> getHistOrganeById(@PathVariable("id") Long id) throws Exception {
-
-		AuditEntityDto histOrgane = organeService.getHistOrganeById(id);
-
-		return new ResponseEntity<AuditEntityDto>(histOrgane, HttpStatus.OK);
-
-	}
-	
-	@PostMapping("/api/organe/paginatedListHistByCriteria")	
-	@PreAuthorize("hasRole('ROLE_HIST_ORGANE')")
-	public @ResponseBody ResponseEntity<PaginatedList> paginatedListHistOrganes(@RequestBody HistOrganeCriteria histOrganeCriteria) throws Exception {
-
-		List<AuditEntityDto> list = organeService.paginatedListHistOrganes(histOrganeCriteria,histOrganeCriteria.getPage(), histOrganeCriteria.getMaxResults(), histOrganeCriteria.getSortOrder(), histOrganeCriteria.getSortField());
-
-		PaginatedList paginatedList=new PaginatedList();
-		paginatedList.setList(list);
-		if (list != null && !list.isEmpty()) {
-			int dateSize = organeService.getHistOrganeDataSize(histOrganeCriteria);
-			paginatedList.setDataSize(dateSize);
-		}	
-
-		return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
-
-	}
-
-	@PostMapping("/api/organe/exportOrganesHist")		
-	
-	public @ResponseBody ResponseEntity<InputStreamResource> exportOrganesHist(@RequestBody HistOrganeCriteria histOrganeCriteria) throws Exception {
-
-		if (histOrganeCriteria.getExportModel() == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		histOrganeCriteria.setMaxResults(null);
-		List<AuditEntityDto> list = organeService.findOrganesHistByCriteria(histOrganeCriteria);
-		histOrganeCriteria.getExportModel().setList(list);
-		return getExportedFileResource(histOrganeCriteria.getExportModel());
-	
-	}
-
-	@PostMapping("/api/organe/getHistOrganesDataSize")		
-	
-	public @ResponseBody ResponseEntity<Integer> getHistOrganeDataSize(@RequestBody HistOrganeCriteria histOrganeCriteria) throws Exception {
-
-		int count = organeService.getHistOrganeDataSize(histOrganeCriteria);
-
-		return new ResponseEntity<Integer>(count, HttpStatus.OK);
-
-	}
-	
 
 }
