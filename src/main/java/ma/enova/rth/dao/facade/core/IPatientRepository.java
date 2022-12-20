@@ -1,5 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
+import ma.enova.rth.domain.core.Organe;
 import ma.enova.rth.domain.core.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
  
 @Repository 
-public interface IPatientRepository extends JpaRepository<Patient	, Long> ,JpaSpecificationExecutor<Patient> {
+public interface IPatientRepository extends AbstractRepository<Patient, Long> {
 
 
 }
