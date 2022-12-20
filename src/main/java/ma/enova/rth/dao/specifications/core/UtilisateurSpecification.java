@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UtilisateurSpecification implements Specification<Utilisateur> {
 
-    private UtilisateurCriteria criteria;
+    private final UtilisateurCriteria criteria;
     private boolean distinct;
 
     public UtilisateurSpecification(UtilisateurCriteria criteria) {
@@ -45,7 +45,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("nom"), criteria.getNom()));
             }
             if (criteria.getNomLike() != null && !criteria.getNomLike().isEmpty()) {
-                Expression<String> path = root.<String>get("nom");
+                Expression<String> path = root.get("nom");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getNomLike().toLowerCase() + "%"));
             }
@@ -53,7 +53,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("prenom"), criteria.getPrenom()));
             }
             if (criteria.getPrenomLike() != null && !criteria.getPrenomLike().isEmpty()) {
-                Expression<String> path = root.<String>get("prenom");
+                Expression<String> path = root.get("prenom");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getPrenomLike().toLowerCase() + "%"));
             }
@@ -61,7 +61,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("cin"), criteria.getCin()));
             }
             if (criteria.getCinLike() != null && !criteria.getCinLike().isEmpty()) {
-                Expression<String> path = root.<String>get("cin");
+                Expression<String> path = root.get("cin");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getCinLike().toLowerCase() + "%"));
             }
@@ -69,7 +69,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("adresse"), criteria.getAdresse()));
             }
             if (criteria.getAdresseLike() != null && !criteria.getAdresseLike().isEmpty()) {
-                Expression<String> path = root.<String>get("adresse");
+                Expression<String> path = root.get("adresse");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getAdresseLike().toLowerCase() + "%"));
             }
@@ -77,7 +77,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("email"), criteria.getEmail()));
             }
             if (criteria.getEmailLike() != null && !criteria.getEmailLike().isEmpty()) {
-                Expression<String> path = root.<String>get("email");
+                Expression<String> path = root.get("email");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getEmailLike().toLowerCase() + "%"));
             }
@@ -85,7 +85,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("telephone"), criteria.getTelephone()));
             }
             if (criteria.getTelephoneLike() != null && !criteria.getTelephoneLike().isEmpty()) {
-                Expression<String> path = root.<String>get("telephone");
+                Expression<String> path = root.get("telephone");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getTelephoneLike().toLowerCase() + "%"));
             }
@@ -93,7 +93,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("mobile"), criteria.getMobile()));
             }
             if (criteria.getMobileLike() != null && !criteria.getMobileLike().isEmpty()) {
-                Expression<String> path = root.<String>get("mobile");
+                Expression<String> path = root.get("mobile");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getMobileLike().toLowerCase() + "%"));
             }
@@ -104,7 +104,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("username"), criteria.getUsername()));
             }
             if (criteria.getUsernameLike() != null && !criteria.getUsernameLike().isEmpty()) {
-                Expression<String> path = root.<String>get("username");
+                Expression<String> path = root.get("username");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getUsernameLike().toLowerCase() + "%"));
             }
@@ -112,7 +112,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("password"), criteria.getPassword()));
             }
             if (criteria.getPasswordLike() != null && !criteria.getPasswordLike().isEmpty()) {
-                Expression<String> path = root.<String>get("password");
+                Expression<String> path = root.get("password");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getPasswordLike().toLowerCase() + "%"));
             }
@@ -129,7 +129,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("oldPassword"), criteria.getOldPassword()));
             }
             if (criteria.getOldPasswordLike() != null && !criteria.getOldPasswordLike().isEmpty()) {
-                Expression<String> path = root.<String>get("oldPassword");
+                Expression<String> path = root.get("oldPassword");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getOldPasswordLike().toLowerCase() + "%"));
             }
@@ -137,7 +137,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
                 predicates.add(builder.equal(root.<String>get("newPassword"), criteria.getNewPassword()));
             }
             if (criteria.getNewPasswordLike() != null && !criteria.getNewPasswordLike().isEmpty()) {
-                Expression<String> path = root.<String>get("newPassword");
+                Expression<String> path = root.get("newPassword");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getNewPasswordLike().toLowerCase() + "%"));
             }
@@ -150,7 +150,7 @@ public class UtilisateurSpecification implements Specification<Utilisateur> {
             }
 
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

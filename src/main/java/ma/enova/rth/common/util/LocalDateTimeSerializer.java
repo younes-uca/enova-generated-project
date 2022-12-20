@@ -19,7 +19,7 @@ public class LocalDateTimeSerializer extends StdSerializer<LocalDateTime> {
 
     @Override
     public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider sp)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         gen.writeString(value.format(DateTimeFormatter.ISO_DATE_TIME));
     }
 }

@@ -21,7 +21,7 @@ public interface IRoleService {
      * @return Role
      * @throws Exception
      */
-    public RoleDto createRole(RoleDto role) throws Exception;
+    RoleDto createRole(RoleDto role) throws Exception;
 
     /**
      * updateRole.
@@ -30,7 +30,7 @@ public interface IRoleService {
      * @return Role
      * @throws Exception
      */
-    public RoleDto updateRole(RoleDto role) throws Exception;
+    RoleDto updateRole(RoleDto role) throws Exception;
 
 
     /**
@@ -40,7 +40,7 @@ public interface IRoleService {
      * @return Role
      * @throws Exception
      */
-    public RoleDto getRoleById(Long roleId) throws Exception;
+    RoleDto getRoleById(Long roleId) throws Exception;
 
     /**
      * findRolesByCriteria.
@@ -49,7 +49,7 @@ public interface IRoleService {
      * @return List<Role>
      * @throws Exception
      */
-    public List<RoleDto> findRolesByCriteria(RoleCriteria roleCriteria) throws Exception;
+    List<RoleDto> findRolesByCriteria(RoleCriteria roleCriteria) throws Exception;
 
     /**
      * findRoleByCriteria.
@@ -59,7 +59,7 @@ public interface IRoleService {
      * @throws Exception
      */
 
-    public RoleDto findRoleByCriteria(RoleCriteria roleCriteria) throws Exception;
+    RoleDto findRoleByCriteria(RoleCriteria roleCriteria) throws Exception;
 
     /**
      * paginatedListRoles.
@@ -72,7 +72,7 @@ public interface IRoleService {
      * @return List<Role>
      * @throws Exception
      */
-    public List<RoleDto> paginatedListRoles(RoleCriteria roleCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<RoleDto> paginatedListRoles(RoleCriteria roleCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * getRoleDataSize.
@@ -81,7 +81,7 @@ public interface IRoleService {
      * @return int
      * @throws Exception
      */
-    public int getRoleDataSize(RoleCriteria roleCriteria) throws Exception;
+    int getRoleDataSize(RoleCriteria roleCriteria) throws Exception;
 
     /**
      * deleteRole.
@@ -89,7 +89,7 @@ public interface IRoleService {
      * @param roleList
      * @throws Exception
      */
-    public void deleteRole(List<RoleDto> roleList) throws Exception;
+    void deleteRole(List<RoleDto> roleList) throws Exception;
 
 
 }

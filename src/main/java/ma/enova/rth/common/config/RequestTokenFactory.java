@@ -22,7 +22,7 @@ public class RequestTokenFactory {
     }
 
     public static OAuth2Request createOAuth2Request(String clientId, boolean approved, Collection<String> scope) {
-        return createOAuth2Request(Collections.<String, String>emptyMap(), clientId, approved, scope);
+        return createOAuth2Request(Collections.emptyMap(), clientId, approved, scope);
     }
 
     public static OAuth2Request createOAuth2Request(Map<String, String> parameters, String clientId, boolean approved,

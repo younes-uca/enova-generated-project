@@ -162,7 +162,7 @@ public class ExportUtil {
     }
 
     private static String formaColumnName(String columnName) {
-        String tab[] = columnName.split("\\.");
+        String[] tab = columnName.split("\\.");
         if (tab != null && tab.length > 0)
             return tab[0];
         return columnName;
@@ -205,7 +205,7 @@ public class ExportUtil {
     }
 
     private static Object getMethodByColumn(Object object, String columnName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String tab[] = columnName.split("\\.");
+        String[] tab = columnName.split("\\.");
         if (tab != null && tab.length > 3) {
             Object obj = object.getClass().getMethod("get" + capitalize(tab[1])).invoke(object);
             if (obj != null) {
@@ -225,8 +225,7 @@ public class ExportUtil {
 
         } else if (tab != null && tab.length > 1) {
             Object obj = object.getClass().getMethod("get" + capitalize(tab[1])).invoke(object);
-            if (obj != null)
-                return obj;
+            return obj;
         }
         return null;
     }

@@ -23,7 +23,7 @@ public interface IEtablissementService {
      * @return Etablissement
      * @throws Exception
      */
-    public EtablissementDto createEtablissement(EtablissementDto etablissement) throws Exception;
+    EtablissementDto createEtablissement(EtablissementDto etablissement) throws Exception;
 
     /**
      * updateEtablissement.
@@ -32,7 +32,7 @@ public interface IEtablissementService {
      * @return Etablissement
      * @throws Exception
      */
-    public EtablissementDto updateEtablissement(EtablissementDto etablissement) throws Exception;
+    EtablissementDto updateEtablissement(EtablissementDto etablissement) throws Exception;
 
 
     /**
@@ -42,7 +42,7 @@ public interface IEtablissementService {
      * @return Etablissement
      * @throws Exception
      */
-    public EtablissementDto getEtablissementById(Long etablissementId) throws Exception;
+    EtablissementDto getEtablissementById(Long etablissementId) throws Exception;
 
     /**
      * findEtablissementsByCriteria.
@@ -51,7 +51,7 @@ public interface IEtablissementService {
      * @return List<Etablissement>
      * @throws Exception
      */
-    public List<EtablissementDto> findEtablissementsByCriteria(EtablissementCriteria etablissementCriteria) throws Exception;
+    List<EtablissementDto> findEtablissementsByCriteria(EtablissementCriteria etablissementCriteria) throws Exception;
 
     /**
      * findEtablissementByCriteria.
@@ -61,7 +61,7 @@ public interface IEtablissementService {
      * @throws Exception
      */
 
-    public EtablissementDto findEtablissementByCriteria(EtablissementCriteria etablissementCriteria) throws Exception;
+    EtablissementDto findEtablissementByCriteria(EtablissementCriteria etablissementCriteria) throws Exception;
 
     /**
      * paginatedListEtablissements.
@@ -74,7 +74,7 @@ public interface IEtablissementService {
      * @return List<Etablissement>
      * @throws Exception
      */
-    public List<EtablissementDto> paginatedListEtablissements(EtablissementCriteria etablissementCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<EtablissementDto> paginatedListEtablissements(EtablissementCriteria etablissementCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * getEtablissementDataSize.
@@ -83,7 +83,7 @@ public interface IEtablissementService {
      * @return int
      * @throws Exception
      */
-    public int getEtablissementDataSize(EtablissementCriteria etablissementCriteria) throws Exception;
+    int getEtablissementDataSize(EtablissementCriteria etablissementCriteria) throws Exception;
 
     /**
      * deleteEtablissement.
@@ -91,7 +91,7 @@ public interface IEtablissementService {
      * @param etablissementList
      * @throws Exception
      */
-    public void deleteEtablissement(List<EtablissementDto> etablissementList) throws Exception;
+    void deleteEtablissement(List<EtablissementDto> etablissementList) throws Exception;
 
 
     /**
@@ -101,7 +101,7 @@ public interface IEtablissementService {
      * @return AuditEntityDto
      * @throws Exception
      */
-    public AuditEntityDto getHistEtablissementById(Long histEtablissementId) throws Exception;
+    AuditEntityDto getHistEtablissementById(Long histEtablissementId) throws Exception;
 
     /**
      * paginatedListHistEtablissements.
@@ -115,7 +115,7 @@ public interface IEtablissementService {
      * @throws Exception
      */
 
-    public List<AuditEntityDto> paginatedListHistEtablissements(HistEtablissementCriteria histEtablissementCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<AuditEntityDto> paginatedListHistEtablissements(HistEtablissementCriteria histEtablissementCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * findEtablissementHistsByCriteria.
@@ -124,7 +124,7 @@ public interface IEtablissementService {
      * @return List<AuditEntityDto>
      * @throws Exception
      */
-    public List<AuditEntityDto> findEtablissementsHistByCriteria(HistEtablissementCriteria histEtablissementCriteria) throws Exception;
+    List<AuditEntityDto> findEtablissementsHistByCriteria(HistEtablissementCriteria histEtablissementCriteria) throws Exception;
 
     /**
      * getHistEtablissementDataSize.
@@ -133,7 +133,7 @@ public interface IEtablissementService {
      * @return int
      * @throws Exception
      */
-    public int getHistEtablissementDataSize(HistEtablissementCriteria histEtablissementCriteria) throws Exception;
+    int getHistEtablissementDataSize(HistEtablissementCriteria histEtablissementCriteria) throws Exception;
 
 
 }

@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
@@ -317,12 +318,8 @@ public class CustomJdbcTokenStore implements TokenStore {
             throw new IllegalStateException("MD5 algorithm not available.  Fatal (should be in the JDK).");
         }
 
-        try {
-            byte[] bytes = digest.digest(value.getBytes("UTF-8"));
-            return String.format("%032x", new BigInteger(1, bytes));
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("UTF-8 encoding not available.  Fatal (should be in the JDK).");
-        }
+        byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+        return String.format("%032x", new BigInteger(1, bytes));
     }
 
     protected byte[] serializeAccessToken(OAuth2AccessToken token) {

@@ -13,7 +13,7 @@ public class UserUtil {
             UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return currentUser.getId();
         }
-        return 0l;
+        return 0L;
     }
 
     public static String getCurrentUserName() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EtablissementSpecification implements Specification<Etablissement> {
 
-    private EtablissementCriteria criteria;
+    private final EtablissementCriteria criteria;
     private boolean distinct;
 
     public EtablissementSpecification(EtablissementCriteria criteria) {
@@ -45,7 +45,7 @@ public class EtablissementSpecification implements Specification<Etablissement> 
                 predicates.add(builder.equal(root.<String>get("code"), criteria.getCode()));
             }
             if (criteria.getCodeLike() != null && !criteria.getCodeLike().isEmpty()) {
-                Expression<String> path = root.<String>get("code");
+                Expression<String> path = root.get("code");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getCodeLike().toLowerCase() + "%"));
             }
@@ -59,7 +59,7 @@ public class EtablissementSpecification implements Specification<Etablissement> 
                 predicates.add(builder.equal(root.<String>get("hl7"), criteria.getHl7()));
             }
             if (criteria.getHl7Like() != null && !criteria.getHl7Like().isEmpty()) {
-                Expression<String> path = root.<String>get("hl7");
+                Expression<String> path = root.get("hl7");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getHl7Like().toLowerCase() + "%"));
             }
@@ -67,7 +67,7 @@ public class EtablissementSpecification implements Specification<Etablissement> 
                 predicates.add(builder.equal(root.<Long>get("ordre"), Long.parseLong(criteria.getOrdre())));
             }
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

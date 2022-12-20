@@ -24,6 +24,5 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
         System.out.println("Starting " + appName + " on port :" + port);
 
-        return;
     }
 }

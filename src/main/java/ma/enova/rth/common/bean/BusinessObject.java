@@ -34,10 +34,7 @@ public class BusinessObject implements Serializable {
     public boolean equals(Object object) {
         if (this.id != null && object instanceof BusinessObject) {
             BusinessObject businessObject = (BusinessObject) object;
-            if (this.id.equals(businessObject.getId()))
-                return true;
-            else
-                return false;
+            return this.id.equals(businessObject.getId());
         }
         return false;
 

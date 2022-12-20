@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProfilSpecification implements Specification<Profil> {
 
-    private ProfilCriteria criteria;
+    private final ProfilCriteria criteria;
     private boolean distinct;
 
     public ProfilSpecification(ProfilCriteria criteria) {
@@ -46,7 +46,7 @@ public class ProfilSpecification implements Specification<Profil> {
                 predicates.add(builder.equal(root.<String>get("code"), criteria.getCode()));
             }
             if (criteria.getCodeLike() != null && !criteria.getCodeLike().isEmpty()) {
-                Expression<String> path = root.<String>get("code");
+                Expression<String> path = root.get("code");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getCodeLike().toLowerCase() + "%"));
             }
@@ -54,7 +54,7 @@ public class ProfilSpecification implements Specification<Profil> {
                 predicates.add(builder.equal(root.<String>get("libelle"), criteria.getLibelle()));
             }
             if (criteria.getLibelleLike() != null && !criteria.getLibelleLike().isEmpty()) {
-                Expression<String> path = root.<String>get("libelle");
+                Expression<String> path = root.get("libelle");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getLibelleLike().toLowerCase() + "%"));
             }
@@ -62,7 +62,7 @@ public class ProfilSpecification implements Specification<Profil> {
                 predicates.add(builder.equal(root.<String>get("description"), criteria.getDescription()));
             }
             if (criteria.getDescriptionLike() != null && !criteria.getDescriptionLike().isEmpty()) {
-                Expression<String> path = root.<String>get("description");
+                Expression<String> path = root.get("description");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getDescriptionLike().toLowerCase() + "%"));
             }
@@ -71,7 +71,7 @@ public class ProfilSpecification implements Specification<Profil> {
                 predicates.add(join.get("id").in(criteria.getRolesSelected()));
             }
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 @Service(value = "profilService")
 public class ProfilServiceImpl implements IProfilService {
 
-    private static int counter = 0;
+    private static final int counter = 0;
     @Autowired
     private IProfilRepository profilRepository;
     @Autowired

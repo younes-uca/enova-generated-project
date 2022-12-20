@@ -111,7 +111,7 @@ public class GlobalException extends Exception implements Serializable {
     }
 
     public String getErrorCode(ConstraintViolationException ex) {
-        Throwable errs = ((ConstraintViolationException) ex).getCause();
+        Throwable errs = ex.getCause();
         return ((SQLException) errs).getSQLState();
     }
 

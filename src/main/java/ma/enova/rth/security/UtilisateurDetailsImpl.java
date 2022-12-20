@@ -80,7 +80,7 @@ public class UtilisateurDetailsImpl implements UserDetails, Serializable {
         roleSet = new ArrayList<Role>();
         if (utilisateur.getProfil() != null && utilisateur.getProfil().getRolesList() != null && !utilisateur.getProfil().getRolesList().isEmpty())
             for (Iterator<Role> iterator = utilisateur.getProfil().getRolesList().iterator(); iterator.hasNext(); ) {
-                Role role = (Role) iterator.next();
+                Role role = iterator.next();
                 authorities.add(new GrantedAuthorityImpl(role));
                 roleSet.add(role);
             }
@@ -97,7 +97,7 @@ public class UtilisateurDetailsImpl implements UserDetails, Serializable {
         this.rolesByDomain = new ArrayList<String>();
         if (domain != null)
             for (Iterator<Role> iterator = roleSet.iterator(); iterator.hasNext(); ) {
-                Role role = (Role) iterator.next();
+                Role role = iterator.next();
                 if (role.getDomaine() != null && role.getDomaine().equals(domain))
                     this.rolesByDomain.add(role.getLibelle());
             }

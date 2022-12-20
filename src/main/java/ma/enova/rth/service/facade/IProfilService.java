@@ -24,7 +24,7 @@ public interface IProfilService {
      * @return Profil
      * @throws Exception
      */
-    public ProfilDto createProfil(ProfilDto profil) throws Exception;
+    ProfilDto createProfil(ProfilDto profil) throws Exception;
 
     /**
      * updateProfil.
@@ -33,7 +33,7 @@ public interface IProfilService {
      * @return Profil
      * @throws Exception
      */
-    public ProfilDto updateProfil(ProfilDto profil) throws Exception;
+    ProfilDto updateProfil(ProfilDto profil) throws Exception;
 
 
     /**
@@ -43,7 +43,7 @@ public interface IProfilService {
      * @return Profil
      * @throws Exception
      */
-    public ProfilDto getProfilById(Long profilId) throws Exception;
+    ProfilDto getProfilById(Long profilId) throws Exception;
 
     /**
      * findProfilsByCriteria.
@@ -52,7 +52,7 @@ public interface IProfilService {
      * @return List<Profil>
      * @throws Exception
      */
-    public List<ProfilDto> findProfilsByCriteria(ProfilCriteria profilCriteria) throws Exception;
+    List<ProfilDto> findProfilsByCriteria(ProfilCriteria profilCriteria) throws Exception;
 
     /**
      * findProfilByCriteria.
@@ -62,7 +62,7 @@ public interface IProfilService {
      * @throws Exception
      */
 
-    public ProfilDto findProfilByCriteria(ProfilCriteria profilCriteria) throws Exception;
+    ProfilDto findProfilByCriteria(ProfilCriteria profilCriteria) throws Exception;
 
     /**
      * paginatedListProfils.
@@ -75,7 +75,7 @@ public interface IProfilService {
      * @return List<Profil>
      * @throws Exception
      */
-    public List<ProfilDto> paginatedListProfils(ProfilCriteria profilCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<ProfilDto> paginatedListProfils(ProfilCriteria profilCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * getProfilDataSize.
@@ -84,7 +84,7 @@ public interface IProfilService {
      * @return int
      * @throws Exception
      */
-    public int getProfilDataSize(ProfilCriteria profilCriteria) throws Exception;
+    int getProfilDataSize(ProfilCriteria profilCriteria) throws Exception;
 
     /**
      * deleteProfil.
@@ -92,7 +92,7 @@ public interface IProfilService {
      * @param profilList
      * @throws Exception
      */
-    public void deleteProfil(List<ProfilDto> profilList) throws Exception;
+    void deleteProfil(List<ProfilDto> profilList) throws Exception;
 
 
     /**
@@ -102,7 +102,7 @@ public interface IProfilService {
      * @return AuditEntityDto
      * @throws Exception
      */
-    public AuditEntityDto getHistProfilById(Long histProfilId) throws Exception;
+    AuditEntityDto getHistProfilById(Long histProfilId) throws Exception;
 
     /**
      * paginatedListHistProfils.
@@ -116,7 +116,7 @@ public interface IProfilService {
      * @throws Exception
      */
 
-    public List<AuditEntityDto> paginatedListHistProfils(HistProfilCriteria histProfilCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<AuditEntityDto> paginatedListHistProfils(HistProfilCriteria histProfilCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * findProfilHistsByCriteria.
@@ -125,7 +125,7 @@ public interface IProfilService {
      * @return List<AuditEntityDto>
      * @throws Exception
      */
-    public List<AuditEntityDto> findProfilsHistByCriteria(HistProfilCriteria histProfilCriteria) throws Exception;
+    List<AuditEntityDto> findProfilsHistByCriteria(HistProfilCriteria histProfilCriteria) throws Exception;
 
     /**
      * getHistProfilDataSize.
@@ -134,8 +134,8 @@ public interface IProfilService {
      * @return int
      * @throws Exception
      */
-    public int getHistProfilDataSize(HistProfilCriteria histProfilCriteria) throws Exception;
+    int getHistProfilDataSize(HistProfilCriteria histProfilCriteria) throws Exception;
 
-    public List<TreeModel> getRolesCategorieByDomaine(Long domaine) throws Exception;
+    List<TreeModel> getRolesCategorieByDomaine(Long domaine) throws Exception;
 
 }

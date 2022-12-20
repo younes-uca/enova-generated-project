@@ -24,10 +24,7 @@ public class BaseDto implements Serializable {
     public boolean equals(Object object) {
         if (this.id != null && object instanceof BaseDto) {
             BaseDto dto = (BaseDto) object;
-            if (this.id.equals(dto.getId()))
-                return true;
-            else
-                return false;
+            return this.id.equals(dto.getId());
         }
         return false;
 

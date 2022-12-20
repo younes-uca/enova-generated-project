@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RoleSpecification implements Specification<Role> {
 
-    private RoleCriteria criteria;
+    private final RoleCriteria criteria;
     private boolean distinct;
 
     public RoleSpecification(RoleCriteria criteria) {
@@ -45,7 +45,7 @@ public class RoleSpecification implements Specification<Role> {
                 predicates.add(builder.equal(root.<String>get("libelle"), criteria.getLibelle()));
             }
             if (criteria.getLibelleLike() != null && !criteria.getLibelleLike().isEmpty()) {
-                Expression<String> path = root.<String>get("libelle");
+                Expression<String> path = root.get("libelle");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getLibelleLike().toLowerCase() + "%"));
             }
@@ -53,7 +53,7 @@ public class RoleSpecification implements Specification<Role> {
                 predicates.add(builder.equal(root.<String>get("description"), criteria.getDescription()));
             }
             if (criteria.getDescriptionLike() != null && !criteria.getDescriptionLike().isEmpty()) {
-                Expression<String> path = root.<String>get("description");
+                Expression<String> path = root.get("description");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getDescriptionLike().toLowerCase() + "%"));
             }
@@ -65,7 +65,7 @@ public class RoleSpecification implements Specification<Role> {
             }
 
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

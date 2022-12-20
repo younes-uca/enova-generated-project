@@ -23,7 +23,7 @@ public interface IParametrageService {
      * @return Parametrage
      * @throws Exception
      */
-    public ParametrageDto createParametrage(ParametrageDto parametrage) throws Exception;
+    ParametrageDto createParametrage(ParametrageDto parametrage) throws Exception;
 
     /**
      * updateParametrage.
@@ -32,7 +32,7 @@ public interface IParametrageService {
      * @return Parametrage
      * @throws Exception
      */
-    public ParametrageDto updateParametrage(ParametrageDto parametrage) throws Exception;
+    ParametrageDto updateParametrage(ParametrageDto parametrage) throws Exception;
 
 
     /**
@@ -42,7 +42,7 @@ public interface IParametrageService {
      * @return Parametrage
      * @throws Exception
      */
-    public ParametrageDto getParametrageById(Long parametrageId) throws Exception;
+    ParametrageDto getParametrageById(Long parametrageId) throws Exception;
 
     /**
      * findParametragesByCriteria.
@@ -51,7 +51,7 @@ public interface IParametrageService {
      * @return List<Parametrage>
      * @throws Exception
      */
-    public List<ParametrageDto> findParametragesByCriteria(ParametrageCriteria parametrageCriteria) throws Exception;
+    List<ParametrageDto> findParametragesByCriteria(ParametrageCriteria parametrageCriteria) throws Exception;
 
     /**
      * findParametrageByCriteria.
@@ -61,7 +61,7 @@ public interface IParametrageService {
      * @throws Exception
      */
 
-    public ParametrageDto findParametrageByCriteria(ParametrageCriteria parametrageCriteria) throws Exception;
+    ParametrageDto findParametrageByCriteria(ParametrageCriteria parametrageCriteria) throws Exception;
 
     /**
      * paginatedListParametrages.
@@ -74,7 +74,7 @@ public interface IParametrageService {
      * @return List<Parametrage>
      * @throws Exception
      */
-    public List<ParametrageDto> paginatedListParametrages(ParametrageCriteria parametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<ParametrageDto> paginatedListParametrages(ParametrageCriteria parametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * getParametrageDataSize.
@@ -83,7 +83,7 @@ public interface IParametrageService {
      * @return int
      * @throws Exception
      */
-    public int getParametrageDataSize(ParametrageCriteria parametrageCriteria) throws Exception;
+    int getParametrageDataSize(ParametrageCriteria parametrageCriteria) throws Exception;
 
     /**
      * deleteParametrage.
@@ -91,7 +91,7 @@ public interface IParametrageService {
      * @param parametrageList
      * @throws Exception
      */
-    public void deleteParametrage(List<ParametrageDto> parametrageList) throws Exception;
+    void deleteParametrage(List<ParametrageDto> parametrageList) throws Exception;
 
 
     /**
@@ -101,7 +101,7 @@ public interface IParametrageService {
      * @return AuditEntityDto
      * @throws Exception
      */
-    public AuditEntityDto getHistParametrageById(Long histParametrageId) throws Exception;
+    AuditEntityDto getHistParametrageById(Long histParametrageId) throws Exception;
 
     /**
      * paginatedListHistParametrages.
@@ -115,7 +115,7 @@ public interface IParametrageService {
      * @throws Exception
      */
 
-    public List<AuditEntityDto> paginatedListHistParametrages(HistParametrageCriteria histParametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception;
+    List<AuditEntityDto> paginatedListHistParametrages(HistParametrageCriteria histParametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception;
 
     /**
      * findParametrageHistsByCriteria.
@@ -124,7 +124,7 @@ public interface IParametrageService {
      * @return List<AuditEntityDto>
      * @throws Exception
      */
-    public List<AuditEntityDto> findParametragesHistByCriteria(HistParametrageCriteria histParametrageCriteria) throws Exception;
+    List<AuditEntityDto> findParametragesHistByCriteria(HistParametrageCriteria histParametrageCriteria) throws Exception;
 
     /**
      * getHistParametrageDataSize.
@@ -133,7 +133,7 @@ public interface IParametrageService {
      * @return int
      * @throws Exception
      */
-    public int getHistParametrageDataSize(HistParametrageCriteria histParametrageCriteria) throws Exception;
+    int getHistParametrageDataSize(HistParametrageCriteria histParametrageCriteria) throws Exception;
 
 
 }

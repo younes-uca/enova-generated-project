@@ -11,5 +11,5 @@ public interface UtilisateurDetailsDao {
      * @return Utilisateur
      * @throws Exception
      */
-    public Utilisateur loadUserByUsername(String username) throws Exception;
+    Utilisateur loadUserByUsername(String username) throws Exception;
 }

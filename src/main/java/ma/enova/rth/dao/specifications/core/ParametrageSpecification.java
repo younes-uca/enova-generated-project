@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ParametrageSpecification implements Specification<Parametrage> {
 
-    private ParametrageCriteria criteria;
+    private final ParametrageCriteria criteria;
     private boolean distinct;
 
     public ParametrageSpecification(ParametrageCriteria criteria) {
@@ -47,7 +47,7 @@ public class ParametrageSpecification implements Specification<Parametrage> {
                 predicates.add(builder.equal(root.<String>get("code"), criteria.getCode()));
             }
             if (criteria.getCodeLike() != null && !criteria.getCodeLike().isEmpty()) {
-                Expression<String> path = root.<String>get("code");
+                Expression<String> path = root.get("code");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getCodeLike().toLowerCase() + "%"));
             }
@@ -55,7 +55,7 @@ public class ParametrageSpecification implements Specification<Parametrage> {
                 predicates.add(builder.equal(root.<String>get("valeur"), criteria.getValeur()));
             }
             if (criteria.getValeurLike() != null && !criteria.getValeurLike().isEmpty()) {
-                Expression<String> path = root.<String>get("valeur");
+                Expression<String> path = root.get("valeur");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getValeurLike().toLowerCase() + "%"));
             }
@@ -72,7 +72,7 @@ public class ParametrageSpecification implements Specification<Parametrage> {
                 predicates.add(builder.equal(root.<String>get("description"), criteria.getDescription()));
             }
             if (criteria.getDescriptionLike() != null && !criteria.getDescriptionLike().isEmpty()) {
-                Expression<String> path = root.<String>get("description");
+                Expression<String> path = root.get("description");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getDescriptionLike().toLowerCase() + "%"));
             }
@@ -85,7 +85,7 @@ public class ParametrageSpecification implements Specification<Parametrage> {
             }
 
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

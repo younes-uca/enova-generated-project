@@ -153,7 +153,6 @@ public class UtilisateurServiceImpl implements IUtilisateurService {
     public UtilisateurDto updateUtilisateurPassword(UtilisateurDto utilisateurBean) throws Exception {
 
         Utilisateur utilisateur = utilisateurRepository.findById(utilisateurBean.getId()).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[]{Utilisateur.class.getSimpleName(), utilisateurBean.getId().toString()}));
-        ;
 
         if (!passwordEncoder.matches(utilisateurBean.getOldPassword(), utilisateur.getPassword()))
             throw new BusinessRuleException("errors.incorrect.oldPassword");

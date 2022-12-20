@@ -12,7 +12,7 @@ import java.util.List;
 
 public class HistViseeSpecification implements Specification<HistVisee> {
 
-    private HistViseeCriteria criteria;
+    private final HistViseeCriteria criteria;
     private boolean distinct;
 
     public HistViseeSpecification(HistViseeCriteria criteria) {
@@ -46,7 +46,7 @@ public class HistViseeSpecification implements Specification<HistVisee> {
                 predicates.add(builder.equal(root.<String>get("objectName"), criteria.getObjectName()));
             }
             if (criteria.getObjectNameLike() != null && !criteria.getObjectNameLike().isEmpty()) {
-                Expression<String> path = root.<String>get("objectName");
+                Expression<String> path = root.get("objectName");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getObjectNameLike().toLowerCase() + "%"));
             }
@@ -54,7 +54,7 @@ public class HistViseeSpecification implements Specification<HistVisee> {
                 predicates.add(builder.equal(root.<String>get("data"), criteria.getData()));
             }
             if (criteria.getDataLike() != null && !criteria.getDataLike().isEmpty()) {
-                Expression<String> path = root.<String>get("data");
+                Expression<String> path = root.get("data");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getDataLike().toLowerCase() + "%"));
             }
@@ -65,7 +65,7 @@ public class HistViseeSpecification implements Specification<HistVisee> {
                 predicates.add(builder.equal(root.<String>get("username"), criteria.getUsername()));
             }
             if (criteria.getUsernameLike() != null && !criteria.getUsernameLike().isEmpty()) {
-                Expression<String> path = root.<String>get("username");
+                Expression<String> path = root.get("username");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getUsernameLike().toLowerCase() + "%"));
             }
@@ -73,7 +73,7 @@ public class HistViseeSpecification implements Specification<HistVisee> {
                 predicates.add(builder.equal(root.<String>get("actionType"), criteria.getActionType()));
             }
             if (criteria.getActionTypeLike() != null && !criteria.getActionTypeLike().isEmpty()) {
-                Expression<String> path = root.<String>get("actionType");
+                Expression<String> path = root.get("actionType");
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getActionTypeLike().toLowerCase() + "%"));
             }
@@ -84,14 +84,14 @@ public class HistViseeSpecification implements Specification<HistVisee> {
                 predicates.add(builder.equal(root.<LocalDateTime>get("date"), criteria.getDate()));
             }
             if (criteria.getDateFrom() != null && criteria.getDateTo() != null) {
-                predicates.add(builder.between(root.<LocalDateTime>get("date"), criteria.getDateFrom(), criteria.getDateTo()));
+                predicates.add(builder.between(root.get("date"), criteria.getDateFrom(), criteria.getDateTo()));
             } else if (criteria.getDateFrom() != null) {
-                predicates.add(builder.greaterThan(root.<LocalDateTime>get("date"), criteria.getDateFrom()));
+                predicates.add(builder.greaterThan(root.get("date"), criteria.getDateFrom()));
             } else if (criteria.getDateTo() != null) {
-                predicates.add(builder.lessThan(root.<LocalDateTime>get("date"), criteria.getDateTo()));
+                predicates.add(builder.lessThan(root.get("date"), criteria.getDateTo()));
             }
             if (criteria.getFilterName() != null && !criteria.getFilterName().isEmpty() && criteria.getFilterWord() != null && !criteria.getFilterWord().isEmpty()) {
-                Expression<String> path = root.<String>get(criteria.getFilterName());
+                Expression<String> path = root.get(criteria.getFilterName());
                 Expression<String> lower = builder.lower(path);
                 predicates.add(builder.like(lower, "%" + criteria.getFilterWord().toLowerCase() + "%"));
             }

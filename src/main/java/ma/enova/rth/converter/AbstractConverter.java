@@ -98,13 +98,13 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
     }
 
     public DTO copyToDto(T t) {
-        DTO dto = RefelexivityUtil.<DTO>constructObjectUsingDefaultConstr(dtoType);
+        DTO dto = RefelexivityUtil.constructObjectUsingDefaultConstr(dtoType);
         copy(t, dto);
         return dto;
     }
 
     public DTO copyFromHistory(H h) {
-        DTO dto = RefelexivityUtil.<DTO>constructObjectUsingDefaultConstr(dtoType);
+        DTO dto = RefelexivityUtil.constructObjectUsingDefaultConstr(dtoType);
         copyFromHistory(h, dto);
         return dto;
     }

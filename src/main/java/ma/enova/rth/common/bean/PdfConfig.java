@@ -146,7 +146,7 @@ public class PdfConfig extends PdfPageEventHelper {
 
             InputStream is = new FileInputStream(Utils.getResourceFromcClassPath(location + System.getProperty("file.separator") + fontname).getFile());
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            byte buf[] = new byte[1024];
+            byte[] buf = new byte[1024];
 
             while (true) {
                 int size = is.read(buf);

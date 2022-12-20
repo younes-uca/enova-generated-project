@@ -84,9 +84,7 @@ public class JwtUtils implements Serializable {
     }
 
     public Boolean isTokenMalformed(String token) {
-        if (isBearerToken && !token.startsWith("Bearer "))
-            return true;
-        return false;
+        return isBearerToken && !token.startsWith("Bearer ");
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

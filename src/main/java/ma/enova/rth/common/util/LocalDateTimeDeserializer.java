@@ -19,7 +19,7 @@ public class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> {
 
     @Override
     public LocalDateTime deserialize(JsonParser jsonparser, DeserializationContext context)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         String date = jsonparser.getText();
         if (date != null && !date.isEmpty()) {
             try {
