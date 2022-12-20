@@ -2,7 +2,6 @@ package ma.enova.rth.dao.specifications.core;
 
 import ma.enova.rth.common.bean.AuditBusinessObject;
 import ma.enova.rth.common.bean.BaseCriteria;
-import ma.enova.rth.common.bean.BusinessObject;
 import ma.enova.rth.common.util.ListUtil;
 import ma.enova.rth.common.util.NumberUtil;
 import ma.enova.rth.common.util.StringUtil;
@@ -39,6 +38,12 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
     }
 
 
+    public void addEtablissementPredicate() {
+        if (criteria.getEtablissementId() != null && criteria.getEtablissementId() > 0) {
+            predicates.add(builder.equal(root.<Long>get("etablissement"), criteria.getEtablissementId()));
+        }
+    }
+
     public void addPredicate(String name, Long value) {
         if (NumberUtil.isPostif(value)) {
             predicates.add(builder.equal(root.<Long>get(name), value));
@@ -71,6 +76,7 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
         }
     }
 
+
     public void addPredicate(String name, String value, String valueLike) {
         if (StringUtil.isNotEmpty(valueLike)) {
             predicates.add(builder.like(builder.lower(root.<String>get(name)), "%" + valueLike + "%"));
@@ -94,7 +100,7 @@ public abstract class AbstractSpecification<Criteria extends BaseCriteria, T ext
 
     public void addPredicateBool(String name, String value) {
         if (StringUtil.isNotEmpty(value)) {
-            predicates.add(builder.equal(root.<Integer>get(name), Boolean.valueOf(value)));
+            predicates.add(builder.equal(root.<Boolean>get(name), Boolean.valueOf(value)));
         }
     }
 
