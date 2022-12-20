@@ -2,31 +2,31 @@ package ma.enova.rth.common.exception;
 
 public class TimeoutException extends RuntimeException {
 
-	private String[] params;
+    private String[] params;
 
-	public TimeoutException(String message) {
-		super(message);
-	}
+    public TimeoutException(String message) {
+        super(message);
+    }
 
-	public TimeoutException(String message, String[] params) {
-		super(message);
-		this.params = params;
-	}
+    public TimeoutException(String message, String[] params) {
+        super(message);
+        this.params = params;
+    }
 
-	public TimeoutException(Throwable cause) {
-		super(cause);
-	}
+    public TimeoutException(Throwable cause) {
+        super(cause);
+    }
 
-	public TimeoutException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public TimeoutException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public String[] getParams() {
-		return params;
-	}
+    public String[] getParams() {
+        return params;
+    }
 
-	public void setParams(String[] params) {
-		this.params = params;
-	}
+    public void setParams(String[] params) {
+        this.params = params;
+    }
 
 }

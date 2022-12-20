@@ -29,78 +29,78 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String[] AUTH_LINK = {"/api/**", "/configuration/**", "/auth**", "/auth/authenticate", "/auth/token", "/oauth/check_token", "/oauth/token", "/auth/logout"};
-	@Value("${security.signing-key}")
-	private String signingKey;
-	
-	@Value("${security.refresh-token}")
-	private String refresh_token;
+    private static final String[] AUTH_LINK = {"/api/**", "/configuration/**", "/auth**", "/auth/authenticate", "/auth/token", "/oauth/check_token", "/oauth/token", "/auth/logout"};
+    @Value("${security.signing-key}")
+    private String signingKey;
 
-	@Autowired
-	private AuthenticationFailure authenticationFailure;
-	@Autowired
-	private SimpleCORSFilter simplecorsfilter;
-	@Autowired
-	private AuthenticationSuccess authenticationSuccess;
-	@Autowired
-	private EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
+    @Value("${security.refresh-token}")
+    private String refresh_token;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationFailure authenticationFailure;
+    @Autowired
+    private SimpleCORSFilter simplecorsfilter;
+    @Autowired
+    private AuthenticationSuccess authenticationSuccess;
+    @Autowired
+    private EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
 
-	@Autowired
-	private DataSource dataSource;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Bean
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
+    @Autowired
+    private DataSource dataSource;
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().exceptionHandling().authenticationEntryPoint(entryPointUnauthorizedHandler).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.formLogin().successHandler(authenticationSuccess).failureHandler(authenticationFailure).and()
-				.authorizeRequests().antMatchers(AUTH_LINK).permitAll()
-				.anyRequest().authenticated();
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-		http.addFilterBefore(simplecorsfilter, ChannelProcessingFilter.class);
-		http.headers().cacheControl();
-		http.httpBasic().disable();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().exceptionHandling().authenticationEntryPoint(entryPointUnauthorizedHandler).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .formLogin().successHandler(authenticationSuccess).failureHandler(authenticationFailure).and()
+                .authorizeRequests().antMatchers(AUTH_LINK).permitAll()
+                .anyRequest().authenticated();
 
-	@Bean
-	public UserAuthenticationConverter userAuthenticationConverter() {
-		CustomUserAuthenticationConverter defaultUserAuthenticationConverter = new CustomUserAuthenticationConverter();
-		defaultUserAuthenticationConverter.setUserDetailsService(userDetailsService);
-		return defaultUserAuthenticationConverter;
-	}
+        http.addFilterBefore(simplecorsfilter, ChannelProcessingFilter.class);
+        http.headers().cacheControl();
+        http.httpBasic().disable();
+    }
 
-	@Bean
-	public JwtAccessTokenConverter accessTokenConverter() {
-		final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-		jwtAccessTokenConverter.setSigningKey(signingKey);
-		((DefaultAccessTokenConverter) jwtAccessTokenConverter.getAccessTokenConverter()).setUserTokenConverter(userAuthenticationConverter());
-		return jwtAccessTokenConverter;
-	}
+    @Bean
+    public UserAuthenticationConverter userAuthenticationConverter() {
+        CustomUserAuthenticationConverter defaultUserAuthenticationConverter = new CustomUserAuthenticationConverter();
+        defaultUserAuthenticationConverter.setUserDetailsService(userDetailsService);
+        return defaultUserAuthenticationConverter;
+    }
 
-	@Bean
-	public TokenStore tokenStore() {
-		return new CustomJdbcTokenStore(dataSource);
-	}
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(signingKey);
+        ((DefaultAccessTokenConverter) jwtAccessTokenConverter.getAccessTokenConverter()).setUserTokenConverter(userAuthenticationConverter());
+        return jwtAccessTokenConverter;
+    }
 
-	@Bean
-	@Primary
-	public DefaultTokenServices tokenServices() {
-		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-		defaultTokenServices.setTokenStore(tokenStore());
-		defaultTokenServices.setSupportRefreshToken(Boolean.valueOf(refresh_token));
-		return defaultTokenServices;
-	}
+    @Bean
+    public TokenStore tokenStore() {
+        return new CustomJdbcTokenStore(dataSource);
+    }
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setSupportRefreshToken(Boolean.valueOf(refresh_token));
+        return defaultTokenServices;
+    }
 
 }

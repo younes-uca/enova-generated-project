@@ -8,7 +8,10 @@ import ma.enova.rth.common.bean.BusinessObject;
 import ma.enova.rth.common.util.DateUtil;
 import ma.enova.rth.common.util.RefelexivityUtil;
 import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.common.util.Utils;
+import ma.enova.rth.domain.core.Etablissement;
+import ma.enova.rth.domain.core.Visee;
+import ma.enova.rth.dto.EtablissementDto;
+import ma.enova.rth.dto.ViseeDto;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -31,6 +34,15 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
     public abstract T toItem(DTO dto);
 
     public abstract DTO toDto(T item);
+
+    public void convertEtablissement(Visee item, ViseeDto dto) {
+        if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
+            item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
+    }
+
+    public void convertEtablissement(ViseeDto dto, Visee item) {
+        dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, 0) : null);
+    }
 
     public List<T> toItem(List<DTO> dtos) {
         List<T> items = new ArrayList();
@@ -90,11 +102,13 @@ public abstract class AbstractConverter<T extends BusinessObject, DTO extends Ba
         copy(t, dto);
         return dto;
     }
+
     public DTO copyFromHistory(H h) {
         DTO dto = RefelexivityUtil.<DTO>constructObjectUsingDefaultConstr(dtoType);
         copyFromHistory(h, dto);
         return dto;
     }
+
     private void copy(T t, DTO dto) {
         if (t != null && dto != null && t instanceof AuditBusinessObject && dto instanceof AuditBaseDto) {
             AuditBusinessObject audited = (AuditBusinessObject) t;

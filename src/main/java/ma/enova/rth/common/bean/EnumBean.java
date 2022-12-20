@@ -2,34 +2,34 @@ package ma.enova.rth.common.bean;
 
 import java.io.Serializable;
 
-public class EnumBean implements Serializable{
+public class EnumBean implements Serializable {
 
-	private Integer id;
-	private String label;
+    private Integer id;
+    private String label;
 
-	public Integer getId() {
-		return id;
-	}
+    public EnumBean(Integer id, String label) {
+        this.id = id;
+        this.label = label;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public EnumBean(Integer id, String label) {
-		this.id = id;
-		this.label = label;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public String toString() {
-		return this.label;
-	}
+    public String toString() {
+        return this.label;
+    }
 
 }

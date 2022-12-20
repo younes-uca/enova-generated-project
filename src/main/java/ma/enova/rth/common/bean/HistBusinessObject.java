@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * Classe mère abstraite de tous les Objets métier.
- * 
+ *
  * @author JAF
  * @version 1.2
  */
@@ -13,98 +13,112 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class HistBusinessObject extends BusinessObject {
 
-	/** ObjectName */
-	private String objectName;
+    /**
+     * ObjectName
+     */
+    private String objectName;
 
-	/** data */
-	private String data;
+    /**
+     * data
+     */
+    private String data;
 
-	/** UserId */
-	private Long userId;
+    /**
+     * UserId
+     */
+    private Long userId;
 
-	/** Username */
-	private String username;
+    /**
+     * Username
+     */
+    private String username;
 
-	/** Type_action */
-	private String actionType;
+    /**
+     * Type_action
+     */
+    private String actionType;
 
-	/** ObjectId */
-	private Long objectId;
+    /**
+     * ObjectId
+     */
+    private Long objectId;
 
-	/** Date */
-	private LocalDateTime date;
+    /**
+     * Date
+     */
+    private LocalDateTime date;
 
-	/**
-	 * Constructeur par défaut.
-	 */
-	public HistBusinessObject() {
-		super();
-	}
+    /**
+     * Constructeur par défaut.
+     */
+    public HistBusinessObject() {
+        super();
+    }
 
-	public HistBusinessObject(Long id) {
-		super(id);
-		this.id = id;
-	}
+    public HistBusinessObject(Long id) {
+        super(id);
+        this.id = id;
+    }
 
-	public String getObjectName() {
-		return objectName;
-	}
+    public String getObjectName() {
+        return objectName;
+    }
 
-	public void setObjectName(String objectName) {
-		this.objectName = objectName;
-	}
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public String getData() {
+        return data;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setData(String data) {
+        this.data = data;
+    }
 
-	public Long getUserId() {
-		return userId;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getActionType() {
-		return actionType;
-	}
+    public String getActionType() {
+        return actionType;
+    }
 
-	public void setActionType(String actionType) {
-		this.actionType = actionType;
-	}
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
 
-	public Long getObjectId() {
-		return objectId;
-	}
+    public Long getObjectId() {
+        return objectId;
+    }
 
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
-	}
+    public void setObjectId(Long objectId) {
+        this.objectId = objectId;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public LocalDateTime getDate() {
+        return date;
+    }
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 
-	public String toString() {
+    public String toString() {
 
-		return this.getId() != null ? this.getId().toString() : null;
-	}
+        return this.getId() != null ? this.getId().toString() : null;
+    }
 
 }

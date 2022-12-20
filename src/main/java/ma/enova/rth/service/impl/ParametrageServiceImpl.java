@@ -30,8 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
 /**
  * Implementation du service Iparametrage
+ *
  * @author JAF
  * @version 1.2
  */
@@ -39,296 +41,291 @@ import java.util.stream.Collectors;
 @Service(value = "parametrageService")
 public class ParametrageServiceImpl implements IParametrageService {
 
-	@Autowired
-	private IParametrageRepository parametrageRepository;
-	
-	@Autowired
-	private IHistParametrageRepository histParametrageRepository;
+    @Autowired
+    private IParametrageRepository parametrageRepository;
+
+    @Autowired
+    private IHistParametrageRepository histParametrageRepository;
 
 
+    /**
+     * createParametrage.
+     *
+     * @param parametrage
+     * @return Parametrage
+     * @throws Exception
+     */
 
-	/**
-	 * createParametrage.
-	 * 
-	 * @param parametrage
-	 * @return Parametrage
-	 * @throws Exception
-	 */
-	 
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
-	public ParametrageDto createParametrage(ParametrageDto parametrageDto) throws Exception {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
+    public ParametrageDto createParametrage(ParametrageDto parametrageDto) throws Exception {
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (currentUser.getEtablissement() != null)
-			parametrageDto.setEtablissement(new EtablissementDto(currentUser.getEtablissement().getId()));	
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (currentUser.getEtablissement() != null)
+            parametrageDto.setEtablissement(new EtablissementDto(currentUser.getEtablissement().getId()));
 
-		Parametrage parametrage = new Parametrage();
-		parametrage = parametrageDto.convertToEntity(parametrage, parametrageDto);
-		Parametrage newParametrage = parametrageRepository.save(parametrage);
-		parametrageDto.setId(newParametrage.getId());		
-
+        Parametrage parametrage = new Parametrage();
+        parametrage = parametrageDto.convertToEntity(parametrage, parametrageDto);
+        Parametrage newParametrage = parametrageRepository.save(parametrage);
+        parametrageDto.setId(newParametrage.getId());
 
 
-			
-		return parametrageDto;
-	}
-	
-	/**
-	 * updateParametrage.
-	 * 
-	 * @param parametrage
-	 * @return Parametrage
-	 * @throws Exception
-	 */
-	 
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)	 	
-	public ParametrageDto updateParametrage(ParametrageDto parametrageDto) throws Exception {
+        return parametrageDto;
+    }
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    /**
+     * updateParametrage.
+     *
+     * @param parametrage
+     * @return Parametrage
+     * @throws Exception
+     */
 
-		saveParametrageAuditData(parametrageDto, ACTION_TYPE.UPDATE);
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
+    public ParametrageDto updateParametrage(ParametrageDto parametrageDto) throws Exception {
 
-		Parametrage parametrage = parametrageRepository.findById(parametrageDto.getId()).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[] { Parametrage.class.getSimpleName(), parametrageDto.getId().toString() }));
-		parametrage = parametrageDto.convertToEntity(parametrage, parametrageDto);
-		parametrageRepository.saveAndFlush(parametrage);
-		
-		return parametrageDto;
-	}
-	
-	/**
-	 * getParametrageById.
-	 * 
-	 * @param parametrageId
-	 * @return Parametrage
-	 * @throws Exception
-	 */
-	public ParametrageDto getParametrageById(Long parametrageId) throws Exception {
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		Parametrage parametrage = parametrageRepository.findById(parametrageId).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[] { Parametrage.class.getSimpleName(), parametrageId.toString() }));
+        saveParametrageAuditData(parametrageDto, ACTION_TYPE.UPDATE);
 
-		return  new ParametrageDto(parametrage, true, 0);
+        Parametrage parametrage = parametrageRepository.findById(parametrageDto.getId()).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[]{Parametrage.class.getSimpleName(), parametrageDto.getId().toString()}));
+        parametrage = parametrageDto.convertToEntity(parametrage, parametrageDto);
+        parametrageRepository.saveAndFlush(parametrage);
 
-	}
-	
+        return parametrageDto;
+    }
 
-	/**
-	 * findParametragesByCriteria.
-	 * 
-	 * @param parametrageCriteria
-	 * @return List<Parametrage>
-	 * @throws Exception
-	 */	
-	public List<ParametrageDto> findParametragesByCriteria(ParametrageCriteria parametrageCriteria) throws Exception {
-					 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);		
-		
-		Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
-		
-		if (parametrageCriteria.isPeagable()) {
-			Pageable pageable = PageRequest.of(0, parametrageCriteria.getMaxResults());
-			return parametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
+    /**
+     * getParametrageById.
+     *
+     * @param parametrageId
+     * @return Parametrage
+     * @throws Exception
+     */
+    public ParametrageDto getParametrageById(Long parametrageId) throws Exception {
 
-		} else {
-			return parametrageRepository.findAll(specification).stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
-		}
-		
-	}
-	
-	/**
-	 * findParametrageByCriteria.
-	 * 
-	 * @param parametrageCriteria
-	 * @return Parametrage 
-	 * @throws Exception
-	 */
-	
-	public ParametrageDto findParametrageByCriteria(ParametrageCriteria  parametrageCriteria) throws Exception {
+        Parametrage parametrage = parametrageRepository.findById(parametrageId).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[]{Parametrage.class.getSimpleName(), parametrageId.toString()}));
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);		
-		
-		Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
-		
-		Parametrage parametrage = parametrageRepository.findOne(specification).orElse(null);
-		
-		ParametrageDto parametrageDto = null;
-		if (parametrage != null) {
-			parametrageDto = new ParametrageDto();
-			return new ParametrageDto(parametrage, true);
-		}
+        return new ParametrageDto(parametrage, true, 0);
 
-		return parametrageDto;
-	}
+    }
 
-	/**
-	 * paginatedListParametrages.
-	 * 
-	 * @param parametrageCriteria
-	 * @param page
-	 * @param pageSize
-	 * @param order
-	 * @param sortField
-	 * @return List<Parametrage>
-	 * @throws Exception
-	 */
-	 
-	public List<ParametrageDto> paginatedListParametrages(ParametrageCriteria parametrageCriteria,int page,int pageSize, String order, String sortField) throws Exception {
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);		
-		
-		Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
-		order = order != null && !order.isEmpty() ? order : "desc";
-		sortField = sortField != null && !sortField.isEmpty() ? sortField : "id";
-		Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.fromString(order), sortField);
+    /**
+     * findParametragesByCriteria.
+     *
+     * @param parametrageCriteria
+     * @return List<Parametrage>
+     * @throws Exception
+     */
+    public List<ParametrageDto> findParametragesByCriteria(ParametrageCriteria parametrageCriteria) throws Exception {
 
-		return parametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
-	}
-	
-	/**
-	 * getParametrageDataSize.
-	 * 
-	 * @param parametrageCriteria
-	 * @return int
-	 * @throws Exception
-	 */
-	public int getParametrageDataSize(ParametrageCriteria parametrageCriteria) throws Exception {
-	
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);		
-		
-		Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria, true);
-		
-		return ((Long)  parametrageRepository.count(specification)).intValue();
-		
-	}
-	
-	/**
-	 * deleteParametrage.
-	 * 
-	 * @param parametrageList
-	 * @throws Exception
-	 */
-	 
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)	 
-	public void deleteParametrage(List<ParametrageDto> parametrageList) throws Exception {
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);
 
-		UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
 
-		if (parametrageList != null)
-			for (ParametrageDto parametrageDto : parametrageList) {
-					Parametrage toBeDeleted = parametrageRepository.findById(parametrageDto.getId()).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[] { Parametrage.class.getSimpleName(), parametrageDto.getId().toString() }));
+        if (parametrageCriteria.isPeagable()) {
+            Pageable pageable = PageRequest.of(0, parametrageCriteria.getMaxResults());
+            return parametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
 
-					parametrageRepository.delete(toBeDeleted);
+        } else {
+            return parametrageRepository.findAll(specification).stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
+        }
 
-					HistParametrage histParametrage = new HistParametrage();
-					histParametrage.setActionType(ACTION_TYPE.DELETE.name());
-					histParametrage.setObjectName("parametrage");
-					histParametrage.setObjectId(parametrageDto.getId());
-					String parametrageValue =  new ObjectMapper().writeValueAsString(parametrageDto);
-					histParametrage.setData(parametrageValue);
-					histParametrage.setUserId(currentUser.getId());
-					histParametrage.setUsername(currentUser.getUsername());
-					histParametrage.setDate(LocalDateTime.now());
-					histParametrageRepository.save(histParametrage);					
-			}
-	}
-	
-	
+    }
 
-	
-	private void saveParametrageAuditData(ParametrageDto parametrage, ACTION_TYPE action) throws Exception {
+    /**
+     * findParametrageByCriteria.
+     *
+     * @param parametrageCriteria
+     * @return Parametrage
+     * @throws Exception
+     */
 
-		ParametrageDto oldParametrage = getParametrageById(parametrage.getId());
-		if (Utils.compareObjectsDiff(parametrage, oldParametrage)) {
+    public ParametrageDto findParametrageByCriteria(ParametrageCriteria parametrageCriteria) throws Exception {
 
-			UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			HistParametrage histParametrage = new HistParametrage();
-			histParametrage.setActionType(action.name());
-			histParametrage.setObjectName("parametrage");
-			histParametrage.setObjectId(parametrage.getId());
-			histParametrage.setUserId(currentUser.getId());
-			histParametrage.setUsername(currentUser.getUsername());
-			String parametrageValue =  new ObjectMapper().writeValueAsString(parametrage);
-			histParametrage.setData(parametrageValue);
-			histParametrage.setDate(LocalDateTime.now());
-			histParametrageRepository.save(histParametrage);
-		}
-	}	
-	
-	/**
-	 * getHistParametrageById.
-	 * 
-	 * @param histParametrageId
-	 * @return AuditEntityDto
-	 * @throws Exception
-	 */
-	public AuditEntityDto getHistParametrageById(Long histParametrageId) throws Exception {
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);
 
-		HistParametrage histParametrage = histParametrageRepository.findById(histParametrageId).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[] { HistParametrage.class.getSimpleName(), histParametrageId.toString() }));
+        Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
 
-			return  new AuditEntityDto(histParametrage);
+        Parametrage parametrage = parametrageRepository.findOne(specification).orElse(null);
 
-	}
-	
+        ParametrageDto parametrageDto = null;
+        if (parametrage != null) {
+            parametrageDto = new ParametrageDto();
+            return new ParametrageDto(parametrage, true);
+        }
 
-	/**
-	 * paginatedListHistParametrages.
-	 * 
-	 * @param histParametrageCriteria
-	 * @param page
-	 * @param pageSize
-	 * @param order
-	 * @param sortField
-	 * @return List<HistParametrage>
-	 * @throws Exception
-	 */
-	 
-	public List<AuditEntityDto> paginatedListHistParametrages(HistParametrageCriteria histParametrageCriteria,int page,int pageSize, String order, String sortField) throws Exception {
+        return parametrageDto;
+    }
 
-		Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria);
-		order = order != null && !order.isEmpty() ? order : "desc";
-		sortField = sortField != null && !sortField.isEmpty() ? sortField : "id";
-		Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.fromString(order), sortField);
+    /**
+     * paginatedListParametrages.
+     *
+     * @param parametrageCriteria
+     * @param page
+     * @param pageSize
+     * @param order
+     * @param sortField
+     * @return List<Parametrage>
+     * @throws Exception
+     */
 
-		return histParametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
-	}
+    public List<ParametrageDto> paginatedListParametrages(ParametrageCriteria parametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception {
 
-	/**
-	 * findParametragesHistByCriteria.
-	 * 
-	 * @param HistParametrageCriteria
-	 * @return List<HistParametrage>
-	 * @throws Exception
-	 */	
-	public List<AuditEntityDto> findParametragesHistByCriteria(HistParametrageCriteria histParametrageCriteria) throws Exception {
-					 
-		Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria);
-		
-		if (histParametrageCriteria.isPeagable()) {
-			Pageable pageable = PageRequest.of(0, histParametrageCriteria.getMaxResults());
-			return histParametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);
 
-		} else {
-			return histParametrageRepository.findAll(specification).stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
-		}
-		
-	}
+        Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria);
+        order = order != null && !order.isEmpty() ? order : "desc";
+        sortField = sortField != null && !sortField.isEmpty() ? sortField : "id";
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.fromString(order), sortField);
 
-	/**
-	 * getHistParametrageDataSize.
-	 * 
-	 * @param histParametrageCriteria
-	 * @return int
-	 * @throws Exception
-	 */
-	public int getHistParametrageDataSize(HistParametrageCriteria histParametrageCriteria) throws Exception {
-	
-		Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria, true);
-		
-		return ((Long)  histParametrageRepository.count(specification)).intValue();
-		
-	}	
+        return parametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new ParametrageDto(parametrage)).collect(Collectors.toList());
+    }
+
+    /**
+     * getParametrageDataSize.
+     *
+     * @param parametrageCriteria
+     * @return int
+     * @throws Exception
+     */
+    public int getParametrageDataSize(ParametrageCriteria parametrageCriteria) throws Exception {
+
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        parametrageCriteria.setEtablissementId(currentUser.getEtablissement() != null ? currentUser.getEtablissement().getId() : null);
+
+        Specification<Parametrage> specification = new ParametrageSpecification(parametrageCriteria, true);
+
+        return ((Long) parametrageRepository.count(specification)).intValue();
+
+    }
+
+    /**
+     * deleteParametrage.
+     *
+     * @param parametrageList
+     * @throws Exception
+     */
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, readOnly = false)
+    public void deleteParametrage(List<ParametrageDto> parametrageList) throws Exception {
+
+        UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (parametrageList != null)
+            for (ParametrageDto parametrageDto : parametrageList) {
+                Parametrage toBeDeleted = parametrageRepository.findById(parametrageDto.getId()).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[]{Parametrage.class.getSimpleName(), parametrageDto.getId().toString()}));
+
+                parametrageRepository.delete(toBeDeleted);
+
+                HistParametrage histParametrage = new HistParametrage();
+                histParametrage.setActionType(ACTION_TYPE.DELETE.name());
+                histParametrage.setObjectName("parametrage");
+                histParametrage.setObjectId(parametrageDto.getId());
+                String parametrageValue = new ObjectMapper().writeValueAsString(parametrageDto);
+                histParametrage.setData(parametrageValue);
+                histParametrage.setUserId(currentUser.getId());
+                histParametrage.setUsername(currentUser.getUsername());
+                histParametrage.setDate(LocalDateTime.now());
+                histParametrageRepository.save(histParametrage);
+            }
+    }
+
+
+    private void saveParametrageAuditData(ParametrageDto parametrage, ACTION_TYPE action) throws Exception {
+
+        ParametrageDto oldParametrage = getParametrageById(parametrage.getId());
+        if (Utils.compareObjectsDiff(parametrage, oldParametrage)) {
+
+            UtilisateurDetailsImpl currentUser = (UtilisateurDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            HistParametrage histParametrage = new HistParametrage();
+            histParametrage.setActionType(action.name());
+            histParametrage.setObjectName("parametrage");
+            histParametrage.setObjectId(parametrage.getId());
+            histParametrage.setUserId(currentUser.getId());
+            histParametrage.setUsername(currentUser.getUsername());
+            String parametrageValue = new ObjectMapper().writeValueAsString(parametrage);
+            histParametrage.setData(parametrageValue);
+            histParametrage.setDate(LocalDateTime.now());
+            histParametrageRepository.save(histParametrage);
+        }
+    }
+
+    /**
+     * getHistParametrageById.
+     *
+     * @param histParametrageId
+     * @return AuditEntityDto
+     * @throws Exception
+     */
+    public AuditEntityDto getHistParametrageById(Long histParametrageId) throws Exception {
+
+        HistParametrage histParametrage = histParametrageRepository.findById(histParametrageId).orElseThrow(() -> new EntityNotFoundException("errors.notFound", new String[]{HistParametrage.class.getSimpleName(), histParametrageId.toString()}));
+
+        return new AuditEntityDto(histParametrage);
+
+    }
+
+
+    /**
+     * paginatedListHistParametrages.
+     *
+     * @param histParametrageCriteria
+     * @param page
+     * @param pageSize
+     * @param order
+     * @param sortField
+     * @return List<HistParametrage>
+     * @throws Exception
+     */
+
+    public List<AuditEntityDto> paginatedListHistParametrages(HistParametrageCriteria histParametrageCriteria, int page, int pageSize, String order, String sortField) throws Exception {
+
+        Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria);
+        order = order != null && !order.isEmpty() ? order : "desc";
+        sortField = sortField != null && !sortField.isEmpty() ? sortField : "id";
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.fromString(order), sortField);
+
+        return histParametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
+    }
+
+    /**
+     * findParametragesHistByCriteria.
+     *
+     * @param HistParametrageCriteria
+     * @return List<HistParametrage>
+     * @throws Exception
+     */
+    public List<AuditEntityDto> findParametragesHistByCriteria(HistParametrageCriteria histParametrageCriteria) throws Exception {
+
+        Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria);
+
+        if (histParametrageCriteria.isPeagable()) {
+            Pageable pageable = PageRequest.of(0, histParametrageCriteria.getMaxResults());
+            return histParametrageRepository.findAll(specification, pageable).getContent().stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
+
+        } else {
+            return histParametrageRepository.findAll(specification).stream().map(parametrage -> new AuditEntityDto(parametrage)).collect(Collectors.toList());
+        }
+
+    }
+
+    /**
+     * getHistParametrageDataSize.
+     *
+     * @param histParametrageCriteria
+     * @return int
+     * @throws Exception
+     */
+    public int getHistParametrageDataSize(HistParametrageCriteria histParametrageCriteria) throws Exception {
+
+        Specification<HistParametrage> specification = new HistParametrageSpecification(histParametrageCriteria, true);
+
+        return ((Long) histParametrageRepository.count(specification)).intValue();
+
+    }
 
 }

@@ -4,13 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import ma.enova.rth.common.bean.AuditBaseDto;
 import ma.enova.rth.common.bean.Log;
 import ma.enova.rth.common.enumeration.STATUT_PROTOCOLEINCLUSION;
-import ma.enova.rth.common.util.Utils;
-import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.core.ProtocoleInclusion;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.common.util.Utils;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProtocoleInclusionDto extends AuditBaseDto {
 
@@ -51,6 +45,7 @@ public class ProtocoleInclusionDto extends AuditBaseDto {
     public ProtocoleInclusionDto(Long id) {
         super(id);
     }
+
     @Log
     public String getCode() {
         return this.code;

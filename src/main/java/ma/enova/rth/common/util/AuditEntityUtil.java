@@ -43,7 +43,6 @@ public class AuditEntityUtil {
     }
 
 
-
     public static <T extends BaseDto> void handlCollection(T oldVal, List<AuditEntity> list, LocalDateTime d, Method method, Object value1, Object value2) {
         List coll1 = new ArrayList();
         List coll2 = new ArrayList();
@@ -83,7 +82,6 @@ public class AuditEntityUtil {
             list.add(auditEntity);
         }
     }
-
 
 
     private static String formatName(String name) {

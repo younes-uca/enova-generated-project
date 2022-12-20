@@ -9,109 +9,113 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class AuditBaseDto extends BaseDto {
 
 
-	/** created on */
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)	
-	private String createdOn;
+    @JsonIgnore
+    protected int maxLevel = 2;
+    /**
+     * created on
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String createdOn;
+    /**
+     * updated on
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String updatedOn;
+    /**
+     * created by
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String createdBy;
+    /**
+     * updated by
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String updatedBy;
 
-	/** updated on */
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)	
-	private String updatedOn;
+    /**
+     * Constructeur par défaut.
+     */
+    public AuditBaseDto() {
+    }
 
-	/** created by */
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)	
-	private String createdBy;
+    public AuditBaseDto(Long id) {
+        super(id);
+    }
 
-	/** updated by */
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)	
-	private String updatedBy;
+    /**
+     * created date
+     *
+     * @return String
+     */
+    @JsonProperty(access = Access.READ_ONLY)
+    public String getCreatedOn() {
+        return createdOn;
+    }
 
-	@JsonIgnore
-	protected int maxLevel = 2;
+    /**
+     * created date
+     *
+     * @param createOn
+     */
+    public void setCreatedOn(String createOn) {
+        this.createdOn = createOn;
+    }
 
-	/**
-	 * Constructeur par défaut.
-	 */
-	public AuditBaseDto() {
-	}
+    /**
+     * updated date
+     *
+     * @return String
+     */
+    @JsonProperty(access = Access.READ_ONLY)
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
 
-	public AuditBaseDto(Long id) {
-		super(id);
-	}
+    /**
+     * updated date
+     *
+     * @param updatedOn
+     */
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 
-	/**
-	 * created date
-	 * 
-	 * @return String
-	 */
-	@JsonProperty(access = Access.READ_ONLY)
-	public String getCreatedOn() {
-		return createdOn;
-	}
+    /**
+     * created user
+     *
+     * @return String
+     */
+    @JsonProperty(access = Access.READ_ONLY)
+    public String getCreatedBy() {
+        return createdBy != null ? createdBy : "";
+    }
 
-	/**
-	 * created date
-	 * 
-	 * @param createOn
-	 */
-	public void setCreatedOn(String createOn) {
-		this.createdOn = createOn;
-	}
+    /**
+     * created user
+     *
+     * @param createdBy
+     */
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	/**
-	 * updated date
-	 * 
-	 * @return String
-	 */
-	@JsonProperty(access = Access.READ_ONLY)
-	public String getUpdatedOn() {
-		return updatedOn;
-	}
+    /**
+     * updated user
+     *
+     * @return String
+     */
+    @JsonProperty(access = Access.READ_ONLY)
+    public String getUpdatedBy() {
+        return updatedBy != null ? updatedBy : "";
+    }
 
-	/**
-	 * updated date
-	 * 
-	 * @param updatedOn
-	 */
-	public void setUpdatedOn(String updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-
-	/**
-	 * created user
-	 * 
-	 * @return String
-	 */
-	@JsonProperty(access = Access.READ_ONLY)
-	public String getCreatedBy() {
-		return createdBy != null ? createdBy : "";
-	}
-
-	/**
-	 * created user
-	 * 
-	 * @param createdBy
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	/**
-	 * updated user
-	 * 
-	 * @return String
-	 */
-	@JsonProperty(access = Access.READ_ONLY)
-	public String getUpdatedBy() {
-		return updatedBy != null ? updatedBy : "";
-	}
-
-	/**
-	 * updated user
-	 * 
-	 * @param UpdatedBy
-	 */
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    /**
+     * updated user
+     *
+     * @param UpdatedBy
+     */
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
 }

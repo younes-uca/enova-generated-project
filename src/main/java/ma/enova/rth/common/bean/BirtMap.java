@@ -5,48 +5,48 @@ import ma.enova.rth.common.enumeration.PRAMAMETRE_TYPE;
 import java.io.Serializable;
 
 public class BirtMap implements Serializable {
-	private String key;
-	private Object value;
-	private PRAMAMETRE_TYPE type = PRAMAMETRE_TYPE.STRING;
+    private String key;
+    private Object value;
+    private PRAMAMETRE_TYPE type = PRAMAMETRE_TYPE.STRING;
 
-	public BirtMap(String key, Object value, PRAMAMETRE_TYPE type) {
+    public BirtMap(String key, Object value, PRAMAMETRE_TYPE type) {
 
-		this.key = key;
-		this.value = value;
-		this.type = type;
-	}
-	
-	public BirtMap(String key, Object value) {
+        this.key = key;
+        this.value = value;
+        this.type = type;
+    }
 
-		this.key = key;
-		this.value = value;
-	}
+    public BirtMap(String key, Object value) {
 
-	public BirtMap() {
+        this.key = key;
+        this.value = value;
+    }
 
-	}
+    public BirtMap() {
 
-	public String getKey() {
-		return key;
-	}
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public Object getValue() {
-		return value;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	public void setValue(Object value) {
-		this.value = value;
-	}
+    public Object getValue() {
+        return value;
+    }
 
-	public PRAMAMETRE_TYPE getType() {
-		return type;
-	}
+    public void setValue(Object value) {
+        this.value = value;
+    }
 
-	public void setType(PRAMAMETRE_TYPE type) {
-		this.type = type;
-	}
+    public PRAMAMETRE_TYPE getType() {
+        return type;
+    }
+
+    public void setType(PRAMAMETRE_TYPE type) {
+        this.type = type;
+    }
 }

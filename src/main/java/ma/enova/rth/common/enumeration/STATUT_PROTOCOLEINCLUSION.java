@@ -12,43 +12,43 @@ import ma.enova.rth.common.bean.BaseEnum;
  * @version 1.2
  */
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT) 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum STATUT_PROTOCOLEINCLUSION implements BaseEnum {
 
-		PRESCRIPTION("PRESCRIPTION"),
-		DEMARRE("DEMARRE"),
-		TERMINE("TERMINE"),
-		INTERROMPU("INTERROMPU"),
-		ANNULE("ANNULE");
+    PRESCRIPTION("PRESCRIPTION"),
+    DEMARRE("DEMARRE"),
+    TERMINE("TERMINE"),
+    INTERROMPU("INTERROMPU"),
+    ANNULE("ANNULE");
 
-	private final String label;
+    private final String label;
 
-	STATUT_PROTOCOLEINCLUSION(String label) {
-		this.label = label;
-	}
+    STATUT_PROTOCOLEINCLUSION(String label) {
+        this.label = label;
+    }
 
-	public String getName() {
-		return this.name();
-	}
+    @JsonCreator
+    public static STATUT_PROTOCOLEINCLUSION forValue(@JsonProperty("name") String value) {
+        for (STATUT_PROTOCOLEINCLUSION o : STATUT_PROTOCOLEINCLUSION.values()) {
+            if (o.name().equals(value)) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value: " + value);
+    }
 
-	@Override
-	public String getDisplayText() {
-		return this.label;
-	}
-	
-	@JsonCreator
-	public static STATUT_PROTOCOLEINCLUSION forValue(@JsonProperty("name") String value) {
-		for (STATUT_PROTOCOLEINCLUSION o : STATUT_PROTOCOLEINCLUSION.values()) {
-			if (o.name().equals(value)) {
-				return o;
-			}
-		}
-		throw new IllegalArgumentException("Invalid value: " + value);
-	}	
+    public String getName() {
+        return this.name();
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String getDisplayText() {
+        return this.label;
+    }
 
-		return getName();
-	}
+    @Override
+    public String toString() {
+
+        return getName();
+    }
 }

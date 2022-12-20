@@ -4,41 +4,41 @@ import java.io.Serializable;
 
 public class ColumnModel implements Serializable {
 
-	private String name;
-	private String label;
-	private String format;
+    private String name;
+    private String label;
+    private String format;
 
-	public ColumnModel() {
+    public ColumnModel() {
 
-	}
+    }
 
-	public ColumnModel(String name, String label) {
-		this.name = name;
-		this.label = label;
-	}
+    public ColumnModel(String name, String label) {
+        this.name = name;
+        this.label = label;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public String getFormat() {
-		return format;
-	}
+    public String getFormat() {
+        return format;
+    }
 
-	public void setFormat(String format) {
-		this.format = format;
-	}
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
 }

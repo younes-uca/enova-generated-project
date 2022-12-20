@@ -12,44 +12,44 @@ import ma.enova.rth.common.bean.BaseEnum;
  * @version 1.2
  */
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT) 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PRAMAMETRE_TYPE implements BaseEnum {
 
-		STRING("String"),
-		DATE("Date"),
-		DATETIME("DateTime"),
-		INTEGER("Integer"),
-		DOUBLE("Double"),
-		BOOLEAN("Boolean");
+    STRING("String"),
+    DATE("Date"),
+    DATETIME("DateTime"),
+    INTEGER("Integer"),
+    DOUBLE("Double"),
+    BOOLEAN("Boolean");
 
-	private final String label;
+    private final String label;
 
-	PRAMAMETRE_TYPE(String label) {
-		this.label = label;
-	}
+    PRAMAMETRE_TYPE(String label) {
+        this.label = label;
+    }
 
-	public String getName() {
-		return this.name();
-	}
+    @JsonCreator
+    public static PRAMAMETRE_TYPE forValue(@JsonProperty("name") String value) {
+        for (PRAMAMETRE_TYPE o : PRAMAMETRE_TYPE.values()) {
+            if (o.name().equals(value)) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException("Invalid value: " + value);
+    }
 
-	@Override
-	public String getDisplayText() {
-		return this.label;
-	}
-	
-	@JsonCreator
-	public static PRAMAMETRE_TYPE forValue(@JsonProperty("name") String value) {
-		for (PRAMAMETRE_TYPE o : PRAMAMETRE_TYPE.values()) {
-			if (o.name().equals(value)) {
-				return o;
-			}
-		}
-		throw new IllegalArgumentException("Invalid value: " + value);
-	}	
+    public String getName() {
+        return this.name();
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String getDisplayText() {
+        return this.label;
+    }
 
-		return getName();
-	}
+    @Override
+    public String toString() {
+
+        return getName();
+    }
 }

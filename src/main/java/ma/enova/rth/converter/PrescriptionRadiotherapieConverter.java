@@ -1,10 +1,9 @@
 package ma.enova.rth.converter;
 
 import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.Utils;
-import ma.enova.rth.domain.core.*;
+import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
 import ma.enova.rth.domain.historique.HistPrescriptionRadiotherapie;
-import ma.enova.rth.dto.*;
+import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
     private ViseeConverter viseeConverter;
 
     public PrescriptionRadiotherapieConverter() {
-        super(PrescriptionRadiotherapie.class, PrescriptionRadiotherapieDto.class,HistPrescriptionRadiotherapie.class);
+        super(PrescriptionRadiotherapie.class, PrescriptionRadiotherapieDto.class, HistPrescriptionRadiotherapie.class);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             dto.setDateSouhaiteDebutTraitement(DateUtil.dateTimeToString(item.getDateSouhaiteDebutTraitement()));
             dto.setObservation(item.getObservation());
 
-            copyToDto(item,dto);
+            copyToDto(item, dto);
 
             dto.setFrequenceRadiotherapie(frequenceRadiotherapieConverter.getById(item.getFrequenceRadiotherapie()));
             dto.setModaliteRadiotherapie(modaliteRadiotherapieConverter.getById(item.getModaliteRadiotherapie()));

@@ -1,9 +1,7 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.domain.core.ProtocoleInclusion;
 import ma.enova.rth.domain.core.Visee;
 import ma.enova.rth.domain.historique.HistVisee;
-import ma.enova.rth.dto.ProtocoleInclusionDto;
 import ma.enova.rth.dto.ViseeDto;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +23,12 @@ public class ViseeConverter extends AbstractConverter<Visee, ViseeDto, HistVisee
             item.setActif(dto.isActif());
             item.setHl7(dto.getHl7());
             item.setOrdre(dto.getOrdre());
-           /* if (dto.getEtablissement() != null && dto.getEtablissement().getId() != null)
-                item.setEtablissement(new Etablissement(dto.getEtablissement().getId()));
-            */
+            convertEtablissement(item, dto);
+
         }
         return item;
     }
+
 
     public ViseeDto toDto(Visee item) {
         ViseeDto dto = null;
@@ -43,7 +41,8 @@ public class ViseeConverter extends AbstractConverter<Visee, ViseeDto, HistVisee
             dto.setHl7(item.getHl7());
             dto.setOrdre(item.getOrdre());
             copyToDto(item, dto);
-            //  dto.setEtablissement(item.getEtablissement() != null ? new EtablissementDto(item.getEtablissement(), false, level) : null);
+            convertEtablissement(dto, item);
+
         }
         return dto;
 

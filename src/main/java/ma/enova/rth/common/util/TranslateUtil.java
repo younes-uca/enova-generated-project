@@ -2,7 +2,9 @@ package ma.enova.rth.common.util;
 
 public class TranslateUtil {
 
-private TranslateUtil(){}
+    private TranslateUtil() {
+    }
+
     public static String translate(String src) {
         StringBuilder result = new StringBuilder();
         if (src != null && src.length() != 0) {

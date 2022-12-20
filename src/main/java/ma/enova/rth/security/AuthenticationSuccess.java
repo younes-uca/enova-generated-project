@@ -11,9 +11,9 @@ import java.io.IOException;
 
 @Component
 public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler {
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		response.setStatus(HttpServletResponse.SC_OK);
-	}
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 }

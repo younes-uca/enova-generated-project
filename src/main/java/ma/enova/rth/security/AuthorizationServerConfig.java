@@ -19,58 +19,49 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	private TokenStore tokenStore;
+    final String GRANT_TYPE_PASSWORD = "password";
+    final String AUTHORIZATION_CODE = "authorization_code";
+    final String REFRESH_TOKEN = "refresh_token";
+    final String IMPLICIT = "implicit";
+    final String SCOPE_READ = "read";
+    final String SCOPE_WRITE = "write";
+    final String TRUST = "trust";
+    @Autowired
+    private TokenStore tokenStore;
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Value("${security.client-id}")
+    private String client_id;
+    @Value("${security.client-secret}")
+    private String client_secret;
+    @Value("${security.access-token-validity}")
+    private String access_token_validity_seconds;
+    @Value("${security.access-token-validity}")
+    private String refresh_token_validity_seconds;
 
-	@Autowired
-	private JwtAccessTokenConverter accessTokenConverter;
+    @Override
+    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+        // configurer.jdbc(dataSource);
+        configurer.inMemory().withClient(client_id).secret(passwordEncoder.encode(client_secret)).authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, IMPLICIT).scopes(SCOPE_READ, SCOPE_WRITE, TRUST).accessTokenValiditySeconds(Integer.valueOf(
+                access_token_validity_seconds)).refreshTokenValiditySeconds(Integer.valueOf(refresh_token_validity_seconds));
+    }
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.tokenStore(tokenStore).accessTokenConverter(accessTokenConverter).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    }
 
-	@Value("${security.client-id}")
-	private String client_id;
-
-	@Value("${security.client-secret}")
-	private String client_secret;
-
-	@Value("${security.access-token-validity}")
-	private String access_token_validity_seconds;
-
-	@Value("${security.access-token-validity}")
-	private String refresh_token_validity_seconds;
-
-	final String GRANT_TYPE_PASSWORD = "password";
-	final String AUTHORIZATION_CODE = "authorization_code";
-	final String REFRESH_TOKEN = "refresh_token";
-	final String IMPLICIT = "implicit";
-	final String SCOPE_READ = "read";
-	final String SCOPE_WRITE = "write";
-	final String TRUST = "trust";
-
-	@Override
-	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-
-		// configurer.jdbc(dataSource);
-		configurer.inMemory().withClient(client_id).secret(passwordEncoder.encode(client_secret)).authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, IMPLICIT).scopes(SCOPE_READ, SCOPE_WRITE, TRUST).accessTokenValiditySeconds(Integer.valueOf(
-				access_token_validity_seconds)).refreshTokenValiditySeconds(Integer.valueOf(refresh_token_validity_seconds));
-	}
-
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.tokenStore(tokenStore).accessTokenConverter(accessTokenConverter).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
-
-	}
-
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-	}
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    }
 
 }

@@ -9,10 +9,9 @@ public class UploadConfig {
     public static final int UPLOAD_SIZE = 10000000;
 
     @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver()
-    {
+    public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize( UPLOAD_SIZE );
+        multipartResolver.setMaxUploadSize(UPLOAD_SIZE);
 
         return multipartResolver;
     }
