@@ -7,6 +7,7 @@ import ma.enova.rth.common.util.FileUtils;
 import ma.enova.rth.common.util.JwtUtils;
 import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.converter.AbstractConverter;
+import ma.enova.rth.dao.criteria.history.HistPrescriptionRadiotherapieCriteria;
 import ma.enova.rth.service.core.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -26,7 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-public class AbstractController<T extends AuditBusinessObject, DTO extends BaseDto, H extends HistBusinessObject, Criteria extends BaseCriteria, HistoryCriteria, SERV extends IService<T, DTO, Criteria, HistoryCriteria>, CONV extends AbstractConverter<T, DTO, H>> {
+public class AbstractController<T extends AuditBusinessObject, DTO extends BaseDto, H extends HistBusinessObject, Criteria extends BaseCriteria, HistoryCriteria  extends BaseCriteria, SERV extends IService<T, DTO, Criteria, HistoryCriteria>, CONV extends AbstractConverter<T, DTO, H>> {
 
     @Autowired
     private MessageSource messageSource;
@@ -136,6 +139,38 @@ public class AbstractController<T extends AuditBusinessObject, DTO extends BaseD
     public ResponseEntity<AuditEntityDto> findHistoryById(Long id) throws Exception {
         AuditEntityDto h = service.findHistoryById(id);
         return new ResponseEntity(h, HttpStatus.OK);
+    }
+
+
+    public ResponseEntity<PaginatedList> findHistoryPaginatedByCriteria(HistoryCriteria criteria) throws Exception {
+        List<AuditEntityDto> list = service.findHistoryPaginatedByCriteria(criteria, criteria.getPage(), criteria.getMaxResults(), criteria.getSortOrder(), criteria.getSortField());
+        PaginatedList paginatedList = new PaginatedList();
+        paginatedList.setList(list);
+        if (list != null && !list.isEmpty()) {
+            int dateSize = service.getHistoryDataSize(criteria);
+            paginatedList.setDataSize(dateSize);
+        }
+        return new ResponseEntity<PaginatedList>(paginatedList, HttpStatus.OK);
+    }
+
+
+    public ResponseEntity<InputStreamResource> exportHistory(@RequestBody HistoryCriteria criteria) throws Exception {
+
+        if (criteria.getExportModel() == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        criteria.setMaxResults(null);
+//		List<AuditEntityDto> list = prescriptionRadiotherapieService.findHistoryPaginatedByCriteria(histPrescriptionRadiotherapieCriteria);
+//		histPrescriptionRadiotherapieCriteria.getExportModel().setList(list);
+//		return getExportedFileResource(histPrescriptionRadiotherapieCriteria.getExportModel());
+        return null;//TODO correct this bug
+
+    }
+
+    public ResponseEntity<Integer> getHistoryDataSize(@RequestBody HistoryCriteria criteria) throws Exception {
+        int count = service.getHistoryDataSize(criteria);
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
+
     }
 
     // Download file
