@@ -28,13 +28,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Manager controller : FrequenceRadiotherapie
- *
- * @author JAF
- * @version 1.2
- */
-
 @RestController
 @RequestMapping("/api/frequence-radiotherapie/")
 public class FrequenceRadiotherapieController extends AbstractController<FrequenceRadiotherapie, FrequenceRadiotherapieDto, HistFrequenceRadiotherapie, FrequenceRadiotherapieCriteria, HistFrequenceRadiotherapieCriteria, IFrequenceRadiotherapieService, FrequenceRadiotherapieConverter> {

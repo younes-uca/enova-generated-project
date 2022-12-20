@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
  
 @RestController
-@RequestMapping("/api/modalite-radiotherapie/")
+@RequestMapping("/api/organe/")
 public class OrganeController extends AbstractController<Organe, OrganeDto, HistOrgane, OrganeCriteria, HistOrganeCriteria, IOrganeService, OrganeConverter> {
 
 	@Autowired
