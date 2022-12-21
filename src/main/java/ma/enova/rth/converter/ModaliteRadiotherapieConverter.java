@@ -3,6 +3,7 @@ package ma.enova.rth.converter;
 import ma.enova.rth.domain.core.ModaliteRadiotherapie;
 import ma.enova.rth.domain.historique.HistModaliteRadiotherapie;
 import ma.enova.rth.dto.ModaliteRadiotherapieDto;
+import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 

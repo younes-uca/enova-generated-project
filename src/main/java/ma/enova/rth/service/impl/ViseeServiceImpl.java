@@ -5,11 +5,11 @@ import ma.enova.rth.dao.criteria.core.ViseeCriteria;
 import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
 import ma.enova.rth.dao.facade.core.IViseeRepository;
 import ma.enova.rth.dao.facade.history.IHistViseeRepository;
-import ma.enova.rth.dao.specifications.core.ViseeSpecification;
+import ma.enova.rth.dao.specfication.core.ViseeSpecification;
 import ma.enova.rth.domain.core.Visee;
 import ma.enova.rth.domain.historique.HistVisee;
 import ma.enova.rth.dto.ViseeDto;
-import ma.enova.rth.service.core.ServiceImpl;
+import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IViseeService;
 import org.springframework.stereotype.Service;
 

@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistSeanceRadiotherapieCriteria;
 import ma.enova.rth.domain.core.SeanceRadiotherapie;
 import ma.enova.rth.domain.historique.HistSeanceRadiotherapie;
 import ma.enova.rth.dto.SeanceRadiotherapieDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.ISeanceRadiotherapieService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;

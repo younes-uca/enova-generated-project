@@ -1,5 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
+import ma.enova.rth.common.ddd.repository.AbstractRepository;
 import ma.enova.rth.domain.core.SeanceRadiotherapie;
 import org.springframework.stereotype.Repository;
 

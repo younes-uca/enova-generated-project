@@ -5,11 +5,11 @@ import ma.enova.rth.dao.criteria.core.PrescriptionRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistPrescriptionRadiotherapieCriteria;
 import ma.enova.rth.dao.facade.core.IPrescriptionRadiotherapieRepository;
 import ma.enova.rth.dao.facade.history.IHistPrescriptionRadiotherapieRepository;
-import ma.enova.rth.dao.specifications.core.PrescriptionRadiotherapieSpecification;
+import ma.enova.rth.dao.specfication.core.PrescriptionRadiotherapieSpecification;
 import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
 import ma.enova.rth.domain.historique.HistPrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
-import ma.enova.rth.service.core.ServiceImpl;
+import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IPrescriptionRadiotherapieService;
 import org.springframework.stereotype.Service;
 

@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistPrescriptionRadiotherapieCriteria;
 import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
 import ma.enova.rth.domain.historique.HistPrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IPrescriptionRadiotherapieService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;

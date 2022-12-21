@@ -5,11 +5,11 @@ import ma.enova.rth.dao.criteria.core.OrganeCriteria;
 import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
 import ma.enova.rth.dao.facade.core.IOrganeRepository;
 import ma.enova.rth.dao.facade.history.IHistOrganeRepository;
-import ma.enova.rth.dao.specifications.core.OrganeSpecification;
+import ma.enova.rth.dao.specfication.core.OrganeSpecification;
 import ma.enova.rth.domain.core.Organe;
 import ma.enova.rth.domain.historique.HistOrgane;
 import ma.enova.rth.dto.OrganeDto;
-import ma.enova.rth.service.core.ServiceImpl;
+import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IOrganeService;
 import org.springframework.stereotype.Service;
 

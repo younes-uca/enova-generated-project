@@ -5,11 +5,11 @@ import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.facade.core.IFrequenceRadiotherapieRepository;
 import ma.enova.rth.dao.facade.history.IHistFrequenceRadiotherapieRepository;
-import ma.enova.rth.dao.specifications.core.FrequenceRadiotherapieSpecification;
+import ma.enova.rth.dao.specfication.core.FrequenceRadiotherapieSpecification;
 import ma.enova.rth.domain.core.FrequenceRadiotherapie;
 import ma.enova.rth.domain.historique.HistFrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
-import ma.enova.rth.service.core.ServiceImpl;
+import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
 import org.springframework.stereotype.Service;
 

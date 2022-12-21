@@ -5,11 +5,11 @@ import ma.enova.rth.dao.criteria.core.PatientCriteria;
 import ma.enova.rth.dao.criteria.history.HistPatientCriteria;
 import ma.enova.rth.dao.facade.core.IPatientRepository;
 import ma.enova.rth.dao.facade.history.IHistPatientRepository;
-import ma.enova.rth.dao.specifications.core.PatientSpecification;
+import ma.enova.rth.dao.specfication.core.PatientSpecification;
 import ma.enova.rth.domain.core.Patient;
 import ma.enova.rth.domain.historique.HistPatient;
 import ma.enova.rth.dto.PatientDto;
-import ma.enova.rth.service.core.ServiceImpl;
+import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IPatientService;
 import org.springframework.stereotype.Service;
 

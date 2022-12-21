@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
 import ma.enova.rth.domain.core.Visee;
 import ma.enova.rth.domain.historique.HistVisee;
 import ma.enova.rth.dto.ViseeDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IViseeService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
