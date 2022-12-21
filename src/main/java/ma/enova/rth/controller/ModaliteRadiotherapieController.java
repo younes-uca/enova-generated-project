@@ -1,33 +1,20 @@
 package ma.enova.rth.controller;
 
 import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.BaseController;
 import ma.enova.rth.common.bean.PaginatedList;
-import ma.enova.rth.common.util.StringUtil;
 import ma.enova.rth.converter.ModaliteRadiotherapieConverter;
 import ma.enova.rth.dao.criteria.core.ModaliteRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.core.ModaliteRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.core.ModaliteRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.history.HistModaliteRadiotherapieCriteria;
-import ma.enova.rth.dao.criteria.history.HistModaliteRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistModaliteRadiotherapieCriteria;
 import ma.enova.rth.domain.core.ModaliteRadiotherapie;
 import ma.enova.rth.domain.historique.HistModaliteRadiotherapie;
 import ma.enova.rth.dto.ModaliteRadiotherapieDto;
-import ma.enova.rth.dto.ModaliteRadiotherapieDto;
-import ma.enova.rth.dto.ModaliteRadiotherapieDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IModaliteRadiotherapieService;
-import ma.enova.rth.service.facade.IModaliteRadiotherapieService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Manager controller : ModaliteRadiotherapie

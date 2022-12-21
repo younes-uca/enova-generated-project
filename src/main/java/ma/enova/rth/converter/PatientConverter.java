@@ -4,6 +4,7 @@ import ma.enova.rth.common.util.DateUtil;
 import ma.enova.rth.domain.core.Patient;
 import ma.enova.rth.domain.historique.HistPatient;
 import ma.enova.rth.dto.PatientDto;
+import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 

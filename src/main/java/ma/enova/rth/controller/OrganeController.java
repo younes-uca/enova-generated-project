@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
 import ma.enova.rth.domain.core.Organe;
 import ma.enova.rth.domain.historique.HistOrgane;
 import ma.enova.rth.dto.OrganeDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IOrganeService;
 import ma.enova.rth.service.impl.OrganeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

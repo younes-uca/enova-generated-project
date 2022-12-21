@@ -1,5 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
+import ma.enova.rth.common.ddd.repository.AbstractRepository;
 import ma.enova.rth.domain.core.Organe;
 import org.springframework.stereotype.Repository;
 

@@ -4,7 +4,7 @@ import ma.enova.rth.dao.criteria.core.OrganeCriteria;
 import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
 import ma.enova.rth.domain.core.Organe;
 import ma.enova.rth.dto.OrganeDto;
-import ma.enova.rth.service.core.IService;
+import ma.enova.rth.common.ddd.service.IService;
 
 /**
  * Interface service organe

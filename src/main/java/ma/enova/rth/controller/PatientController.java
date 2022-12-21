@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistPatientCriteria;
 import ma.enova.rth.domain.core.Patient;
 import ma.enova.rth.domain.historique.HistPatient;
 import ma.enova.rth.dto.PatientDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IPatientService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;

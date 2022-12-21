@@ -1,7 +1,7 @@
 package ma.enova.rth.process.radiotherapie.prepare;
 
-import ma.enova.rth.common.ddd.AbstractProcessImpl;
-import ma.enova.rth.common.ddd.Result;
+import ma.enova.rth.common.ddd.process.AbstractProcessImpl;
+import ma.enova.rth.common.ddd.process.Result;
 
 public class RadiotherapiePrepareProcessImpl extends AbstractProcessImpl<RadiotherapiePrepareInput, RadiotherapiePrepareOutput> implements RadiotherapiePrepareProcess {
 

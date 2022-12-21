@@ -4,7 +4,7 @@ import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
 import ma.enova.rth.domain.core.FrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
-import ma.enova.rth.service.core.IService;
+import ma.enova.rth.common.ddd.service.IService;
 
 /**
  * Interface service frequenceRadiotherapie

@@ -1,6 +1,6 @@
 package ma.enova.rth.process.radiotherapie.prepare;
 
-import ma.enova.rth.common.ddd.AbstractProcessInput;
+import ma.enova.rth.common.ddd.process.AbstractProcessInput;
 import ma.enova.rth.dto.*;
 
 import java.time.LocalDateTime;

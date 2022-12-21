@@ -3,7 +3,7 @@ package ma.enova.rth.service.impl;
 import ma.enova.rth.common.exception.EntityNotFoundException;
 import ma.enova.rth.dao.criteria.core.RoleCriteria;
 import ma.enova.rth.dao.facade.core.IRoleRepository;
-import ma.enova.rth.dao.specifications.core.RoleSpecification;
+import ma.enova.rth.dao.specfication.core.RoleSpecification;
 import ma.enova.rth.domain.core.Role;
 import ma.enova.rth.dto.RoleDto;
 import ma.enova.rth.service.facade.IRoleService;

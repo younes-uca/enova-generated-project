@@ -4,7 +4,7 @@ import ma.enova.rth.dao.criteria.core.PatientCriteria;
 import ma.enova.rth.dao.criteria.history.HistPatientCriteria;
 import ma.enova.rth.domain.core.Patient;
 import ma.enova.rth.dto.PatientDto;
-import ma.enova.rth.service.core.IService;
+import ma.enova.rth.common.ddd.service.IService;
 
 /**
  * Interface service patient

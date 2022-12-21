@@ -8,6 +8,7 @@ import ma.enova.rth.dao.criteria.history.HistPersonnelCriteria;
 import ma.enova.rth.domain.core.Personnel;
 import ma.enova.rth.domain.historique.HistPersonnel;
 import ma.enova.rth.dto.PersonnelDto;
+import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IPersonnelService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
