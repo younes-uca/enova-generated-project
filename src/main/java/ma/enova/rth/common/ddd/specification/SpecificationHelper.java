@@ -21,6 +21,7 @@ public abstract class SpecificationHelper<Criteria extends BaseCriteria, H exten
     protected CriteriaQuery<?> query;
     protected CriteriaBuilder builder;
     protected List<Predicate> predicates;
+
     public void attachSearchElement(Root<H> root, CriteriaQuery<?> query, CriteriaBuilder builder, List<Predicate> predicates) {
         this.root = root;
         this.query = query;
@@ -69,6 +70,12 @@ public abstract class SpecificationHelper<Criteria extends BaseCriteria, H exten
         }
     }
 
+    public void addPredicate(String name, String value) {
+        if (StringUtil.isNotEmpty(value)) {
+            predicates.add(builder.equal(root.<String>get(name), value));
+        }
+    }
+
     public void addPredicate(String name, LocalDateTime value) {
         if (value != null) {
             predicates.add(builder.equal(root.<LocalDateTime>get(name), value));
@@ -80,6 +87,7 @@ public abstract class SpecificationHelper<Criteria extends BaseCriteria, H exten
             predicates.add(builder.equal(root.<Integer>get(name), Integer.parseInt(value)));
         }
     }
+
     public void addPredicateLong(String name, String value) {
         if (StringUtil.isNotEmpty(value)) {
             predicates.add(builder.equal(root.<Long>get(name), Long.parseLong(value)));
