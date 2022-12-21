@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
  */
 
 @Service(value = "prescriptionRadiotherapieService")
-public class PrescriptionRadiotherapieServiceImpl extends ServiceImpl<PrescriptionRadiotherapie, PrescriptionRadiotherapieDto, HistPrescriptionRadiotherapie, PrescriptionRadiotherapieCriteria, HistPrescriptionRadiotherapieCriteria, IPrescriptionRadiotherapieRepository, IHistPrescriptionRadiotherapieRepository, PrescriptionRadiotherapieConverter> implements IPrescriptionRadiotherapieService {
+public class PrescriptionRadiotherapieServiceImpl extends ServiceImpl<PrescriptionRadiotherapie, PrescriptionRadiotherapieDto,
+        HistPrescriptionRadiotherapie, PrescriptionRadiotherapieCriteria, HistPrescriptionRadiotherapieCriteria, IPrescriptionRadiotherapieRepository,
+        IHistPrescriptionRadiotherapieRepository, PrescriptionRadiotherapieConverter> implements IPrescriptionRadiotherapieService {
 
     public PrescriptionRadiotherapieServiceImpl(IPrescriptionRadiotherapieRepository repository, IHistPrescriptionRadiotherapieRepository historyRepository, PrescriptionRadiotherapieConverter abstractConverter) {
         super(repository, historyRepository, abstractConverter, PrescriptionRadiotherapie.class,

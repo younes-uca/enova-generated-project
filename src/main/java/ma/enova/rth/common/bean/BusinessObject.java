@@ -1,6 +1,5 @@
 package ma.enova.rth.common.bean;
 
-import ma.enova.rth.controller.EtablissementController;
 import ma.enova.rth.domain.core.Etablissement;
 
 import javax.persistence.Transient;

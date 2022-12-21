@@ -12,5 +12,6 @@ import ma.enova.rth.common.ddd.service.IService;
  * @author JAF
  * @version 1.2
  */
-public interface IPrescriptionRadiotherapieService extends IService<PrescriptionRadiotherapie, PrescriptionRadiotherapieDto, PrescriptionRadiotherapieCriteria, HistPrescriptionRadiotherapieCriteria> {
+public interface IPrescriptionRadiotherapieService extends IService<PrescriptionRadiotherapie, PrescriptionRadiotherapieDto,
+        PrescriptionRadiotherapieCriteria, HistPrescriptionRadiotherapieCriteria> {
 }
