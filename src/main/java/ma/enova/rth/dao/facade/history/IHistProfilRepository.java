@@ -1,6 +1,6 @@
 package ma.enova.rth.dao.facade.history;
 
-import ma.enova.rth.domain.historique.HistProfil;
+import ma.enova.rth.bean.historique.HistProfil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

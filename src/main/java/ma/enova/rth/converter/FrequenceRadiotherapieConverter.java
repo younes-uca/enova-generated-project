@@ -1,9 +1,9 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.domain.core.FrequenceRadiotherapie;
-import ma.enova.rth.domain.historique.HistFrequenceRadiotherapie;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.bean.core.FrequenceRadiotherapie;
+import ma.enova.rth.bean.historique.HistFrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
-import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 

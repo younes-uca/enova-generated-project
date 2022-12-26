@@ -1,14 +1,14 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.controller.AbstractController;
 import ma.enova.rth.converter.SeanceRadiotherapieConverter;
 import ma.enova.rth.dao.criteria.core.SeanceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistSeanceRadiotherapieCriteria;
-import ma.enova.rth.domain.core.SeanceRadiotherapie;
-import ma.enova.rth.domain.historique.HistSeanceRadiotherapie;
+import ma.enova.rth.bean.core.SeanceRadiotherapie;
+import ma.enova.rth.bean.historique.HistSeanceRadiotherapie;
 import ma.enova.rth.dto.SeanceRadiotherapieDto;
-import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.ISeanceRadiotherapieService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,11 @@ public class SeanceRadiotherapieController extends AbstractController<SeanceRadi
     @PostMapping("")
     public ResponseEntity<Long> save(@RequestBody SeanceRadiotherapieDto dto) throws Exception {
         return super.save(dto);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<SeanceRadiotherapieDto>> findAll() throws Exception {
+        return super.findAll();
     }
 
     @PutMapping("")

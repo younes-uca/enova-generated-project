@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.facade.core;
 
-import ma.enova.rth.common.ddd.repository.AbstractRepository;
-import ma.enova.rth.domain.core.Patient;
+import ma.enova.rth.zynerator.repository.AbstractRepository;
+import ma.enova.rth.bean.core.Patient;
 import org.springframework.stereotype.Repository;
 
 /**

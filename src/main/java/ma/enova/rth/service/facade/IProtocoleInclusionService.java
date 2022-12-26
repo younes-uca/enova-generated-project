@@ -1,10 +1,10 @@
 package ma.enova.rth.service.facade;
 
+import ma.enova.rth.zynerator.service.IService;
 import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
 import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
-import ma.enova.rth.domain.core.ProtocoleInclusion;
+import ma.enova.rth.bean.core.ProtocoleInclusion;
 import ma.enova.rth.dto.ProtocoleInclusionDto;
-import ma.enova.rth.common.ddd.service.IService;
 
 /**
  * Interface service protocoleInclusion

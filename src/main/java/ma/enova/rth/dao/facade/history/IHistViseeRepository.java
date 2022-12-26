@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.facade.history;
 
-import ma.enova.rth.common.ddd.repository.AbstractHistoryRepository;
-import ma.enova.rth.domain.historique.HistVisee;
+import ma.enova.rth.zynerator.repository.AbstractHistoryRepository;
+import ma.enova.rth.bean.historique.HistVisee;
 import org.springframework.stereotype.Repository;
 
 /**

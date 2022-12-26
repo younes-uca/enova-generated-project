@@ -1,14 +1,14 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.controller.AbstractController;
 import ma.enova.rth.converter.PatientConverter;
 import ma.enova.rth.dao.criteria.core.PatientCriteria;
 import ma.enova.rth.dao.criteria.history.HistPatientCriteria;
-import ma.enova.rth.domain.core.Patient;
-import ma.enova.rth.domain.historique.HistPatient;
+import ma.enova.rth.bean.core.Patient;
+import ma.enova.rth.bean.historique.HistPatient;
 import ma.enova.rth.dto.PatientDto;
-import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IPatientService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +33,12 @@ public class PatientController extends AbstractController<Patient, PatientDto, H
     @PostMapping("")
     public ResponseEntity<Long> save(@RequestBody PatientDto dto) throws Exception {
         return super.save(dto);
+    }
+
+
+    @GetMapping("")
+    public ResponseEntity<List<PatientDto>> findAll() throws Exception {
+        return super.findAll();
     }
 
     @PutMapping("")

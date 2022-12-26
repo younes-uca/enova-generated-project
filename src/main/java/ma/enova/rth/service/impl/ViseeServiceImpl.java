@@ -1,15 +1,15 @@
 package ma.enova.rth.service.impl;
 
+import ma.enova.rth.zynerator.service.ServiceImpl;
 import ma.enova.rth.converter.ViseeConverter;
 import ma.enova.rth.dao.criteria.core.ViseeCriteria;
 import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
 import ma.enova.rth.dao.facade.core.IViseeRepository;
 import ma.enova.rth.dao.facade.history.IHistViseeRepository;
 import ma.enova.rth.dao.specfication.core.ViseeSpecification;
-import ma.enova.rth.domain.core.Visee;
-import ma.enova.rth.domain.historique.HistVisee;
+import ma.enova.rth.bean.core.Visee;
+import ma.enova.rth.bean.historique.HistVisee;
 import ma.enova.rth.dto.ViseeDto;
-import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IViseeService;
 import org.springframework.stereotype.Service;
 

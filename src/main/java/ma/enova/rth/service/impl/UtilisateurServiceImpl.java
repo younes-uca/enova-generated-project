@@ -1,18 +1,18 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.enumeration.ACTION_TYPE;
-import ma.enova.rth.common.exception.BusinessRuleException;
-import ma.enova.rth.common.exception.EntityNotFoundException;
-import ma.enova.rth.common.util.Utils;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.enumeration.ACTION_TYPE;
+import ma.enova.rth.zynerator.exception.BusinessRuleException;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.util.Utils;
 import ma.enova.rth.dao.criteria.core.UtilisateurCriteria;
 import ma.enova.rth.dao.criteria.history.HistUtilisateurCriteria;
 import ma.enova.rth.dao.facade.core.IUtilisateurRepository;
 import ma.enova.rth.dao.facade.history.IHistUtilisateurRepository;
 import ma.enova.rth.dao.specfication.core.UtilisateurSpecification;
 import ma.enova.rth.dao.specfication.history.HistUtilisateurSpecification;
-import ma.enova.rth.domain.core.Utilisateur;
-import ma.enova.rth.domain.historique.HistUtilisateur;
+import ma.enova.rth.bean.core.Utilisateur;
+import ma.enova.rth.bean.historique.HistUtilisateur;
 import ma.enova.rth.dto.EtablissementDto;
 import ma.enova.rth.dto.UtilisateurDto;
 import ma.enova.rth.security.UtilisateurDetailsImpl;

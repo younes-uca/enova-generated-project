@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.facade.history;
 
-import ma.enova.rth.common.ddd.repository.AbstractHistoryRepository;
-import ma.enova.rth.domain.historique.HistModaliteRadiotherapie;
+import ma.enova.rth.zynerator.repository.AbstractHistoryRepository;
+import ma.enova.rth.bean.historique.HistModaliteRadiotherapie;
 import org.springframework.stereotype.Repository;
 
 /**

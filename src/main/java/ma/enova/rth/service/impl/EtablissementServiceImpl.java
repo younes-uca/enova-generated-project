@@ -1,17 +1,17 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.enumeration.ACTION_TYPE;
-import ma.enova.rth.common.exception.EntityNotFoundException;
-import ma.enova.rth.common.util.Utils;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.enumeration.ACTION_TYPE;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.util.Utils;
 import ma.enova.rth.dao.criteria.core.EtablissementCriteria;
 import ma.enova.rth.dao.criteria.history.HistEtablissementCriteria;
 import ma.enova.rth.dao.facade.core.IEtablissementRepository;
 import ma.enova.rth.dao.facade.history.IHistEtablissementRepository;
 import ma.enova.rth.dao.specfication.core.EtablissementSpecification;
 import ma.enova.rth.dao.specfication.history.HistEtablissementSpecification;
-import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.historique.HistEtablissement;
+import ma.enova.rth.bean.core.Etablissement;
+import ma.enova.rth.bean.historique.HistEtablissement;
 import ma.enova.rth.dto.EtablissementDto;
 import ma.enova.rth.security.UtilisateurDetailsImpl;
 import ma.enova.rth.service.facade.IEtablissementService;

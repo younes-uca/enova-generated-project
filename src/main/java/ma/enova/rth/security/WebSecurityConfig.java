@@ -1,6 +1,6 @@
 package ma.enova.rth.security;
 
-import ma.enova.rth.common.filter.SimpleCORSFilter;
+import ma.enova.rth.filter.SimpleCORSFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

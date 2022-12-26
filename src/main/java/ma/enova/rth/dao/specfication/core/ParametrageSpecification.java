@@ -1,9 +1,9 @@
 package ma.enova.rth.dao.specfication.core;
 
-import ma.enova.rth.common.enumeration.TYPE_VALEUR;
-import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.zynerator.enumeration.TYPE_VALEUR;
+import ma.enova.rth.zynerator.util.StringUtil;
 import ma.enova.rth.dao.criteria.core.ParametrageCriteria;
-import ma.enova.rth.domain.core.Parametrage;
+import ma.enova.rth.bean.core.Parametrage;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

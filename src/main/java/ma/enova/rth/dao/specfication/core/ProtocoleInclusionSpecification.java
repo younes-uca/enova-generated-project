@@ -1,10 +1,10 @@
 package ma.enova.rth.dao.specfication.core;
 
-import ma.enova.rth.common.enumeration.STATUT_PROTOCOLEINCLUSION;
-import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.zynerator.specification.AbstractSpecification;
+import ma.enova.rth.zynerator.enumeration.STATUT_PROTOCOLEINCLUSION;
+import ma.enova.rth.zynerator.util.StringUtil;
 import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
-import ma.enova.rth.domain.core.ProtocoleInclusion;
-import ma.enova.rth.common.ddd.specification.AbstractSpecification;
+import ma.enova.rth.bean.core.ProtocoleInclusion;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

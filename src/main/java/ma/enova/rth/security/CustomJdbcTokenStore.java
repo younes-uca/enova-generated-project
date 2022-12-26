@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

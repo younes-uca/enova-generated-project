@@ -1,12 +1,12 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.common.bean.AuditBaseDto;
-import ma.enova.rth.common.bean.Log;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.domain.core.CategorieRole;
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
+import ma.enova.rth.zynerator.audit.Log;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.zynerator.util.RefelexivityUtil;
+import ma.enova.rth.zynerator.util.StringUtil;
+import ma.enova.rth.bean.core.CategorieRole;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategorieRoleDto extends AuditBaseDto {

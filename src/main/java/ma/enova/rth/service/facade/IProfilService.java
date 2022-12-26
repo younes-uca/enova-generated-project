@@ -1,7 +1,7 @@
 package ma.enova.rth.service.facade;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.TreeModel;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.TreeModel;
 import ma.enova.rth.dao.criteria.core.ProfilCriteria;
 import ma.enova.rth.dao.criteria.history.HistProfilCriteria;
 import ma.enova.rth.dto.ProfilDto;

@@ -1,6 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.bean.core.Utilisateur;
 
 /**
  * Dao de l'authentification

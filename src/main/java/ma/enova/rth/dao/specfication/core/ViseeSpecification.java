@@ -1,8 +1,8 @@
 package ma.enova.rth.dao.specfication.core;
 
+import ma.enova.rth.zynerator.specification.AbstractSpecification;
 import ma.enova.rth.dao.criteria.core.ViseeCriteria;
-import ma.enova.rth.domain.core.Visee;
-import ma.enova.rth.common.ddd.specification.AbstractSpecification;
+import ma.enova.rth.bean.core.Visee;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

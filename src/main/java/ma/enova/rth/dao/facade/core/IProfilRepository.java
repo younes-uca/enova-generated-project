@@ -1,6 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
-import ma.enova.rth.domain.core.Profil;
+import ma.enova.rth.bean.core.Profil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

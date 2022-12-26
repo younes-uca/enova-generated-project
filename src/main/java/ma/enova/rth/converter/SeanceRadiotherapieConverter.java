@@ -1,10 +1,10 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.domain.core.SeanceRadiotherapie;
-import ma.enova.rth.domain.historique.HistSeanceRadiotherapie;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.bean.core.SeanceRadiotherapie;
+import ma.enova.rth.bean.historique.HistSeanceRadiotherapie;
 import ma.enova.rth.dto.SeanceRadiotherapieDto;
-import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import ma.enova.rth.common.bean.AuditBaseDto;
-import ma.enova.rth.common.bean.Log;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.core.Profil;
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
+import ma.enova.rth.zynerator.audit.Log;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.zynerator.util.RefelexivityUtil;
+import ma.enova.rth.zynerator.util.StringUtil;
+import ma.enova.rth.bean.core.Etablissement;
+import ma.enova.rth.bean.core.Profil;
+import ma.enova.rth.bean.core.Utilisateur;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UtilisateurDto extends AuditBaseDto {

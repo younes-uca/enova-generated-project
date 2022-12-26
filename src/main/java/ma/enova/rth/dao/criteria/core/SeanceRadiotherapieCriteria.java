@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.criteria.core;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import ma.enova.rth.common.bean.BaseCriteria;
+import ma.enova.rth.zynerator.criteria.BaseCriteria;
 
 import java.time.LocalDateTime;
 

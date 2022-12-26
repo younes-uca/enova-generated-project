@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.history;
 
 import ma.enova.rth.dao.criteria.history.HistEtablissementCriteria;
-import ma.enova.rth.domain.historique.HistEtablissement;
+import ma.enova.rth.bean.historique.HistEtablissement;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

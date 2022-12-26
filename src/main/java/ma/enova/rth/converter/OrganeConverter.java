@@ -1,9 +1,9 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.domain.core.Organe;
-import ma.enova.rth.domain.historique.HistOrgane;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.bean.core.Organe;
+import ma.enova.rth.bean.historique.HistOrgane;
 import ma.enova.rth.dto.OrganeDto;
-import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 

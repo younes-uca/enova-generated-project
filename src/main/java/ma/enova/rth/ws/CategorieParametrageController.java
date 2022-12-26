@@ -1,7 +1,7 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.BaseController;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.controller.BaseController;
+import ma.enova.rth.zynerator.util.PaginatedList;
 import ma.enova.rth.dao.criteria.core.CategorieParametrageCriteria;
 import ma.enova.rth.dto.CategorieParametrageDto;
 import org.springframework.core.io.InputStreamResource;

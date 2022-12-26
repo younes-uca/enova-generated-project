@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.core;
 
 import ma.enova.rth.dao.criteria.core.RoleCriteria;
-import ma.enova.rth.domain.core.Role;
+import ma.enova.rth.bean.core.Role;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

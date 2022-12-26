@@ -1,13 +1,13 @@
 package ma.enova.rth.dao.criteria.core;
 
-import ma.enova.rth.common.bean.BaseCriteria;
+import ma.enova.rth.zynerator.criteria.CodeLibelleDescCriteria;
 
 import java.util.List;
 
 /**
  * Critère Visee.
  */
-public class ViseeCriteria extends BaseCriteria {
+public class ViseeCriteria extends CodeLibelleDescCriteria {
 
     /**
      * Fields.

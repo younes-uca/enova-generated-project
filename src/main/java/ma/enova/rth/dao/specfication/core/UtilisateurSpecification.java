@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.core;
 
 import ma.enova.rth.dao.criteria.core.UtilisateurCriteria;
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.bean.core.Utilisateur;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

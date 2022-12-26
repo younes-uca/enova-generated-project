@@ -1,10 +1,10 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.common.bean.BaseDto;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.domain.core.CategorieParametrage;
+import ma.enova.rth.zynerator.dto.BaseDto;
+import ma.enova.rth.zynerator.util.RefelexivityUtil;
+import ma.enova.rth.zynerator.util.StringUtil;
+import ma.enova.rth.bean.core.CategorieParametrage;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategorieParametrageDto extends BaseDto {

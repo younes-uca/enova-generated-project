@@ -1,11 +1,11 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.BaseController;
-import ma.enova.rth.common.bean.BusinessDto;
-import ma.enova.rth.common.bean.PaginatedList;
-import ma.enova.rth.common.enumeration.TYPE_VALEUR;
-import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.controller.BaseController;
+import ma.enova.rth.zynerator.dto.BusinessDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.enumeration.TYPE_VALEUR;
+import ma.enova.rth.zynerator.util.StringUtil;
 import ma.enova.rth.dao.criteria.core.ParametrageCriteria;
 import ma.enova.rth.dao.criteria.history.HistParametrageCriteria;
 import ma.enova.rth.dto.ParametrageDto;

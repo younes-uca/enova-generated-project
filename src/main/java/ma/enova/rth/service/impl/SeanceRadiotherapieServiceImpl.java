@@ -1,15 +1,15 @@
 package ma.enova.rth.service.impl;
 
+import ma.enova.rth.zynerator.service.ServiceImpl;
 import ma.enova.rth.converter.SeanceRadiotherapieConverter;
 import ma.enova.rth.dao.criteria.core.SeanceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistSeanceRadiotherapieCriteria;
 import ma.enova.rth.dao.facade.core.ISeanceRadiotherapieRepository;
 import ma.enova.rth.dao.facade.history.IHistSeanceRadiotherapieRepository;
 import ma.enova.rth.dao.specfication.core.SeanceRadiotherapieSpecification;
-import ma.enova.rth.domain.core.SeanceRadiotherapie;
-import ma.enova.rth.domain.historique.HistSeanceRadiotherapie;
+import ma.enova.rth.bean.core.SeanceRadiotherapie;
+import ma.enova.rth.bean.historique.HistSeanceRadiotherapie;
 import ma.enova.rth.dto.SeanceRadiotherapieDto;
-import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.ISeanceRadiotherapieService;
 import org.springframework.stereotype.Service;
 

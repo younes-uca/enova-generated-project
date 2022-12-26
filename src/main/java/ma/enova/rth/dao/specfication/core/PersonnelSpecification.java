@@ -1,8 +1,8 @@
 package ma.enova.rth.dao.specfication.core;
 
+import ma.enova.rth.zynerator.specification.AbstractSpecification;
 import ma.enova.rth.dao.criteria.core.PersonnelCriteria;
-import ma.enova.rth.domain.core.Personnel;
-import ma.enova.rth.common.ddd.specification.AbstractSpecification;
+import ma.enova.rth.bean.core.Personnel;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

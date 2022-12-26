@@ -1,6 +1,6 @@
 package ma.enova.rth.dao.facade.core;
 
-import ma.enova.rth.domain.core.CategorieRole;
+import ma.enova.rth.bean.core.CategorieRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

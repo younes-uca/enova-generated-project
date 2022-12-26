@@ -1,9 +1,9 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.BaseController;
-import ma.enova.rth.common.bean.MyDate;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.MD5Checksum;
+import ma.enova.rth.zynerator.controller.BaseController;
+import ma.enova.rth.zynerator.util.MyDate;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.zynerator.util.MD5Checksum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

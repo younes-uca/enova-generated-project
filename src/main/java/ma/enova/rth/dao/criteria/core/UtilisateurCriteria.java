@@ -1,6 +1,6 @@
 package ma.enova.rth.dao.criteria.core;
 
-import ma.enova.rth.common.bean.BaseCriteria;
+import ma.enova.rth.zynerator.criteria.BaseCriteria;
 
 import java.util.List;
 

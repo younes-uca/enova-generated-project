@@ -1,6 +1,6 @@
 package ma.enova.rth.service.facade;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
 import ma.enova.rth.dao.criteria.core.EtablissementCriteria;
 import ma.enova.rth.dao.criteria.history.HistEtablissementCriteria;
 import ma.enova.rth.dto.EtablissementDto;

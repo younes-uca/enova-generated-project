@@ -1,15 +1,15 @@
 package ma.enova.rth.service.impl;
 
+import ma.enova.rth.zynerator.service.ServiceImpl;
 import ma.enova.rth.converter.PersonnelConverter;
 import ma.enova.rth.dao.criteria.core.PersonnelCriteria;
 import ma.enova.rth.dao.criteria.history.HistPersonnelCriteria;
 import ma.enova.rth.dao.facade.core.IPersonnelRepository;
 import ma.enova.rth.dao.facade.history.IHistPersonnelRepository;
 import ma.enova.rth.dao.specfication.core.PersonnelSpecification;
-import ma.enova.rth.domain.core.Personnel;
-import ma.enova.rth.domain.historique.HistPersonnel;
+import ma.enova.rth.bean.core.Personnel;
+import ma.enova.rth.bean.historique.HistPersonnel;
 import ma.enova.rth.dto.PersonnelDto;
-import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IPersonnelService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.core;
 
 import ma.enova.rth.dao.criteria.core.EtablissementCriteria;
-import ma.enova.rth.domain.core.Etablissement;
+import ma.enova.rth.bean.core.Etablissement;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

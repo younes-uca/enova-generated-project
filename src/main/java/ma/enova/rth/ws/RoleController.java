@@ -1,9 +1,9 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.BaseController;
-import ma.enova.rth.common.bean.BusinessDto;
-import ma.enova.rth.common.bean.PaginatedList;
-import ma.enova.rth.common.util.StringUtil;
+import ma.enova.rth.zynerator.controller.BaseController;
+import ma.enova.rth.zynerator.dto.BusinessDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.util.StringUtil;
 import ma.enova.rth.dao.criteria.core.RoleCriteria;
 import ma.enova.rth.dto.RoleDto;
 import ma.enova.rth.service.facade.ICategorieRoleService;

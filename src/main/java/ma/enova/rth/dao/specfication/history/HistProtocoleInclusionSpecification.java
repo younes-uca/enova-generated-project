@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.history;
 
 import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
-import ma.enova.rth.domain.historique.HistProtocoleInclusion;
+import ma.enova.rth.bean.historique.HistProtocoleInclusion;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

@@ -1,14 +1,14 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.controller.AbstractController;
 import ma.enova.rth.converter.ViseeConverter;
 import ma.enova.rth.dao.criteria.core.ViseeCriteria;
 import ma.enova.rth.dao.criteria.history.HistViseeCriteria;
-import ma.enova.rth.domain.core.Visee;
-import ma.enova.rth.domain.historique.HistVisee;
+import ma.enova.rth.bean.core.Visee;
+import ma.enova.rth.bean.historique.HistVisee;
 import ma.enova.rth.dto.ViseeDto;
-import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IViseeService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +40,12 @@ public class ViseeController extends AbstractController<Visee, ViseeDto, HistVis
     public ResponseEntity<Long> save(@RequestBody ViseeDto dto) throws Exception {
         return super.save(dto);
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<ViseeDto>> findAll() throws Exception {
+        return super.findAll();
+    }
+
 
     @PutMapping("")
     public ResponseEntity<ViseeDto> update(@RequestBody ViseeDto dto) throws Exception {

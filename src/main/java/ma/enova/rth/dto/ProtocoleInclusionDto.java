@@ -1,9 +1,9 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.common.bean.AuditBaseDto;
-import ma.enova.rth.common.bean.Log;
-import ma.enova.rth.common.enumeration.STATUT_PROTOCOLEINCLUSION;
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
+import ma.enova.rth.zynerator.audit.Log;
+import ma.enova.rth.zynerator.enumeration.STATUT_PROTOCOLEINCLUSION;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProtocoleInclusionDto extends AuditBaseDto {

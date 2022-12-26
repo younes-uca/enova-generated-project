@@ -1,8 +1,8 @@
 package ma.enova.rth.dao.specfication.core;
 
+import ma.enova.rth.zynerator.specification.AbstractSpecification;
 import ma.enova.rth.dao.criteria.core.SeanceRadiotherapieCriteria;
-import ma.enova.rth.domain.core.SeanceRadiotherapie;
-import ma.enova.rth.common.ddd.specification.AbstractSpecification;
+import ma.enova.rth.bean.core.SeanceRadiotherapie;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

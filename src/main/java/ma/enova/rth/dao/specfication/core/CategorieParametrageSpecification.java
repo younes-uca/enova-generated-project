@@ -1,7 +1,7 @@
 package ma.enova.rth.dao.specfication.core;
 
 import ma.enova.rth.dao.criteria.core.CategorieParametrageCriteria;
-import ma.enova.rth.domain.core.CategorieParametrage;
+import ma.enova.rth.bean.core.CategorieParametrage;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;

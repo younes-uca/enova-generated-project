@@ -1,10 +1,10 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.domain.core.PrescriptionRadiotherapie;
-import ma.enova.rth.domain.historique.HistPrescriptionRadiotherapie;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.bean.core.PrescriptionRadiotherapie;
+import ma.enova.rth.bean.historique.HistPrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
-import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +48,6 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             item.setProtocoleInclusion(protocoleInclusionConverter.getById(dto.getProtocoleInclusion()));
             item.setVisee(viseeConverter.getById(dto.getVisee()));
             convertEtablissement(item, dto);
-
         }
         return item;
     }
@@ -63,9 +62,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             dto.setFractionnement(item.getFractionnement());
             dto.setDateSouhaiteDebutTraitement(DateUtil.dateTimeToString(item.getDateSouhaiteDebutTraitement()));
             dto.setObservation(item.getObservation());
-
             copyToDto(item, dto);
-
             dto.setFrequenceRadiotherapie(frequenceRadiotherapieConverter.getById(item.getFrequenceRadiotherapie()));
             dto.setModaliteRadiotherapie(modaliteRadiotherapieConverter.getById(item.getModaliteRadiotherapie()));
             dto.setOrgane(organeConverter.getById(item.getOrgane()));
@@ -74,9 +71,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             dto.setProtocoleInclusion(protocoleInclusionConverter.getById(item.getProtocoleInclusion()));
             dto.setVisee(viseeConverter.getById(item.getVisee()));
             convertEtablissement(dto, item);
-
         }
-
         return dto;
     }
 

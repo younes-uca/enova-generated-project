@@ -1,14 +1,14 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.controller.AbstractController;
 import ma.enova.rth.converter.PersonnelConverter;
 import ma.enova.rth.dao.criteria.core.PersonnelCriteria;
 import ma.enova.rth.dao.criteria.history.HistPersonnelCriteria;
-import ma.enova.rth.domain.core.Personnel;
-import ma.enova.rth.domain.historique.HistPersonnel;
+import ma.enova.rth.bean.core.Personnel;
+import ma.enova.rth.bean.historique.HistPersonnel;
 import ma.enova.rth.dto.PersonnelDto;
-import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IPersonnelService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,10 @@ public class PersonnelController extends AbstractController<Personnel, Personnel
     public ResponseEntity<Long> save(@RequestBody PersonnelDto dto) throws Exception {
         return super.save(dto);
     }
-
+    @GetMapping("")
+    public ResponseEntity<List<PersonnelDto>> findAll() throws Exception {
+        return super.findAll();
+    }
     @PutMapping("")
     public ResponseEntity<PersonnelDto> update(@RequestBody PersonnelDto dto) throws Exception {
         return super.update(dto);

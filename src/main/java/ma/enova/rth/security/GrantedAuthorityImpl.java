@@ -1,6 +1,6 @@
 package ma.enova.rth.security;
 
-import ma.enova.rth.domain.core.Role;
+import ma.enova.rth.bean.core.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 

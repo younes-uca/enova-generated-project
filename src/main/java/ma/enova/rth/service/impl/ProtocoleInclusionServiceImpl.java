@@ -1,15 +1,15 @@
 package ma.enova.rth.service.impl;
 
+import ma.enova.rth.zynerator.service.ServiceImpl;
 import ma.enova.rth.converter.ProtocoleInclusionConverter;
 import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
 import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
 import ma.enova.rth.dao.facade.core.IProtocoleInclusionRepository;
 import ma.enova.rth.dao.facade.history.IHistProtocoleInclusionRepository;
 import ma.enova.rth.dao.specfication.core.ProtocoleInclusionSpecification;
-import ma.enova.rth.domain.core.ProtocoleInclusion;
-import ma.enova.rth.domain.historique.HistProtocoleInclusion;
+import ma.enova.rth.bean.core.ProtocoleInclusion;
+import ma.enova.rth.bean.historique.HistProtocoleInclusion;
 import ma.enova.rth.dto.ProtocoleInclusionDto;
-import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IProtocoleInclusionService;
 import org.springframework.stereotype.Service;
 

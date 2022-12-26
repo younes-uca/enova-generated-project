@@ -1,17 +1,20 @@
 package ma.enova.rth.service.impl;
 
+import ma.enova.rth.zynerator.service.ServiceImpl;
+import ma.enova.rth.zynerator.util.ListUtil;
 import ma.enova.rth.converter.FrequenceRadiotherapieConverter;
 import ma.enova.rth.dao.criteria.core.FrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.criteria.history.HistFrequenceRadiotherapieCriteria;
 import ma.enova.rth.dao.facade.core.IFrequenceRadiotherapieRepository;
 import ma.enova.rth.dao.facade.history.IHistFrequenceRadiotherapieRepository;
 import ma.enova.rth.dao.specfication.core.FrequenceRadiotherapieSpecification;
-import ma.enova.rth.domain.core.FrequenceRadiotherapie;
-import ma.enova.rth.domain.historique.HistFrequenceRadiotherapie;
+import ma.enova.rth.bean.core.FrequenceRadiotherapie;
+import ma.enova.rth.bean.historique.HistFrequenceRadiotherapie;
 import ma.enova.rth.dto.FrequenceRadiotherapieDto;
-import ma.enova.rth.common.ddd.service.ServiceImpl;
 import ma.enova.rth.service.facade.IFrequenceRadiotherapieService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Implementation du service IfrequenceRadiotherapie
@@ -30,4 +33,10 @@ public class FrequenceRadiotherapieServiceImpl extends ServiceImpl<FrequenceRadi
 
     }
 
+    @Override
+    public FrequenceRadiotherapieDto findByCode(String code) {
+        List<FrequenceRadiotherapieDto> res = findMultipleByCriteria(new FrequenceRadiotherapieCriteria(code));
+        return ListUtil.isEmpty(res) ? null : res.get(0);
+
+    }
 }

@@ -1,8 +1,8 @@
 package ma.enova.rth.dao.specfication.core;
 
+import ma.enova.rth.zynerator.specification.AbstractSpecification;
 import ma.enova.rth.dao.criteria.core.OrganeCriteria;
-import ma.enova.rth.domain.core.Organe;
-import ma.enova.rth.common.ddd.specification.AbstractSpecification;
+import ma.enova.rth.bean.core.Organe;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

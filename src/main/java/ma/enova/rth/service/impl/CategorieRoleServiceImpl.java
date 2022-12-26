@@ -1,17 +1,17 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.enumeration.ACTION_TYPE;
-import ma.enova.rth.common.exception.EntityNotFoundException;
-import ma.enova.rth.common.util.Utils;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.enumeration.ACTION_TYPE;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.util.Utils;
 import ma.enova.rth.dao.criteria.core.CategorieRoleCriteria;
 import ma.enova.rth.dao.criteria.history.HistCategorieRoleCriteria;
 import ma.enova.rth.dao.facade.core.ICategorieRoleRepository;
 import ma.enova.rth.dao.facade.history.IHistCategorieRoleRepository;
 import ma.enova.rth.dao.specfication.core.CategorieRoleSpecification;
 import ma.enova.rth.dao.specfication.history.HistCategorieRoleSpecification;
-import ma.enova.rth.domain.core.CategorieRole;
-import ma.enova.rth.domain.historique.HistCategorieRole;
+import ma.enova.rth.bean.core.CategorieRole;
+import ma.enova.rth.bean.historique.HistCategorieRole;
 import ma.enova.rth.dto.CategorieRoleDto;
 import ma.enova.rth.security.UtilisateurDetailsImpl;
 import ma.enova.rth.service.facade.ICategorieRoleService;

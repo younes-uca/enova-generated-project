@@ -1,10 +1,10 @@
 package ma.enova.rth.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ma.enova.rth.domain.core.Etablissement;
-import ma.enova.rth.domain.core.Profil;
-import ma.enova.rth.domain.core.Role;
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.bean.core.Etablissement;
+import ma.enova.rth.bean.core.Profil;
+import ma.enova.rth.bean.core.Role;
+import ma.enova.rth.bean.core.Utilisateur;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;

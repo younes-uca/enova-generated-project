@@ -1,4 +1,6 @@
 package ma.enova.rth.process.radiotherapie.prepare;
 
-public interface RadiotherapiePrepareProcess {
+import ma.enova.rth.zynerator.process.AbstractProcess;
+
+public interface RadiotherapiePrepareProcess extends AbstractProcess<RadiotherapiePrepareInput, RadiotherapiePrepareOutput> {
 }

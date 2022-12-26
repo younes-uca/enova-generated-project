@@ -1,7 +1,7 @@
 package ma.enova.rth.security;
 
 import ma.enova.rth.dao.facade.core.IUtilisateurRepository;
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.bean.core.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;

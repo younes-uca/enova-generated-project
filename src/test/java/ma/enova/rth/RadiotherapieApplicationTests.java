@@ -1,12 +1,12 @@
-package  ma.enova.rth;
+package ma.enova.rth;
 
 import org.junit.Test;
 
 
 public class RadiotherapieApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
 }

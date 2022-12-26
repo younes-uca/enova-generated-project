@@ -1,14 +1,14 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.PaginatedList;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
+import ma.enova.rth.zynerator.controller.AbstractController;
 import ma.enova.rth.converter.OrganeConverter;
 import ma.enova.rth.dao.criteria.core.OrganeCriteria;
 import ma.enova.rth.dao.criteria.history.HistOrganeCriteria;
-import ma.enova.rth.domain.core.Organe;
-import ma.enova.rth.domain.historique.HistOrgane;
+import ma.enova.rth.bean.core.Organe;
+import ma.enova.rth.bean.historique.HistOrgane;
 import ma.enova.rth.dto.OrganeDto;
-import ma.enova.rth.common.ddd.controller.AbstractController;
 import ma.enova.rth.service.facade.IOrganeService;
 import ma.enova.rth.service.impl.OrganeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +55,10 @@ public class OrganeController extends AbstractController<Organe, OrganeDto, Hist
     public ResponseEntity<List<OrganeDto>> findByCriteria(@RequestBody OrganeCriteria criteria) throws Exception {
         return super.findMultipleByCriteria(criteria);
     }
+    @GetMapping("")
+    public ResponseEntity<List<OrganeDto>> findAll() throws Exception {
+        return super.findAll();
+    }
 
     @PostMapping("find-paginated-by-criteria/")
     public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody OrganeCriteria criteria) throws Exception {
@@ -92,9 +96,6 @@ public class OrganeController extends AbstractController<Organe, OrganeDto, Hist
         return super.getHistoryDataSize(criteria);
     }
 
-    @GetMapping("")
-    public List<Organe> findAll() {
-        return organeService.findAll();
-    }
+
 
 }

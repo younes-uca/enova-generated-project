@@ -1,10 +1,10 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
 import ma.enova.rth.dao.criteria.core.CategorieParametrageCriteria;
 import ma.enova.rth.dao.facade.core.ICategorieParametrageRepository;
 import ma.enova.rth.dao.specfication.core.CategorieParametrageSpecification;
-import ma.enova.rth.domain.core.CategorieParametrage;
+import ma.enova.rth.bean.core.CategorieParametrage;
 import ma.enova.rth.dto.CategorieParametrageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

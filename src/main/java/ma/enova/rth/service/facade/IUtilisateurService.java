@@ -1,9 +1,9 @@
 package ma.enova.rth.service.facade;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
 import ma.enova.rth.dao.criteria.core.UtilisateurCriteria;
 import ma.enova.rth.dao.criteria.history.HistUtilisateurCriteria;
-import ma.enova.rth.domain.core.Utilisateur;
+import ma.enova.rth.bean.core.Utilisateur;
 import ma.enova.rth.dto.UtilisateurDto;
 
 import java.util.List;

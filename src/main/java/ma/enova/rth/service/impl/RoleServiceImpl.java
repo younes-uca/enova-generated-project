@@ -1,10 +1,10 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
 import ma.enova.rth.dao.criteria.core.RoleCriteria;
 import ma.enova.rth.dao.facade.core.IRoleRepository;
 import ma.enova.rth.dao.specfication.core.RoleSpecification;
-import ma.enova.rth.domain.core.Role;
+import ma.enova.rth.bean.core.Role;
 import ma.enova.rth.dto.RoleDto;
 import ma.enova.rth.service.facade.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

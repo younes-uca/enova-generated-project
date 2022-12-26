@@ -1,9 +1,9 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.domain.core.Personnel;
-import ma.enova.rth.domain.historique.HistPersonnel;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.bean.core.Personnel;
+import ma.enova.rth.bean.historique.HistPersonnel;
 import ma.enova.rth.dto.PersonnelDto;
-import ma.enova.rth.common.ddd.converter.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 

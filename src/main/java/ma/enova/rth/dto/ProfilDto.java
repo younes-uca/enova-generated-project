@@ -1,13 +1,13 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.common.bean.AuditBaseDto;
-import ma.enova.rth.common.bean.Log;
-import ma.enova.rth.common.util.DateUtil;
-import ma.enova.rth.common.util.RefelexivityUtil;
-import ma.enova.rth.common.util.StringUtil;
-import ma.enova.rth.domain.core.Profil;
-import ma.enova.rth.domain.core.Role;
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
+import ma.enova.rth.zynerator.audit.Log;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.zynerator.util.RefelexivityUtil;
+import ma.enova.rth.zynerator.util.StringUtil;
+import ma.enova.rth.bean.core.Profil;
+import ma.enova.rth.bean.core.Role;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -21,8 +21,8 @@ spring:
         ddl-auto: update
   jackson:
     serialization:
-        INDENT_OUTPUT: true
-        fail-on-empty-beans: false
+      INDENT_OUTPUT: true
+      fail-on-empty-beans: false
   http:
     encoding:
       charset: UTF-8
@@ -39,25 +39,25 @@ spring:
   jmx:
     enabled: true
   jpa:
-   database: postgresql
-   show-sql: false
-   database-platform: org.hibernate.dialect.PostgreSQLDialect
-   hibernate:
+    database: postgresql
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl   
-   properties:
-    hibernate.ddl-auto: validate
-    hibernate.enable_lazy_load_no_trans: true
-    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate.jdbc.lob.non_contextual_creation: true
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate.ddl-auto: validate
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.jdbc.lob.non_contextual_creation: true
 
 ---
 spring:
   profiles: dev
   datasource:
     jndi-name: jdbc/radiotherapie
-logging:  
+logging:
   level:
     root: ERROR
 reporting:
@@ -65,7 +65,7 @@ reporting:
   readTimeout: 200000
   connectTimeout: 200000
 uploads:
-  location: 
+  location:
     directory: /data/Files/uploads/
     temp: /opt/tomcat8/sih_files/temp/
 ---
@@ -85,7 +85,7 @@ spring:
       idleTimeout: 30000
       maxLifetime: 2000000
       connectionTimeout: 30000
-logging:  
+logging:
   level:
     root: ERROR
 reporting:
@@ -93,20 +93,20 @@ reporting:
   readTimeout: 200000
   connectTimeout: 200000
 uploads:
-  location: 
+  location:
     directory: /data/Files/uploads/
     temp: /opt/tomcat8/sih_files/temp/
 serverLogs:
- dir: C:/Enova/temp
- filename: radiotherapie
- filextention: .log
- actif: false
+  dir: C:/Enova/temp
+  filename: radiotherapie
+  filextention: .log
+  actif: false
 ---
 spring:
   profiles: recette
   datasource:
     jndi-name: jdbc/radiotherapie
-logging:  
+logging:
   level:
     root: ERROR
 reporting:
@@ -114,15 +114,15 @@ reporting:
   readTimeout: 200000
   connectTimeout: 200000
 uploads:
-  location: 
+  location:
     directory: /data/Files/uploads/
     temp: /opt/tomcat8/sih_files/temp/
 ---
-spring: 
+spring:
   profiles: prod
   datasource:
-    jndi-name: jdbc/radiotherapie 
-logging:  
+    jndi-name: jdbc/radiotherapie
+logging:
   level:
     root: ERROR
 reporting:
@@ -130,15 +130,15 @@ reporting:
   readTimeout: 200000
   connectTimeout: 200000
 uploads:
-  location: 
+  location:
     directory: /data/Files/uploads/
     temp: /opt/tomcat8/sih_files/temp/
 ---
-spring: 
+spring:
   profiles: preprod
   datasource:
-    jndi-name: jdbc/radiotherapie    
-logging:  
+    jndi-name: jdbc/radiotherapie
+logging:
   level:
     root: ERROR
 reporting:
@@ -146,11 +146,11 @@ reporting:
   readTimeout: 200000
   connectTimeout: 200000
 uploads:
-  location: 
+  location:
     directory: /data/Files/uploads/
     temp: /opt/tomcat8/sih_files/temp/
 ---
-  
+
 # JWT Configuration
 jwt:
   header: Authorization
@@ -158,22 +158,22 @@ jwt:
   expiration: 28800
   bearer-token: true
   authentication:
-      authenticate:
-          url: auth/authenticate
-      token:
-          url: auth/token
-      logout:
-          url: auth/logout          
-  
+    authenticate:
+      url: auth/authenticate
+    token:
+      url: auth/token
+    logout:
+      url: auth/logout
+
 default:
-    password: 123456
+  password: 123456
 ---
 spring:
   http:
     multipart:
       enabled: true
   flyway:
-    enabled: true
+    enabled: false
     encoding: UTF-8
     out-of-order: true
     table: schema_history
@@ -184,5 +184,5 @@ security:
   client-id: enovaClientId
   client-secret: enov@secret
   access-token-validity: 28800
-  refresh-token: false   
+  refresh-token: false
   refresh-token-validity-seconds: 28800    

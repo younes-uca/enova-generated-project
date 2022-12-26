@@ -1,8 +1,8 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.common.bean.AuditBaseDto;
-import ma.enova.rth.common.bean.Log;
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
+import ma.enova.rth.zynerator.audit.Log;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ViseeDto extends AuditBaseDto {

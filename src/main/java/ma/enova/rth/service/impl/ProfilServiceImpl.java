@@ -1,10 +1,10 @@
 package ma.enova.rth.service.impl;
 
-import ma.enova.rth.common.bean.AuditEntityDto;
-import ma.enova.rth.common.bean.TreeModel;
-import ma.enova.rth.common.enumeration.ACTION_TYPE;
-import ma.enova.rth.common.exception.EntityNotFoundException;
-import ma.enova.rth.common.util.Utils;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.TreeModel;
+import ma.enova.rth.zynerator.enumeration.ACTION_TYPE;
+import ma.enova.rth.zynerator.exception.EntityNotFoundException;
+import ma.enova.rth.zynerator.util.Utils;
 import ma.enova.rth.dao.criteria.core.ProfilCriteria;
 import ma.enova.rth.dao.criteria.history.HistProfilCriteria;
 import ma.enova.rth.dao.facade.core.IProfilRepository;
@@ -12,8 +12,8 @@ import ma.enova.rth.dao.facade.core.IRoleRepository;
 import ma.enova.rth.dao.facade.history.IHistProfilRepository;
 import ma.enova.rth.dao.specfication.core.ProfilSpecification;
 import ma.enova.rth.dao.specfication.history.HistProfilSpecification;
-import ma.enova.rth.domain.core.Profil;
-import ma.enova.rth.domain.historique.HistProfil;
+import ma.enova.rth.bean.core.Profil;
+import ma.enova.rth.bean.historique.HistProfil;
 import ma.enova.rth.dto.ProfilDto;
 import ma.enova.rth.security.UtilisateurDetailsImpl;
 import ma.enova.rth.service.facade.IProfilService;
