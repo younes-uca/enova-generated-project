@@ -1,10 +1,11 @@
 package ma.enova.rth.converter;
 
-import ma.enova.rth.zynerator.converter.AbstractConverter;
-import ma.enova.rth.zynerator.util.DateUtil;
 import ma.enova.rth.bean.core.PrescriptionRadiotherapie;
 import ma.enova.rth.bean.historique.HistPrescriptionRadiotherapie;
 import ma.enova.rth.dto.PrescriptionRadiotherapieDto;
+import ma.enova.rth.zynerator.converter.AbstractConverter;
+import ma.enova.rth.zynerator.util.DateUtil;
+import ma.enova.rth.zynerator.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,9 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             item.setDatePrescription(DateUtil.stringToDateTime(dto.getDatePrescription()));
             item.setFractionnement(dto.getFractionnement());
             item.setDateSouhaiteDebutTraitement(DateUtil.stringToDateTime(dto.getDateSouhaiteDebutTraitement()));
-            item.setObservation(dto.getObservation());
+            if(StringUtil.isNotEmpty(dto.getObservation())){
+                item.setObservation(dto.getObservation());
+            }
             item.setFrequenceRadiotherapie(frequenceRadiotherapieConverter.getById(dto.getFrequenceRadiotherapie()));
             item.setModaliteRadiotherapie(modaliteRadiotherapieConverter.getById(dto.getModaliteRadiotherapie()));
             item.setOrgane(organeConverter.getById(dto.getOrgane()));
@@ -48,8 +51,7 @@ public class PrescriptionRadiotherapieConverter extends AbstractConverter<Prescr
             item.setProtocoleInclusion(protocoleInclusionConverter.getById(dto.getProtocoleInclusion()));
             item.setVisee(viseeConverter.getById(dto.getVisee()));
             convertEtablissement(item, dto);
-        }
-        return item;
+        } return item;
     }
 
     @Override

@@ -1,15 +1,15 @@
 package ma.enova.rth.ws;
 
-import ma.enova.rth.zynerator.dto.AuditEntityDto;
-import ma.enova.rth.zynerator.util.PaginatedList;
-import ma.enova.rth.zynerator.controller.AbstractController;
+import ma.enova.rth.bean.core.ProtocoleInclusion;
+import ma.enova.rth.bean.historique.HistProtocoleInclusion;
 import ma.enova.rth.converter.ProtocoleInclusionConverter;
 import ma.enova.rth.dao.criteria.core.ProtocoleInclusionCriteria;
 import ma.enova.rth.dao.criteria.history.HistProtocoleInclusionCriteria;
-import ma.enova.rth.bean.core.ProtocoleInclusion;
-import ma.enova.rth.bean.historique.HistProtocoleInclusion;
 import ma.enova.rth.dto.ProtocoleInclusionDto;
 import ma.enova.rth.service.facade.IProtocoleInclusionService;
+import ma.enova.rth.zynerator.controller.AbstractController;
+import ma.enova.rth.zynerator.dto.AuditEntityDto;
+import ma.enova.rth.zynerator.util.PaginatedList;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +55,7 @@ public class ProtocoleInclusionController extends AbstractController<ProtocoleIn
     public ResponseEntity<List<ProtocoleInclusionDto>> findByCriteria(@RequestBody ProtocoleInclusionCriteria criteria) throws Exception {
         return super.findMultipleByCriteria(criteria);
     }
+
 
     @PostMapping("find-paginated-by-criteria/")
     public ResponseEntity<PaginatedList> findPaginatedByCriteria(@RequestBody ProtocoleInclusionCriteria criteria) throws Exception {

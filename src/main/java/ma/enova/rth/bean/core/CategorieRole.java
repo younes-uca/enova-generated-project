@@ -1,7 +1,7 @@
 package ma.enova.rth.bean.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.zynerator.audit.AuditBusinessObject;
+//import ma.enova.rth.zynerator.audit.AuditBusinessObject;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;

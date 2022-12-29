@@ -1,9 +1,10 @@
 package ma.enova.rth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ma.enova.rth.zynerator.dto.AuditBaseDto;
 import ma.enova.rth.zynerator.audit.Log;
 import ma.enova.rth.zynerator.enumeration.STATUT_PROTOCOLEINCLUSION;
+
+import ma.enova.rth.zynerator.dto.AuditBaseDto;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProtocoleInclusionDto extends AuditBaseDto {

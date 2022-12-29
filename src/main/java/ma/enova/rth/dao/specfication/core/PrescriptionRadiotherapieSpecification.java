@@ -36,7 +36,7 @@ public class PrescriptionRadiotherapieSpecification extends AbstractSpecificatio
             addPredicate("visee", criteria.getViseeId());
             addPredicate("medecinPrescripteur", criteria.getMedecinPrescripteurId());
             addPredicate("patient", criteria.getPatientId());
-            addPredicate("getOrganeId", criteria.getOrganeId());
+            addPredicate("organeId", criteria.getOrganeId());
             addPredicate("modaliteRadiotherapie", criteria.getModaliteRadiotherapieId());
             addPredicate("frequenceRadiotherapie", criteria.getFrequenceRadiotherapieId());
             addPredicate("etablissement", criteria.getEtablissementId());

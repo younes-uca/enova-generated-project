@@ -58,11 +58,7 @@ public class HistPatient extends HistBusinessObject {
         this.id = id;
     }
 
-    @Transient
-    public String getLabel() {
-        label = getObjectName();
-        return label;
-    }
+
 
 
 }
